@@ -11,49 +11,49 @@ const MODULES = require(`../${CONFIG.dir.modules}/index`);
 
 const APP = {
 
-	run() {
+  run() {
 
-		APP.initLogs();
-		APP.initModules();
+    APP.initLogs();
+    APP.initModules();
 
-		Mediator.send('users_auth', 'test')
-			.then((data) => {
+    Mediator.send('users_auth', 'test')
+      .then((data) => {
 
-				console.log('data', data);
+        console.log('data', data);
 
-			});
+      });
 
-	},
+  },
 
-	initModules() {
+  initModules() {
 
-		MODULES.map((module) => {
+    MODULES.map((module) => {
 
-			module(Mediator);
+      module(Mediator);
 
-		});
+    });
 
-	},
+  },
 
-	initLogs() {
+  initLogs() {
 
-		this.createLogger();
+    this.createLogger();
 
-		setInterval(() => {
+    setInterval(() => {
 
-			this.logger.clear();
-			this.createLogger();
+      this.logger.clear();
+      this.createLogger();
 
-		}, CONFIG.clearLogsTime);
+    }, CONFIG.clearLogsTime);
 
-	},
+  },
 
-	createLogger() {
+  createLogger() {
 
-		this.logger = new Logger('core');
-		this.logger.setMode(CONFIG.mode);
+    this.logger = new Logger('core');
+    this.logger.setMode(CONFIG.mode);
 
-	},
+  },
 
 };
 

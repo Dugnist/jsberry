@@ -9,30 +9,30 @@ const APP = require('./core/bootstrap');
 
 if (cluster.isMaster) {
 
-	for (let i = 0; i < numCPUs; i++) {
+  for (let i = 0; i < numCPUs; i++) {
 
-		cluster.fork();
+    cluster.fork();
 
-	}
+  }
 
-	cluster.on('exit', (worker, code, signal) => {
+  cluster.on('exit', (worker, code, signal) => {
 
-		cluster.fork();
+    cluster.fork();
 
-	});
+  });
 
 } else {
 
-	APP.run();
-	APP.logger.log('process is running success!');
+  APP.run();
+  APP.logger.log('process is running success!');
 
-	process.on('uncaughtException', (err) => {
+  process.on('uncaughtException', (err) => {
 
-		APP.logger.error(`${process.pid} process is die!`, err.stack);
+    APP.logger.error(`${process.pid} process is die!`, err.stack);
 
-		setTimeout(() => process.exit(), 55);
+    setTimeout(() => process.exit(), 55);
 
-	});
+  });
 
 }
 

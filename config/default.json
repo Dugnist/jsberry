@@ -1,27 +1,27 @@
 {
 
-	"name": "JsBerry",
-	"mode": "production",
-	"logs": "logs",
-	"clearLogsTime": "86400000",
+  "name": "JsBerry",
+  "mode": "production",
+  "logs": "logs",
+  "clearLogsTime": "86400000",
 
-	"dir": {
+  "dir": {
 
-		"modules": "modules"
+    "modules": "modules"
 
-	},
+  },
 
 
-	"dev": {
+  "dev": {
 
-		"mode": "dev"
+    "mode": "dev"
 
-	},
+  },
 
-	"production": {
+  "production": {
 
-		"mode": "production"
+    "mode": "production"
 
-	}
+  }
 
 }

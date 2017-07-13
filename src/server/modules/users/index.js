@@ -1,9 +1,9 @@
 module.exports = (ACTIONS) => {
 
-	ACTIONS.on('users_auth', (payload) => {
+  ACTIONS.on('users_auth', (payload) => {
 
-		return Promise.resolve({ payload });
+    return Promise.resolve({ payload });
 
-	});
+  });
 
 };
