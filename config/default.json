@@ -1,7 +1,7 @@
 {
 
   "name": "JsBerry",
-  "mode": "production",
+  "mode": "dev",
   "logs": "logs",
   "clearLogsTime": "86400000",
 
@@ -10,7 +10,6 @@
     "modules": "modules"
 
   },
-
 
   "dev": {
 

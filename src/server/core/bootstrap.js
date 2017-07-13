@@ -16,20 +16,13 @@ const APP = {
     APP.initLogs();
     APP.initModules();
 
-    Mediator.send('users_auth', 'test')
-      .then((data) => {
-
-        console.log('data', data);
-
-      });
-
   },
 
   initModules() {
 
     MODULES.map((module) => {
 
-      module(Mediator);
+      module(this.ACTIONS);
 
     });
 
@@ -37,21 +30,22 @@ const APP = {
 
   initLogs() {
 
-    this.createLogger();
+    this.setLogger();
 
     setInterval(() => {
 
       this.logger.clear();
-      this.createLogger();
+      this.setLogger();
 
     }, CONFIG.clearLogsTime);
 
   },
 
-  createLogger() {
+  setLogger() {
 
     this.logger = new Logger('core');
     this.logger.setMode(CONFIG.mode);
+    this.ACTIONS = new Mediator(this.logger);
 
   },
 

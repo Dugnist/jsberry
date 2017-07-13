@@ -1,14 +1,21 @@
 /**
  * JsBerry mediator
- * registy of channels
+ * global channels
  */
 
 const channels = {};
 
-/**
- * Registry of channels
- */
-module.exports = {
+module.exports = class Mediator {
+
+  /**
+   * [constructor description]
+   * @param  {Object} logger [description]
+   */
+  constructor(logger = {}) {
+
+    this.Logger = logger;
+
+  }
 
   /**
     * Subscribe to channel
@@ -16,29 +23,29 @@ module.exports = {
     * @param {function} fn - Function that will be execute.
     * @return {boolean} - Result of subscribe.
     */
-  on(action, fn) {
+  on(action = '', fn = () => {}) {
 
-    if (!action || action === '') return false;
     if (typeof fn !== 'function') return false;
     if (!channels.hasOwnProperty(action)) channels[action] = [];
 
     channels[action] = fn;
 
-  },
+  }
 
   /**
     * Unsubscribe from channel
     * @param {string} action - Action from module.
     * @return {this} actions - Return this for chaining.
     */
-  off(action) {
+  off(action = '') {
 
-    this.send(`${action}.clear`);
+    this.send(`clear.${action}`);
 
     delete channels[action];
+
     return true;
 
-  },
+  }
 
   /**
     * Send action with payload to chanel parameters
@@ -46,16 +53,14 @@ module.exports = {
     * @param {object} payload - Parameters that will need to send to the module.
     * @return {boolean} - Result of subscribe.
     */
-  send(action, payload) {
-
-    if (!action || action === '') return false;
-    if (!payload || payload === '') return false;
-    if (!channels.hasOwnProperty(action)) return false;
+  send(action = '', payload = {}) {
 
     let rootChannel = action.split('.');
     let result = false;
 
-    if (rootChannel.length > 1) {
+    if (rootChannel.length < 1) {
+
+      if (!channels.hasOwnProperty(action)) return false;
 
       result = channels[action](payload);
 
@@ -75,7 +80,7 @@ module.exports = {
 
     return result;
 
-  },
+  }
 
   /**
     * Get all actions from registry
@@ -85,6 +90,6 @@ module.exports = {
 
     return channels;
 
-  },
+  }
 
 };

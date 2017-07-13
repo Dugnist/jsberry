@@ -3,9 +3,12 @@
  * start application
  */
 
+const os = require('os');
 const cluster = require('cluster');
-const numCPUs = require('os').cpus().length;
 const APP = require('./core/bootstrap');
+
+const numCPUs = os.cpus().length;
+const empMemory = () => Math.round(100 * os.freemem() / os.totalmem());
 
 if (cluster.isMaster) {
 
@@ -24,11 +27,12 @@ if (cluster.isMaster) {
 } else {
 
   APP.run();
-  APP.logger.log('process is running success!');
+  APP.logger.log(`run process | Employed memory: ${empMemory()}%`);
 
   process.on('uncaughtException', (err) => {
 
-    APP.logger.error(`${process.pid} process is die!`, err.stack);
+    APP.logger.error(`${process.pid} process is die! |
+      Employed memory: ${empMemory()}%`, err.stack);
 
     setTimeout(() => process.exit(), 55);
 
