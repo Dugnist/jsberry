@@ -10,13 +10,14 @@ module.exports = class Collection {
 
   /**
    * Create instance from list of models or other entity's.
-   * @param {any} value - Custom value that will add the first child.
+   * @param {array} source - Custom source that will add the first child.
+   * Examples:
+   *    const collection = new Collection({ key: value })
    */
-  constructor(value) {
+  constructor(source = []) {
 
     this.list = new Set();
-
-    if (value !== undefined) this.add(value);
+    this.set(source);
 
   }
 
@@ -38,32 +39,30 @@ module.exports = class Collection {
    */
   get() {
 
-    const result = [];
+    return Array.from(this.list).map((item) => {
 
-    this.list.forEach((value) => {
-
-      result.push(value.get());
+      return (item instanceof Model) ? item.get() : item;
 
     });
-
-    return result;
 
   }
 
   /**
    * Set items from source to collection
-   * @param {any} source - One or more items that will be set.
+   * @param {array} source - One or more items that will be set.
    * @return {instance} this - For chaining methods.
+   * Examples:
+   *    collection.set([{ key, value }])
+   *    collection.set([ value1, value2 ])
    */
-  set(source) { // ToDo: 2 obj
+  set(source = []) {
 
-    if (!Array.isArray(source)) throw new Error('Value is not an Array type');
-
+    this.checkForType(source, 'Array');
     this.clear();
 
     source.map((item) => {
 
-      this.add(source);
+      this.add(item);
       return true;
 
     });
@@ -73,15 +72,24 @@ module.exports = class Collection {
   }
 
   /**
-   * Add the select source value
-   * @param {any} value - Item that need to added.
+   * Add the select source item
+   * @param {any} item - Item that need to added.
    * @return {instance} this - For chaining methods.
+   * Examples:
+   *    collection.add({ key, value })
+   *    collection.add(value)
    */
-  add(value) {
+  add(item = {}) {
 
-    if (value instanceof Model === false) value = new Model(value);
+    const check = Object.prototype.toString.call(item);
 
-    this.list.add(value);
+    if (!(item instanceof Model) && check === '[object Object]') {
+
+      item = new Model(item);
+
+    }
+
+    this.list.add(item);
 
     return this;
 
@@ -107,13 +115,8 @@ module.exports = class Collection {
    */
   concat(source) {
 
-    if (!Array.isArray(source)) throw new Error('Value is not an Array type');
-
-    for (let i = 0; i < source.length; i += 1) {
-
-      this.add(source[i]);
-
-    }
+    this.checkForType(source, 'Array');
+    this.list = new Set([...this.list, ...source]);
 
     return this;
 
@@ -121,25 +124,25 @@ module.exports = class Collection {
 
   /**
    * Search items inside collection by key-value
-   * @param {array} key - Key of searched item.
-   * @param {array} value - Value of searched item.
+   * @param {string} key - Key of searched item.
+   * @param {string} value - Value of searched item.
    * @return {any} result - Finded source value.
    */
-  where(key, value) {
+  where(key = '', value = '') {
 
-    const list = key;
+    const data = key;
 
-    if (typeof key === 'object') {
+    if (Object.prototype.toString.call(key) === '[object Object]') {
 
-      const name = Object.keys(key)[0];
-      key = name;
-      value = list[name];
+      key = Object.keys(key)[0];
+      value = data[key];
 
     }
 
     let result = this.filter((node) => {
 
-      return (node[key] || node.get(key) || null) === value;
+      return (key === node) ? true :
+        (node.get) ? node.get(key) === value : false;
 
     });
 
@@ -152,16 +155,18 @@ module.exports = class Collection {
   /**
    * Method creates an array filled with all
    * array elements that pass a test function
-   * @param {function} fn - Function for make operations inside method.
+   * @param {function} handler - Function for make operations inside method.
    * @return {array} result - Finded source value/s.
    */
-  filter(fn) {
+  filter(handler = () => {}) {
+
+    this.checkForType(handler, 'Function');
 
     const result = [];
 
     this.list.forEach((value) => {
 
-      if (fn(value) === true) result.push(value);
+      if (handler(value) === true) result.push(value);
 
     });
 
@@ -177,17 +182,15 @@ module.exports = class Collection {
    * @param {function} handler - Function for make operations inside method.
    * @return {array} result - Array of source value/s.
    */
-  map(handler) {
+  map(handler = () => {}) {
 
-    if (!handler) throw new Error('Please give callback fn into input value!');
+    this.checkForType(handler, 'Function');
 
     const result = [];
-    let count = 0;
 
-    this.list.forEach((value) => {
+    this.list.forEach((value, i) => {
 
-      result.push(handler(value, count));
-      count++;
+      result.push(handler(value, i));
 
     });
 
@@ -200,7 +203,7 @@ module.exports = class Collection {
    * @param {any} key - Searched item.
    * @return {any} value - Searched item or undefined.
    */
-  has(key) {
+  has(key = {}) {
 
     return this.list.has(key);
 
@@ -223,6 +226,22 @@ module.exports = class Collection {
   toJSON() {
 
     return JSON.stringify(this.get());
+
+  }
+
+  /**
+   * Check type of item
+   * @param {any} source - Object with items that will be check.
+   * @param {string} type - Object with items that will be check.
+   * @return {boolean}.
+   */
+  checkForType(source = {}, type = 'Object') {
+
+    const check = Object.prototype.toString.call(source);
+
+    if (!(check === `[object ${type}]`)) throw Error(`Must use an ${type}!`);
+
+    return true;
 
   }
 
