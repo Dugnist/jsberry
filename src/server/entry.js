@@ -3,40 +3,40 @@
  * start application
  */
 
-const os = require('os');
-const cluster = require('cluster');
+const CONFIG = require('config');
+const Mediator = require('./core/mediator');
+const Logger = require('./core/logger');
+const loadBalancer = require('./core/balancer');
 const APP = require('./core/bootstrap');
 
-const numCPUs = os.cpus().length;
-const empMemory = () => Math.round(100 * os.freemem() / os.totalmem());
+// Configure application
 
-if (cluster.isMaster) {
+APP.use({
+  Logger,
+  show: new Logger('system'),
+  ACTIONS: new Mediator(APP.Logger),
+});
 
-  for (let i = 0; i < numCPUs; i++) {
+/**
+ * Debugger vision: node --inspect {path}
+ * chrome-devtools://devtools/bundled/inspector.html?experiments=true&v8only=true&ws=
+ */
 
-    cluster.fork();
+global.CONFIG = CONFIG;
+global.APP = APP;
 
-  }
+// Start application at several process
 
-  cluster.on('exit', (worker, code, signal) => {
+const start = (APP = {}) => {
 
-    cluster.fork();
+  return (memory = 0) => {
 
-  });
+    APP.use({ startMemory: memory });
+    APP.run();
+    APP.show.log(`Run process | Employed memory: ${memory}%`);
 
-} else {
+  };
 
-  APP.run();
-  APP.logger.log(`run process | Employed memory: ${empMemory()}%`);
+};
 
-  process.on('uncaughtException', (err) => {
-
-    APP.logger.error(`${process.pid} process is die! |
-      Employed memory: ${empMemory()}%`, err.stack);
-
-    setTimeout(() => process.exit(), 55);
-
-  });
-
-}
-
+(CONFIG.mode === 'dev') ? start(APP)() : loadBalancer(start(APP));

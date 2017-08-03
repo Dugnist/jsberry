@@ -11,6 +11,7 @@ module.exports = {
       'padded-blocks': [2, 'always'],
       'no-trailing-spaces': 0,
       'no-unused-vars': 0,
-      'object-curly-spacing': 0
+      'object-curly-spacing': 0,
+      'guard-for-in': 0,
     }
 };

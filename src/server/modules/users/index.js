@@ -2,7 +2,9 @@ module.exports = (ACTIONS) => {
 
   ACTIONS.on('users.auth', (payload) => {
 
-    return Promise.resolve({ payload });
+    payload.name = 'Vasya';
+
+    return Promise.resolve(payload);
 
   });
 

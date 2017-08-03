@@ -4,7 +4,6 @@
 
 const fs = require('fs');
 const CONFIG = require('config');
-const winston = require('winston');
 const clc = require('cli-color');
 
 module.exports = class Logger {
@@ -16,20 +15,22 @@ module.exports = class Logger {
   constructor(context = '') {
 
     this.context = context;
-    this.yellow = clc.xterm(3);
 
     this.nowDate = new Date(Date.now()).toLocaleString();
     this.fPath = `${CONFIG.logs}/${this.nowDate.replace(/[ ,:]/g, '_')}.log`;
 
-    this.fileLogger = new (winston.Logger)({
-      transports: [
-        new (winston.transports.File)({
-          name: 'error-file',
-          filename: this.fPath,
-          level: 'error',
-        }),
-      ],
-    });
+  }
+
+  /**
+   * [writeToFile description]
+   * @param  {[type]} type    [description]
+   * @param  {[type]} message [description]
+   */
+  writeToFile(type, message) {
+
+    const record = JSON.stringify({type, message});
+
+    fs.writeFile(this.fPath, record, (err) => this.logMessage(err, clc.red));
 
   }
 
@@ -54,22 +55,23 @@ module.exports = class Logger {
   }
 
   /**
-   * [setMode description]
-   * @param {String} mode [description]
-   */
-  setMode(mode = 'dev') {
-
-    this.mode = mode;
-
-  }
-
-  /**
    * [log description]
    * @param  {String} message [description]
    */
   log(message = '') {
 
     this.logMessage(message, clc.green);
+
+  }
+
+  /**
+   * [warn description]
+   * @param  {String} message [description]
+   */
+  warn(message = '') {
+
+    this.logMessage(message, clc.yellow);
+    this.fileLogger('warn', message);
 
   }
 
@@ -82,33 +84,22 @@ module.exports = class Logger {
 
     this.logMessage(message, clc.red);
     this.printStackTrace(trace);
-    this.writeToFile('error', message, trace);
+    this.fileLogger('error', message, trace);
 
   }
 
   /**
-   * [warn description]
-   * @param  {String} message [description]
-   */
-  warn(message = '') {
-
-    this.logMessage(message, clc.yellow);
-    this.writeToFile('warn', message);
-
-  }
-
-  /**
-   * [writeToFile description]
+   * [fileLogger description]
    * @param  {String} type  [description]
    * @param  {String} message  [description]
    * @param  {String} trace [description]
    */
-  writeToFile(type = 'error', message = '', trace = '') {
+  fileLogger(type = 'error', message = '', trace = '') {
 
-    if (this.mode === CONFIG.production.mode) {
+    if (CONFIG.mode === 'prod') {
 
-      this.fileLogger.log(type,
-        `${message} ${JSON.stringify(trace).replace(/\\n/g, '')}`);
+      this.writeToFile(type,
+        `${message} ${JSON.stringify(trace).replace(/\\n|"/g, '')}`);
 
     }
 
@@ -124,7 +115,7 @@ module.exports = class Logger {
     process.stdout.write(`\n`);
     process.stdout.write(color(`${CONFIG.name} ${process.pid} - `));
     process.stdout.write(`${this.nowDate}  `);
-    process.stdout.write(this.yellow(`[${this.context}] `));
+    process.stdout.write(clc.yellow(`[${this.context}] `));
     process.stdout.write(color(message));
     process.stdout.write(`\n`);
 
@@ -136,8 +127,7 @@ module.exports = class Logger {
    */
   printStackTrace(trace = '') {
 
-    process.stdout.write(trace);
-    process.stdout.write(`\n`);
+    console.log(trace);
 
   }
 

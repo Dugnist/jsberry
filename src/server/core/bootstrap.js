@@ -4,7 +4,6 @@
  */
 
 const CONFIG = require('config');
-const Mediator = require('./mediator');
 const Logger = require('./logger');
 
 const MODULES = require(`../${CONFIG.dir.modules}/index`);
@@ -15,6 +14,9 @@ const APP = {
 
     APP.initLogs();
     APP.initModules();
+    APP.catchErrors();
+
+    // setTimeout(() => lol === 1, 2000);
 
   },
 
@@ -30,22 +32,50 @@ const APP = {
 
   initLogs() {
 
-    this.setLogger();
-
     setInterval(() => {
 
-      this.logger.clear();
+      this.show.clear();
       this.setLogger();
 
     }, CONFIG.clearLogsTime);
 
   },
 
-  setLogger() {
+  /**
+   * [setLogger description]
+   * @param {String} type [description]
+   */
+  setLogger(type = 'system') {
 
-    this.logger = new Logger('core');
-    this.logger.setMode(CONFIG.mode);
-    this.ACTIONS = new Mediator(this.logger);
+    this.show = new Logger(type);
+
+  },
+
+  /**
+   * [use description]
+   * @param  {Object} props [description]
+   */
+  use(props = {}) {
+
+    for (let key in props) {
+
+      this[key] = props[key];
+
+    }
+
+  },
+
+  catchErrors() {
+
+    process.on('uncaughtException', (err = {}) => {
+
+      const message = `${process.pid} is die! | Memory: ${this.startMemory}%`;
+
+      this.show.error(message, err.stack);
+
+      setTimeout(() => process.exit(1), 1000);
+
+    });
 
   },
 
