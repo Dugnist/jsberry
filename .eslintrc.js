@@ -13,5 +13,6 @@ module.exports = {
       'no-unused-vars': 0,
       'object-curly-spacing': 0,
       'guard-for-in': 0,
+      "newIsCap": false,
     }
 };

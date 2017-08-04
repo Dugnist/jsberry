@@ -51,32 +51,21 @@ module.exports = class Mediator {
     * Send action with payload to chanel parameters
     * @param {string} action - Action from module.
     * @param {object} payload - Parameters that will need to send to the module.
-    * @return {boolean} - Result of subscribe.
+    * @return {callback} - Result of subscribe.
     */
   send(action = '', payload = {}) {
 
-    let rootChannel = action.split('.');
     let result = false;
 
-    if (rootChannel.length < 1) {
+    Object.keys(channels).map((_action) => {
 
-      if (!channels.hasOwnProperty(action)) return false;
+      if (_action.split(action)[0] === '') {
 
-      result = channels[action](payload);
+        result = channels[_action](payload);
 
-    } else {
+      }
 
-      for (let _action in channels) {
-
-          if (_action.split('.')[0] === rootChannel[0]) {
-
-            result = channels[_action](payload);
-
-          }
-
-      };
-
-    }
+    });
 
     return result;
 

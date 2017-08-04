@@ -1,6 +1,6 @@
 /**
  * JsBerry
- * load balancer
+ * process balancer
  */
 
 const os = require('os');

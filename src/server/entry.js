@@ -1,20 +1,24 @@
-/**
+/*
  * JsBerry
- * start application
+ * Source: https://github.com/Dugnist/jsberry
+ *
+ * Author: Dugnist Alexey (@Dugnist)
+ * Released under the MIT license
  */
 
 const CONFIG = require('config');
 const Mediator = require('./core/mediator');
 const Logger = require('./core/logger');
-const loadBalancer = require('./core/balancer');
+const processBalancer = require('./core/balancer');
 const APP = require('./core/bootstrap');
 
-// Configure application
+/* Configure application */
 
 APP.use({
   Logger,
   show: new Logger('system'),
   ACTIONS: new Mediator(APP.Logger),
+  ROUTES: {},
 });
 
 /**
@@ -25,7 +29,10 @@ APP.use({
 global.CONFIG = CONFIG;
 global.APP = APP;
 
-// Start application at several process
+/*
+ * Start application at several process
+ * ToDo: load balancer
+ */
 
 const start = (APP = {}) => {
 
@@ -39,4 +46,4 @@ const start = (APP = {}) => {
 
 };
 
-(CONFIG.mode === 'dev') ? start(APP)() : loadBalancer(start(APP));
+(CONFIG.mode === 'dev') ? start(APP)() : processBalancer(start(APP));

@@ -4,32 +4,50 @@
  */
 
 const CONFIG = require('config');
-const Logger = require('./logger');
-
 const MODULES = require(`../${CONFIG.dir.modules}/index`);
 
 const APP = {
 
+  /**
+   * [run description]
+   */
   run() {
 
     APP.initLogs();
     APP.initModules();
     APP.catchErrors();
 
-    // setTimeout(() => lol === 1, 2000);
+    const apiOptions = {
+      origin: CONFIG[CONFIG.mode].origin,
+      headers: CONFIG[CONFIG.mode].access_headers,
+      methods: CONFIG[CONFIG.mode].access_methods,
+      api_path: CONFIG[CONFIG.mode].api_path,
+      port: CONFIG[CONFIG.mode].port,
+      name: CONFIG.name,
+    };
+
+    this.ACTIONS.send('api', apiOptions);
 
   },
 
+  /**
+   * [initModules description]
+   */
   initModules() {
+
+    const { ACTIONS, ROUTES } = APP;
 
     MODULES.map((module) => {
 
-      module(this.ACTIONS);
+      module({ ACTIONS, ROUTES });
 
     });
 
   },
 
+  /**
+   * [initLogs description]
+   */
   initLogs() {
 
     setInterval(() => {
@@ -47,7 +65,7 @@ const APP = {
    */
   setLogger(type = 'system') {
 
-    this.show = new Logger(type);
+    this.show = this.Logger(type);
 
   },
 
@@ -65,6 +83,9 @@ const APP = {
 
   },
 
+  /**
+   * [catchErrors description]
+   */
   catchErrors() {
 
     process.on('uncaughtException', (err = {}) => {

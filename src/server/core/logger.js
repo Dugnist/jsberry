@@ -15,7 +15,6 @@ module.exports = class Logger {
   constructor(context = '') {
 
     this.context = context;
-
     this.nowDate = new Date(Date.now()).toLocaleString();
     this.fPath = `${CONFIG.logs}/${this.nowDate.replace(/[ ,:]/g, '_')}.log`;
 
@@ -28,7 +27,7 @@ module.exports = class Logger {
    */
   writeToFile(type, message) {
 
-    const record = JSON.stringify({type, message});
+    const record = JSON.stringify({ type, message });
 
     fs.writeFile(this.fPath, record, (err) => this.logMessage(err, clc.red));
 

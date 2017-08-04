@@ -1,10 +1,37 @@
-module.exports = (ACTIONS) => {
+const config = require('./config.json');
 
-  ACTIONS.on('users.auth', (payload) => {
+const routes = config.routes;
+const routes_keys = Object.keys(routes);
+const routes_object = {};
 
-    payload.name = 'Vasya';
+const _toDots = (target, key) => target[key] = key.replace('_', '.');
+const routesToObject = routes_keys.map((key) => _toDots(routes_object, key));
 
-    return Promise.resolve(payload);
+const { users_auth } = routes_object;
+
+module.exports = ({ ACTIONS, ROUTES }) => {
+
+  /**
+   ******************************************
+   * ADD USERS ROUTES TO ACTIONS MIDDLEWARE *
+   ******************************************
+   */
+
+  ROUTES = Object.assign(ROUTES, routes);
+
+  /**
+   **********************************
+   * SUBSCRIBE TO ALL USERS ACTIONS *
+   **********************************
+   */
+
+  ACTIONS.on(users_auth, (payload) => {
+
+    payload = { name: 1 };
+
+    return (payload.name) ?
+      Promise.resolve(payload) :
+      Promise.reject({ error: true });
 
   });
 
