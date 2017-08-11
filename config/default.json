@@ -8,6 +8,7 @@
   "dir": {
 
     "modules": "modules",
+    "plugins": "plugins",
     "public": "public"
 
   },

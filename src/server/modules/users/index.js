@@ -1,15 +1,14 @@
-const config = require('./config.json');
+const { routes } = require('./config.json');
 
-const routes = config.routes;
-const routes_keys = Object.keys(routes);
-const routes_object = {};
+module.exports = ({ ACTIONS, ROUTER }) => {
 
-const _toDots = (target, key) => target[key] = key.replace('_', '.');
-const routesToObject = routes_keys.map((key) => _toDots(routes_object, key));
+  /**
+   ****************************
+   * GET CORRECT ACTIONS NAMES *
+   ****************************
+   */
 
-const { users_auth } = routes_object;
-
-module.exports = ({ ACTIONS, ROUTES }) => {
+  const { users_auth } = ROUTER._convertkeysToDots(routes);
 
   /**
    ******************************************
@@ -17,7 +16,7 @@ module.exports = ({ ACTIONS, ROUTES }) => {
    ******************************************
    */
 
-  ROUTES = Object.assign(ROUTES, routes);
+  ROUTER.routes = Object.assign(ROUTER.routes, routes);
 
   /**
    **********************************
@@ -38,6 +37,8 @@ module.exports = ({ ACTIONS, ROUTES }) => {
   ACTIONS.on('clear.users.auth', () => {
 
     // Some magic for clean unstoppable functions (for ex. listen port)
+
+    return Promise.resolve();
 
   });
 

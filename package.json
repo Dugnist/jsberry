@@ -25,9 +25,21 @@
     "body-parser": "^1.17.2",
     "cli-color": "^1.2.0",
     "config": "^1.26.1",
+    "cors": "^2.8.4",
     "eslint": "^4.1.1",
     "eslint-config-google": "^0.8.0",
     "express": "^4.15.3",
+    "helmet": "^3.8.1",
+    "koa": "^2.3.0",
+    "koa-bodyparser": "^4.2.0",
+    "koa-convert": "^1.2.0",
+    "koa-cors": "0.0.16",
+    "koa-helmet": "^3.2.0",
+    "koa-methodoverride": "^2.0.0",
+    "koa-router": "^7.2.1",
+    "koa-static": "^4.0.1",
+    "rambda": "^0.8.1",
     "uuid": "^3.1.0"
-  }
+  },
+  "dependencies": {}
 }

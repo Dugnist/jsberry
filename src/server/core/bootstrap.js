@@ -5,6 +5,7 @@
 
 const CONFIG = require('config');
 const MODULES = require(`../${CONFIG.dir.modules}/index`);
+const PLUGINS = require(`../${CONFIG.dir.plugins}/index`);
 
 const APP = {
 
@@ -26,7 +27,7 @@ const APP = {
       name: CONFIG.name,
     };
 
-    this.ACTIONS.send('api', apiOptions);
+    this.ACTIONS.send('api', apiOptions).catch(warn => this.show.warn(warn));
 
   },
 
@@ -35,11 +36,11 @@ const APP = {
    */
   initModules() {
 
-    const { ACTIONS, ROUTES } = APP;
+    const { ACTIONS, ROUTER } = APP;
 
-    MODULES.map((module) => {
+    MODULES.concat(PLUGINS).map((module) => {
 
-      module({ ACTIONS, ROUTES });
+      module({ ACTIONS, ROUTER });
 
     });
 

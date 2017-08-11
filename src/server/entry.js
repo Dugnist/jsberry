@@ -10,15 +10,16 @@ const CONFIG = require('config');
 const Mediator = require('./core/mediator');
 const Logger = require('./core/logger');
 const processBalancer = require('./core/balancer');
+const ROUTER = require('./core/router');
 const APP = require('./core/bootstrap');
 
 /* Configure application */
 
 APP.use({
   Logger,
+  ROUTER,
   show: new Logger('system'),
   ACTIONS: new Mediator(APP.Logger),
-  ROUTES: {},
 });
 
 /**
