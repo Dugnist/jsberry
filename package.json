@@ -30,6 +30,7 @@
     "eslint-config-google": "^0.8.0",
     "express": "^4.15.3",
     "helmet": "^3.8.1",
+    "hpp": "^0.2.2",
     "koa": "^2.3.0",
     "koa-bodyparser": "^4.2.0",
     "koa-convert": "^1.2.0",

@@ -1,5 +1,6 @@
 const http = require('http');
 const path = require('path');
+const hpp = require('hpp');
 const cors = require('cors');
 const helmet = require('helmet');
 const express = require('express');
@@ -36,6 +37,7 @@ module.exports = ({ ACTIONS, ROUTER }) => {
     app.use(cors(corsOptions));
     app.use(bodyParser.json({ limit: '10mb' }));
     app.use(bodyParser.urlencoded({ limit: '10mb', extended: true }));
+    app.use(hpp()); // app.get('/url', hpp({ whitelist: [ 'key' ] }));
     app.use(express.static(path.join(serverPath, '../../public')));
 
     app.get('/', (req, res) => {

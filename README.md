@@ -1,3 +1,5 @@
+![JsBerry logo](public/jsberry.png)
+
 # JsBerry
 Open-source simple architecture for Node.js.
 

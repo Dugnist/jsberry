@@ -1,4 +1,4 @@
-const API = require('./koa_api/index');
+const API = require('./express_api/index');
 
 module.exports = [
   API,
