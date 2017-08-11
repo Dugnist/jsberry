@@ -6,11 +6,16 @@ Open-source modular simple architecture for Node.js.
 ## Quick start
 
 `git clone https://github.com/Dugnist/jsberry`
+
 `npm i`
 
+
 edit `src/server/index.js`
+
 rename your api (express|koa):
+
 for example: `const API = require('./express_api/index');`
+
 
 `npm start`
 
