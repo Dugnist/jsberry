@@ -2,12 +2,19 @@ const http = require('http');
 const path = require('path');
 const hpp = require('hpp');
 const cors = require('cors');
+const csrf = require('csurf');
 const helmet = require('helmet');
 const express = require('express');
 const bodyParser = require('body-parser');
+const RateLimit = require('express-rate-limit');
 
 const app = express();
 const corsOptions = {};
+const limiter = new RateLimit({
+  windowMs: 15*60*1000, // 15 minutes
+  max: 100, // limit each IP to 100 requests per windowMs
+  delayMs: 0 // disable delaying - full speed until the max limit is reached
+});
 const server = http.createServer(app);
 
 module.exports = ({ ACTIONS, ROUTER }) => {
@@ -33,11 +40,13 @@ module.exports = ({ ACTIONS, ROUTER }) => {
 
     const serverPath = path.dirname(require.main.filename);
 
+    app.use(limiter); // app.use('/api/', limiter);
     app.use(helmet());
     app.use(cors(corsOptions));
     app.use(bodyParser.json({ limit: '10mb' }));
     app.use(bodyParser.urlencoded({ limit: '10mb', extended: true }));
     app.use(hpp()); // app.get('/url', hpp({ whitelist: [ 'key' ] }));
+    app.use(csrf({ cookie: true })); // res.render('send', { csrfToken: req.csrfToken() })
     app.use(express.static(path.join(serverPath, '../../public')));
 
     app.get('/', (req, res) => {

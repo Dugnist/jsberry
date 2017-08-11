@@ -6,7 +6,8 @@
   "scripts": {
     "start": "node ./src/server/entry.js",
     "inspect": "node --inspect ./src/server/entry.js",
-    "test": "npm test"
+    "check": "nsp check",
+    "protect": "snyk test"
   },
   "repository": {
     "type": "git",
@@ -26,21 +27,29 @@
     "cli-color": "^1.2.0",
     "config": "^1.26.1",
     "cors": "^2.8.4",
+    "csurf": "^1.9.0",
     "eslint": "^4.1.1",
     "eslint-config-google": "^0.8.0",
     "express": "^4.15.3",
+    "express-rate-limit": "^2.9.0",
     "helmet": "^3.8.1",
     "hpp": "^0.2.2",
     "koa": "^2.3.0",
     "koa-bodyparser": "^4.2.0",
     "koa-convert": "^1.2.0",
     "koa-cors": "0.0.16",
+    "koa-csrf": "^3.0.6",
     "koa-helmet": "^3.2.0",
     "koa-methodoverride": "^2.0.0",
+    "koa-ratelimit-lru": "^1.0.2",
     "koa-router": "^7.2.1",
     "koa-static": "^4.0.1",
     "rambda": "^0.8.1",
+    "twilio": "^3.6.2",
     "uuid": "^3.1.0"
   },
-  "dependencies": {}
+  "dependencies": {
+    "snyk": "^1.38.1"
+  },
+  "snyk": true
 }
