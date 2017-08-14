@@ -5,17 +5,18 @@ Open-source modular simple architecture for Node.js.
 
 ## Quick start
 
-`git clone https://github.com/Dugnist/jsberry`
+```bash
+git clone https://github.com/Dugnist/jsberry
+npm i
+```
 
-`npm i`
+Run this script to install your framework (express||koa) modules:
+```bash
+npm run {express||koa}
+```
 
-
-edit `src/server/index.js`
-
-rename your api (express|koa):
-
-for example: `const API = require('./express_api/index');`
-
+edit `config/default.json`
+set key `"framework"` to your framework (express||koa) name:
 
 `npm start`
 

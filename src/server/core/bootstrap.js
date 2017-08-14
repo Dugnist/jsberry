@@ -10,7 +10,11 @@ const PLUGINS = require(`../${CONFIG.dir.plugins}/index`);
 const APP = {
 
   /**
-   * [run description]
+   * Run application
+   *   init history logs
+   *   init modules and plugins store
+   *   init catching system errors
+   *   run all events from API module
    */
   run() {
 
@@ -18,21 +22,14 @@ const APP = {
     APP.initModules();
     APP.catchErrors();
 
-    const apiOptions = {
-      origin: CONFIG[CONFIG.mode].origin,
-      headers: CONFIG[CONFIG.mode].access_headers,
-      methods: CONFIG[CONFIG.mode].access_methods,
-      api_path: CONFIG[CONFIG.mode].api_path,
-      port: CONFIG[CONFIG.mode].port,
-      name: CONFIG.name,
-    };
-
-    this.ACTIONS.send('api', apiOptions).catch(warn => this.show.warn(warn));
+    this.ACTIONS.send('api')
+      .catch(warning => this.show.warn(warning));
 
   },
 
   /**
-   * [initModules description]
+   * Connect modules and plugins
+   * transfer actions and routes to main tread
    */
   initModules() {
 
@@ -47,7 +44,8 @@ const APP = {
   },
 
   /**
-   * [initLogs description]
+   * Create timer for clearing logs
+   * every "clear_logs_time"
    */
   initLogs() {
 
@@ -56,12 +54,12 @@ const APP = {
       this.show.clear();
       this.setLogger();
 
-    }, CONFIG.clearLogsTime);
+    }, CONFIG.clear_logs_time);
 
   },
 
   /**
-   * [setLogger description]
+   * Set new Logger instance for application
    * @param {String} type [description]
    */
   setLogger(type = 'system') {
@@ -71,7 +69,7 @@ const APP = {
   },
 
   /**
-   * [use description]
+   * Connect start configurations to application
    * @param  {Object} props [description]
    */
   use(props = {}) {
@@ -85,7 +83,8 @@ const APP = {
   },
 
   /**
-   * [catchErrors description]
+   * Catch system errors and exception
+   * log every event and send sms notification
    */
   catchErrors() {
 
@@ -94,6 +93,7 @@ const APP = {
       const message = `${process.pid} is die! | Memory: ${this.startMemory}%`;
 
       this.show.error(message, err.stack);
+      this.ACTIONS.send(`${CONFIG.sms_service}.send`, { body: message });
 
       setTimeout(() => process.exit(1), 1000);
 

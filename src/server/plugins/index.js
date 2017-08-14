@@ -1,5 +1,7 @@
 const API = require('./express_api/index');
+const Twillio = require('./twillio/index');
 
 module.exports = [
-  API,
+  Twillio,
+  API, // Must be last item!!!
 ];

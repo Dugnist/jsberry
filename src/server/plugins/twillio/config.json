@@ -1,0 +1,10 @@
+  {
+    "name": "twillio",
+    "version": "0.0.1",
+    "credentials": {
+      "account_sid": "ACff32e2a03e4000eb5b63d26b1ef44378",
+      "auth_token": "3208932d772de32bada30291b3cb25be",
+      "number_from": "+14439988879",
+      "number_to": "+380505842988"
+    }
+  }

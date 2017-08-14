@@ -1,3 +1,4 @@
+const { name } = require('config');
 const http = require('http');
 const path = require('path');
 const hpp = require('hpp');
@@ -8,39 +9,55 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const RateLimit = require('express-rate-limit');
 
+// connect module configurations
+const moduleConfig = require('./config.json');
+
+//create application instance
 const app = express();
+const server = http.createServer(app);
+
+// configure default options
+const port = moduleConfig.port || 8080;
 const corsOptions = {};
 const limiter = new RateLimit({
   windowMs: 15*60*1000, // 15 minutes
   max: 100, // limit each IP to 100 requests per windowMs
   delayMs: 0 // disable delaying - full speed until the max limit is reached
 });
-const server = http.createServer(app);
 
 module.exports = ({ ACTIONS, ROUTER }) => {
 
   /**
    * Access headers
    *
-   * @param {Object} options - config for express application
-   * @param {Object} req - express request object
-   * @param {Object} res - express response object
-   * @param {function()} next callback
+   * @param {Object} moduleConfig - config for express application
+   * @param {Object} origin - access to server from external resources
+   * @param {Object} headers - http headers ex: [content-type, auth]
+   * @param {Object} methods - RESTfull methods ex: [get. post...]
    */
 
-  ACTIONS.on('api.access.headers', (options) => {
+  ACTIONS.on('api.access.headers', () => {
 
-    corsOptions.origin = options.origin;
-    corsOptions.allowedHeaders = options.headers;
-    corsOptions.methods = options.methods;
+    // ToDo: Nginx configuration for access headers!
+
+    const { origin, headers, methods} = moduleConfig;
+
+    corsOptions.origin = origin;
+    corsOptions.allowedHeaders = headers;
+    corsOptions.methods = methods;
 
   });
+
+  /**
+   * Configure middleware plugins
+   */
 
   ACTIONS.on('api.configure', () => {
 
     const serverPath = path.dirname(require.main.filename);
 
     app.use(limiter); // app.use('/api/', limiter);
+    // ToDo: Nginx configuration for limit connections!
     app.use(helmet());
     app.use(cors(corsOptions));
     app.use(bodyParser.json({ limit: '10mb' }));
@@ -48,7 +65,7 @@ module.exports = ({ ACTIONS, ROUTER }) => {
     app.use(hpp()); // app.get('/url', hpp({ whitelist: [ 'key' ] }));
     app.use(csrf({ cookie: true })); // res.render('send', { csrfToken: req.csrfToken() })
     app.use(express.static(path.join(serverPath, '../../public')));
-
+    // set static path
     app.get('/', (req, res) => {
 
       res.sendFile(path.join(serverPath, '../../public'));
@@ -56,6 +73,10 @@ module.exports = ({ ACTIONS, ROUTER }) => {
     });
 
   });
+
+  /**
+   * Connect api routing to modules
+   */
 
   ACTIONS.on('api.routes', () => {
 
@@ -77,11 +98,15 @@ module.exports = ({ ACTIONS, ROUTER }) => {
 
   });
 
-  ACTIONS.on('api.create.server', (options) => {
+  /**
+   * Create server and listen port
+   */
 
-    server.listen(options.port, () => {
+  ACTIONS.on('api.create.server', () => {
 
-      console.log(`${options.name} ----- API running at :${options.port} port`);
+    server.listen(port, () => {
+
+      console.log(`${name} ----- API running at :${port} port`);
 
     });
 
@@ -89,7 +114,9 @@ module.exports = ({ ACTIONS, ROUTER }) => {
 
   });
 
-  // Some magic for clean unstoppable functions (for ex. listen port)
+  /**
+   * Stop and clear hardly accessible events, ex: listen port
+   */
 
   ACTIONS.on('clear.api', () => {
 

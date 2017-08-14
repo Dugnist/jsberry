@@ -54,12 +54,22 @@ module.exports = class Logger {
   }
 
   /**
+   * [toJSON description]
+   * @param  {String} message [description]
+   */
+  toJSON(any) {
+
+    return JSON.stringify(any);
+
+  }
+
+  /**
    * [log description]
    * @param  {String} message [description]
    */
   log(message = '') {
 
-    this.logMessage(message, clc.green);
+    this.logMessage(this.toJSON(message), clc.green);
 
   }
 
@@ -69,7 +79,7 @@ module.exports = class Logger {
    */
   warn(message = '') {
 
-    this.logMessage(message, clc.yellow);
+    this.logMessage(this.toJSON(message), clc.yellow);
     this.fileLogger('warn', message);
 
   }
@@ -81,7 +91,7 @@ module.exports = class Logger {
    */
   error(message = '', trace = '') {
 
-    this.logMessage(message, clc.red);
+    this.logMessage(this.toJSON(message), clc.red);
     this.printStackTrace(trace);
     this.fileLogger('error', message, trace);
 

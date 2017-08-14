@@ -1,6 +1,6 @@
 /**
  * JsBerry mediator
- * global channels
+ * global channels store
  */
 
 const channels = {};
@@ -33,7 +33,7 @@ module.exports = class Mediator {
   }
 
   /**
-    * Unsubscribe from channel
+    * Unsubscribe channel from store
     * @param {string} action - Action from module.
     * @return {this} actions - Return this for chaining.
     */
@@ -55,19 +55,21 @@ module.exports = class Mediator {
     */
   send(action = '', payload = {}) {
 
-    let result = null;
+    let result = false;
 
     Object.keys(channels).map((_action) => {
 
       if (_action.split(action)[0] === '') {
 
-        result = channels[_action](payload);
+        const response = channels[_action](payload);
+
+        (response && response.then) ? result = response : false;
 
       }
 
     });
 
-    if (!result) result = Promise.reject(`not handled action ${action}`);
+    (!result) ? result = Promise.reject(`not handled action ${action}`) : false;
 
     return result;
 
@@ -75,7 +77,7 @@ module.exports = class Mediator {
 
   /**
     * Get all actions from registry
-    * @return {channels} channels - Return data from channels.
+    * @return {channels} channels - Return all channels from store.
     */
   getAll() {
 

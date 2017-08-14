@@ -3,7 +3,9 @@
   "name": "JsBerry",
   "mode": "dev",
   "logs": "logs",
-  "clearLogsTime": "86400000",
+  "clear_logs_time": "86400000",
+  "sms_service": "twillio",
+  "framework": "express",
 
   "dir": {
     "modules": "modules",
@@ -11,29 +13,12 @@
     "public": "public"
   },
 
-  "sms_track": {
-    "account_sid": "",
-    "auth_token": "",
-    "number_from": "+1",
-    "number_to": "+380505842988"
-  },
-
   "dev": {
-    "mode": "development",
-    "port": 8000,
-    "origin": "*",
-    "access_headers": "Content-Type, Authorization",
-    "access_methods": "GET, POST, DELETE, PUT, OPTIONS",
-    "api_path": ""
+    "mode": "development"
   },
 
   "prod": {
-    "mode": "production",
-    "port": 8080,
-    "origin": "https://example.com",
-    "access_headers": "Content-Type, Authorization",
-    "access_methods": "GET, POST, DELETE, PUT, OPTIONS",
-    "api_path": "/api"
+    "mode": "production"
   }
 
 }

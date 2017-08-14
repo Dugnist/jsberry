@@ -1,3 +1,4 @@
+const { name, mode } = require('config');
 const path = require('path');
 const Koa = require('koa');
 const CSRF = require('koa-csrf');
@@ -10,11 +11,18 @@ const bodyParser = require('koa-bodyparser');
 const ratelimit = require('koa-ratelimit-lru')
 const methodOverride = require('koa-methodoverride');
 
+// connect module configurations
+const moduleConfig = require('./config.json');
+
+//create application instance
 const app = new Koa();
+
+// configure default options
+const port = moduleConfig.port || 8080;
 const corsOptions = {};
 const ratelimitOptions = {
-  duration: 15*60*1000,
-  rate: 100,
+  duration: 15*60*1000, // 15 minutes
+  rate: 100, // limit each IP to 100 requests per duration
   id (ctx) {
     return ctx.ip
   },
@@ -31,25 +39,34 @@ module.exports = ({ ACTIONS, ROUTER }) => {
   /**
    * Access headers
    *
-   * @param {Object} options - config for express application
-   * @param {Object} req - express request object
-   * @param {Object} res - express response object
-   * @param {function()} next callback
+   * @param {Object} moduleConfig - config for express application
+   * @param {Object} origin - access to server from external resources
+   * @param {Object} headers - http headers ex: [content-type, auth]
+   * @param {Object} methods - RESTfull methods ex: [get. post...]
    */
 
   ACTIONS.on('api.access.headers', (options) => {
 
-    corsOptions.origin = options.origin;
-    corsOptions.headers = options.headers;
-    corsOptions.methods = options.methods;
+    // ToDo: Nginx configuration for access headers!
+
+    const { origin, headers, methods} = moduleConfig;
+
+    corsOptions.origin = origin;
+    corsOptions.headers = headers;
+    corsOptions.methods = methods;
 
   });
+
+  /**
+   * Configure middleware plugins
+   */
 
   ACTIONS.on('api.configure', () => {
 
     const serverPath = path.dirname(require.main.filename);
 
     app.use(ratelimit(ratelimitOptions));
+    // ToDo: Nginx configuration for limit connections!
     app.use(convert(cors(corsOptions)));
     app.use(helmet());
     // ToDo: HPP
@@ -77,6 +94,10 @@ module.exports = ({ ACTIONS, ROUTER }) => {
 
   });
 
+  /**
+   * Connect api routing to modules
+   */
+
   ACTIONS.on('api.routes', () => {
 
     for (let _route in ROUTER.routes) {
@@ -98,11 +119,15 @@ module.exports = ({ ACTIONS, ROUTER }) => {
 
   });
 
-  ACTIONS.on('api.create.server', (options) => {
+  /**
+   * Create server and listen port
+   */
 
-    app.listen(options.port, () => {
+  ACTIONS.on('api.create.server', () => {
 
-      console.log(`${options.name} ----- API running at :${options.port} port`);
+    app.listen(port, () => {
+
+      console.log(`${name} ----- API running at :${port} port`);
 
     });
 
@@ -110,7 +135,9 @@ module.exports = ({ ACTIONS, ROUTER }) => {
 
   });
 
-  // Some magic for clean unstoppable functions (for ex. listen port)
+  /**
+   * Stop and clear hardly accessible events, ex: listen port
+   */
 
   ACTIONS.on('clear.api', () => {
 

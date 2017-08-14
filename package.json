@@ -7,14 +7,16 @@
     "start": "node ./src/server/entry.js",
     "inspect": "node --inspect ./src/server/entry.js",
     "check": "nsp check",
-    "protect": "snyk test"
+    "protect": "snyk test",
+    "express": "npm i express -D && npm i body-parser -D && npm i csurf -D && npm i express-rate-limit -D && npm i helmet -D && npm i hpp -D && npm i cors -D",
+    "koa": "npm i koa -D && npm i koa-bodyparser -D && npm i koa-convert -D && npm i koa-cors -D && npm i koa-csrf -D && npm i koa-helmet -D && npm i koa-methodoverride -D && npm i koa-ratelimit-lru -D && npm i koa-router -D && npm i koa-static -D"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Dugnist/jsberry.git"
   },
   "keywords": [
-    "architecture"
+    "architecture", "node.js", "javascript"
   ],
   "author": "Dugnist Alexey",
   "license": "MIT",
@@ -30,20 +32,10 @@
     "csurf": "^1.9.0",
     "eslint": "^4.1.1",
     "eslint-config-google": "^0.8.0",
-    "express": "^4.15.3",
+    "express": "^4.15.4",
     "express-rate-limit": "^2.9.0",
     "helmet": "^3.8.1",
     "hpp": "^0.2.2",
-    "koa": "^2.3.0",
-    "koa-bodyparser": "^4.2.0",
-    "koa-convert": "^1.2.0",
-    "koa-cors": "0.0.16",
-    "koa-csrf": "^3.0.6",
-    "koa-helmet": "^3.2.0",
-    "koa-methodoverride": "^2.0.0",
-    "koa-ratelimit-lru": "^1.0.2",
-    "koa-router": "^7.2.1",
-    "koa-static": "^4.0.1",
     "rambda": "^0.8.1",
     "twilio": "^3.6.2",
     "uuid": "^3.1.0"
