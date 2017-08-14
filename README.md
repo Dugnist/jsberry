@@ -15,10 +15,21 @@ Run this script to install your framework (express||koa) modules:
 npm run {express||koa}
 ```
 
-edit `config/default.json`
+Also edit `config/default.json`
 set key `"framework"` to your framework (express||koa) name:
 
-`npm start`
+```bash
+npm start
+```
+
+## Scripts
+
+`npm run inspect` - run application with node debugger
+`npm run check` - run npm modules vulnerabilities checker (`npm i nsp -g`)
+`npm run protect`- run npm modules vulnerabilities checker (`npm i snyk -g`)
+`npm run express`- install dependencies for express module
+`npm run koa`- install dependencies for koa module
+
 
 ## Author
 

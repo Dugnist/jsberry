@@ -8,7 +8,7 @@
     "inspect": "node --inspect ./src/server/entry.js",
     "check": "nsp check",
     "protect": "snyk test",
-    "express": "npm i express -D && npm i body-parser -D && npm i csurf -D && npm i express-rate-limit -D && npm i helmet -D && npm i hpp -D && npm i cors -D",
+    "express": "npm i express -D && npm i body-parser -D && npm i csurf -D && npm i express-rate-limit -D && npm i helmet -D && npm i hpp -D && npm i cors -D && npm i cookie-parser -D && npm i express-session -D",
     "koa": "npm i koa -D && npm i koa-bodyparser -D && npm i koa-convert -D && npm i koa-cors -D && npm i koa-csrf -D && npm i koa-helmet -D && npm i koa-methodoverride -D && npm i koa-ratelimit-lru -D && npm i koa-router -D && npm i koa-static -D"
   },
   "repository": {
@@ -16,7 +16,9 @@
     "url": "git+https://github.com/Dugnist/jsberry.git"
   },
   "keywords": [
-    "architecture", "node.js", "javascript"
+    "architecture",
+    "node.js",
+    "javascript"
   ],
   "author": "Dugnist Alexey",
   "license": "MIT",
@@ -28,12 +30,14 @@
     "body-parser": "^1.17.2",
     "cli-color": "^1.2.0",
     "config": "^1.26.1",
+    "cookie-parser": "^1.4.3",
     "cors": "^2.8.4",
     "csurf": "^1.9.0",
     "eslint": "^4.1.1",
     "eslint-config-google": "^0.8.0",
     "express": "^4.15.4",
     "express-rate-limit": "^2.9.0",
+    "express-session": "^1.15.5",
     "helmet": "^3.8.1",
     "hpp": "^0.2.2",
     "rambda": "^0.8.1",

@@ -7,6 +7,8 @@ const csrf = require('csurf');
 const helmet = require('helmet');
 const express = require('express');
 const bodyParser = require('body-parser');
+const session = require('express-session');
+const cookieParser = require('cookie-parser')
 const RateLimit = require('express-rate-limit');
 
 // connect module configurations
@@ -63,7 +65,14 @@ module.exports = ({ ACTIONS, ROUTER }) => {
     app.use(bodyParser.json({ limit: '10mb' }));
     app.use(bodyParser.urlencoded({ limit: '10mb', extended: true }));
     app.use(hpp()); // app.get('/url', hpp({ whitelist: [ 'key' ] }));
-    app.use(csrf({ cookie: true })); // res.render('send', { csrfToken: req.csrfToken() })
+    app.use(cookieParser());
+    app.use(session({
+      secret: 'h2b5K43c8Afs3u9rg5d6a6',
+      resave: false,
+      saveUninitialized: true,
+      cookie: {}
+    }));
+    app.use(csrf()); // res.render('send', { csrfToken: req.csrfToken() })
     app.use(express.static(path.join(serverPath, '../../public')));
     // set static path
     app.get('/', (req, res) => {

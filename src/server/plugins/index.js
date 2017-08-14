@@ -1,7 +1,9 @@
-const API = require('./express_api/index');
+const CONFIG = require('config');
+const API = require(`./${CONFIG.framework}_api/index`);
 const Twillio = require('./twillio/index');
 
-module.exports = [
-  Twillio,
-  API, // Must be last item!!!
+const PLUGINS = [
+	Twillio,
 ];
+
+module.exports = PLUGINS.concat(API);
