@@ -30,6 +30,15 @@ npm start
 `npm run express`- install dependencies for express module
 `npm run koa`- install dependencies for koa module
 
+## Debugger
+
+Run `npm run inspect` and open this url in browser:
+
+```bash
+chrome-devtools://devtools/bundled/inspector.html?experiments=true&v8only=true&ws=127.0.0.1:9229/${uuid}
+```
+
+where "uuid" - debug session id from console.
 
 ## Author
 

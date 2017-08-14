@@ -33,11 +33,11 @@ const APP = {
    */
   initModules() {
 
-    const { ACTIONS, ROUTER } = APP;
+    const { ACTIONS, ROUTER, utils } = APP;
 
     MODULES.concat(PLUGINS).map((module) => {
 
-      module({ ACTIONS, ROUTER });
+      module({ ACTIONS, ROUTER, utils });
 
     });
 

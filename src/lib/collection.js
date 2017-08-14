@@ -100,7 +100,7 @@ module.exports = class Collection {
    * @param {any} value - Item that need to deleted.
    * @return {instance} this - For chaining methods.
    */
-  delete(value) {
+  delete(value = {}) {
 
     this.list.delete(value);
 
@@ -113,7 +113,7 @@ module.exports = class Collection {
    * @param {array} source - Array that will be concat with collection.
    * @return {instance} this - For chaining methods.
    */
-  concat(source) {
+  concat(source = []) {
 
     this.checkForType(source, 'Array');
     this.list = new Set([...this.list, ...source]);

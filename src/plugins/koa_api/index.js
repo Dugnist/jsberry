@@ -71,7 +71,7 @@ module.exports = ({ ACTIONS, ROUTER }) => {
     app.use(helmet());
     // ToDo: HPP
     app.use(bodyParser({ jsonLimit: '10mb', formLimit: '10mb' }));
-    app.use(serve(path.join(serverPath, '../../public')));
+    app.use(serve(path.join(serverPath, '../public')));
     app.use(methodOverride((req, _res) => {
       if (req.body && (typeof req.body === 'object') && ('_method' in req.body)) {
         // look in urlencoded POST bodies and delete it

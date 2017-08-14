@@ -7,15 +7,19 @@
  */
 
 const CONFIG = require('config');
-const Mediator = require('./core/mediator');
 const Logger = require('./core/logger');
-const processBalancer = require('./core/balancer');
 const ROUTER = require('./core/router');
 const APP = require('./core/bootstrap');
+const Mediator = require('./core/mediator');
+const processBalancer = require('./core/balancer');
+const utils = require('./lib/utils.js');
+const Model = require('./lib/model.js');
+const Collection = require('./lib/collection.js');
 
 /* Configure application */
 
 APP.use({
+	utils,
   Logger,
   ROUTER,
   show: new Logger('system'),
@@ -29,6 +33,8 @@ APP.use({
 
 global.CONFIG = CONFIG;
 global.APP = APP;
+global.Model = Model;
+global.Collection = Collection;
 
 /*
  * Start application at several process
@@ -41,7 +47,7 @@ const start = (APP = {}) => {
 
     APP.use({ startMemory: memory });
     APP.run();
-    APP.show.log(`Run process | Employed memory: ${memory}%`);
+    APP.show.log(`Run app | Employed memory: ${memory}%`);
 
   };
 

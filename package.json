@@ -4,8 +4,8 @@
   "description": "open-source architecture node.js",
   "main": "index.js",
   "scripts": {
-    "start": "node ./src/server/entry.js",
-    "inspect": "node --inspect ./src/server/entry.js",
+    "start": "node ./src/entry.js",
+    "inspect": "node --inspect=9229 ./src/entry.js",
     "check": "nsp check",
     "protect": "snyk test",
     "express": "npm i express -D && npm i body-parser -D && npm i csurf -D && npm i express-rate-limit -D && npm i helmet -D && npm i hpp -D && npm i cors -D && npm i cookie-parser -D && npm i express-session -D",

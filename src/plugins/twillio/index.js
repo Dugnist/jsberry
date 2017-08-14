@@ -4,7 +4,7 @@ const twilio = require('twilio');
 const { number_to, number_from, account_sid, auth_token } = credentials;
 const client = twilio(account_sid, auth_token);
 
-module.exports = ({ ACTIONS }) => {
+module.exports = ({ ACTIONS, utils }) => {
 
   ACTIONS.on('twillio.send', ({
     from = number_from,
@@ -12,10 +12,9 @@ module.exports = ({ ACTIONS }) => {
     body = 'don\'t forget the message!',
   }) => {
 
-    return new Promise((res, rej) => {
+    return new Promise((resolve, reject) => {
 
-      // convert callback to return promise values
-      const response = (e, s) => !e ? res({ success: s }) : rej({ error: e });
+      const response = utils.callbackToPromise(resolve, reject);
 
       client.messages.create({ to, from, body }, response);
 

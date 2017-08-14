@@ -73,11 +73,11 @@ module.exports = ({ ACTIONS, ROUTER }) => {
       cookie: {}
     }));
     app.use(csrf()); // res.render('send', { csrfToken: req.csrfToken() })
-    app.use(express.static(path.join(serverPath, '../../public')));
+    app.use(express.static(path.join(serverPath, '../public')));
     // set static path
     app.get('/', (req, res) => {
 
-      res.sendFile(path.join(serverPath, '../../public'));
+      res.sendFile(path.join(serverPath, '../public'));
 
     });
 
