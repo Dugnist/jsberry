@@ -10,7 +10,9 @@ const PLUGINS = require(`../${CONFIG.dir.plugins}/index`);
 const APP = {
 
   /**
-   * Run application
+   *******************
+   * Run application *
+   *******************
    *   init history logs
    *   init modules and plugins store
    *   init catching system errors
@@ -23,7 +25,7 @@ const APP = {
     APP.catchErrors();
 
     this.ACTIONS.send('api')
-      .catch(warning => this.show.warn(warning));
+      .catch((warning) => this.show.warn(warning));
 
   },
 
@@ -33,11 +35,9 @@ const APP = {
    */
   initModules() {
 
-    const { ACTIONS, ROUTER, utils } = APP;
-
     MODULES.concat(PLUGINS).map((module) => {
 
-      module({ ACTIONS, ROUTER, utils });
+      module(APP);
 
     });
 
@@ -52,24 +52,17 @@ const APP = {
     setInterval(() => {
 
       this.show.clear();
-      this.setLogger();
+      // this.show.init();
 
     }, CONFIG.clear_logs_time);
 
   },
 
   /**
-   * Set new Logger instance for application
-   * @param {String} type [description]
-   */
-  setLogger(type = 'system') {
-
-    this.show = this.Logger(type);
-
-  },
-
-  /**
    * Connect start configurations to application
+   *
+   * For example: APP.use({ startMemory: '20%' });
+   *
    * @param  {Object} props [description]
    */
   use(props = {}) {

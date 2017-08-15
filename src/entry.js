@@ -16,19 +16,26 @@ const utils = require('./lib/utils.js');
 const Model = require('./lib/model.js');
 const Collection = require('./lib/collection.js');
 
-/* Configure application */
+/**
+ *************************
+ * Configure application *
+ *************************
+ */
 
 APP.use({
-	utils,
-  Logger,
+  utils,
   ROUTER,
+  Model,
+  Collection,
   show: new Logger('system'),
-  ACTIONS: new Mediator(APP.Logger),
+  ACTIONS: new Mediator(),
 });
 
 /**
- * Debugger vision: node --inspect {path}
- * chrome-devtools://devtools/bundled/inspector.html?experiments=true&v8only=true&ws=
+ * Turn entity's to global debug console
+ * debugger vision: npm run inspect
+ * chrome-devtools://devtools/bundled/inspector.html?experiments=true&v8only=true&ws=${uuid}
+ * where "uuid" - debug session id from console
  */
 
 global.CONFIG = CONFIG;
@@ -36,9 +43,11 @@ global.APP = APP;
 global.Model = Model;
 global.Collection = Collection;
 
-/*
- * Start application at several process
- * ToDo: load balancer
+/**
+ ****************************************
+ * Start application at several process *
+ * ToDo: load balancer                  *
+ ****************************************
  */
 
 const start = (APP = {}) => {

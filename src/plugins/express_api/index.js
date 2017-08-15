@@ -1,4 +1,4 @@
-const { name } = require('config');
+const CONFIG = require('config');
 const http = require('http');
 const path = require('path');
 const hpp = require('hpp');
@@ -8,23 +8,22 @@ const helmet = require('helmet');
 const express = require('express');
 const bodyParser = require('body-parser');
 const session = require('express-session');
-const cookieParser = require('cookie-parser')
+const cookieParser = require('cookie-parser');
 const RateLimit = require('express-rate-limit');
 
 // connect module configurations
 const moduleConfig = require('./config.json');
 
-//create application instance
+// create application instance
 const app = express();
 const server = http.createServer(app);
 
 // configure default options
-const port = moduleConfig.port || 8080;
 const corsOptions = {};
 const limiter = new RateLimit({
   windowMs: 15*60*1000, // 15 minutes
   max: 100, // limit each IP to 100 requests per windowMs
-  delayMs: 0 // disable delaying - full speed until the max limit is reached
+  delayMs: 0, // disable delaying - full speed until the max limit is reached
 });
 
 module.exports = ({ ACTIONS, ROUTER }) => {
@@ -70,7 +69,7 @@ module.exports = ({ ACTIONS, ROUTER }) => {
       secret: 'h2b5K43c8Afs3u9rg5d6a6',
       resave: false,
       saveUninitialized: true,
-      cookie: {}
+      cookie: {},
     }));
     app.use(csrf()); // res.render('send', { csrfToken: req.csrfToken() })
     app.use(express.static(path.join(serverPath, '../public')));
@@ -95,7 +94,8 @@ module.exports = ({ ACTIONS, ROUTER }) => {
 
       app[route.method](`/${route.path}`, (req, res, next) => {
 
-        const props = { headers: req.headers, data: req.query, body: req.body };
+        const { headers, query, body } = req;
+        const props = { headers, query, body };
 
         ACTIONS.send(_route.replace('_', '.'), props)
           .then((data) => res.send(data))
@@ -112,6 +112,9 @@ module.exports = ({ ACTIONS, ROUTER }) => {
    */
 
   ACTIONS.on('api.create.server', () => {
+
+    const name = CONFIG.name || 'Example';
+    const port = moduleConfig.port || 8080;
 
     server.listen(port, () => {
 

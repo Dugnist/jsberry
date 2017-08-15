@@ -1,4 +1,4 @@
-const { name, mode } = require('config');
+const CONFIG = require('config');
 const path = require('path');
 const Koa = require('koa');
 const CSRF = require('koa-csrf');
@@ -8,30 +8,31 @@ const helmet = require('koa-helmet');
 const router = require('koa-router')();
 const convert = require('koa-convert');
 const bodyParser = require('koa-bodyparser');
-const ratelimit = require('koa-ratelimit-lru')
+const ratelimit = require('koa-ratelimit-lru');
 const methodOverride = require('koa-methodoverride');
 
 // connect module configurations
 const moduleConfig = require('./config.json');
 
-//create application instance
+// create application instance
 const app = new Koa();
 
 // configure default options
-const port = moduleConfig.port || 8080;
 const corsOptions = {};
 const ratelimitOptions = {
   duration: 15*60*1000, // 15 minutes
   rate: 100, // limit each IP to 100 requests per duration
-  id (ctx) {
-    return ctx.ip
+  id(ctx) {
+
+    return ctx.ip;
+
   },
   headers: {
     remaining: 'Rate-Limit-Remaining',
     reset: 'Rate-Limit-Reset',
-    total: 'Rate-Limit-Total'
+    total: 'Rate-Limit-Total',
   },
-  errorMessage: 'Sometimes You Just Have to Slow Down.'
+  errorMessage: 'Sometimes You Just Have to Slow Down.',
 };
 
 module.exports = ({ ACTIONS, ROUTER }) => {
@@ -73,12 +74,15 @@ module.exports = ({ ACTIONS, ROUTER }) => {
     app.use(bodyParser({ jsonLimit: '10mb', formLimit: '10mb' }));
     app.use(serve(path.join(serverPath, '../public')));
     app.use(methodOverride((req, _res) => {
-      if (req.body && (typeof req.body === 'object') && ('_method' in req.body)) {
-        // look in urlencoded POST bodies and delete it
-        const method = req.body._method;
-        delete req.body._method;
-        return method;
-      }
+
+    if (req.body && (typeof req.body === 'object') && ('_method' in req.body)) {
+
+      const method = req.body._method;
+      delete req.body._method;
+      return method;
+
+    }
+
     }));
 
     app.use(new CSRF({
@@ -86,8 +90,8 @@ module.exports = ({ ACTIONS, ROUTER }) => {
       invalidSessionSecretStatusCode: 403,
       invalidTokenMessage: 'Invalid CSRF token',
       invalidTokenStatusCode: 403,
-      excludedMethods: [ 'GET', 'HEAD', 'OPTIONS' ],
-      disableQuery: false
+      excludedMethods: ['GET', 'HEAD', 'OPTIONS'],
+      disableQuery: false,
     })); // ctx.body = ctx.csrf;
 
     app.use(router.routes()).use(router.allowedMethods());
@@ -107,7 +111,7 @@ module.exports = ({ ACTIONS, ROUTER }) => {
       router[route.method](`/${route.path}`, (ctx, _next) => {
 
         const { headers, query, body } = ctx.request;
-        const props = { headers, data: query, body };
+        const props = { headers, query, body };
 
         ACTIONS.send(_route.replace('_', '.'), props)
           .then((data) => ctx.body = data)
@@ -124,6 +128,9 @@ module.exports = ({ ACTIONS, ROUTER }) => {
    */
 
   ACTIONS.on('api.create.server', () => {
+
+    const name = CONFIG.name || 'Example';
+    const port = moduleConfig.port || 8080;
 
     app.listen(port, () => {
 

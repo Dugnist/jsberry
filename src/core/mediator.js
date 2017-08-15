@@ -8,16 +8,6 @@ const channels = {};
 module.exports = class Mediator {
 
   /**
-   * [constructor description]
-   * @param  {Object} logger [description]
-   */
-  constructor(logger = {}) {
-
-    this.Logger = logger;
-
-  }
-
-  /**
     * Subscribe to channel
     * @param {string} action - Action from module.
     * @param {function} fn - Function that will be execute.

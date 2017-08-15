@@ -1,14 +1,14 @@
-const { credentials } = require('./config.json');
 const twilio = require('twilio');
+const { credentials } = require('./config.json');
+const { numberTo, numberFrom, accountSid, authToken } = credentials;
 
-const { number_to, number_from, account_sid, auth_token } = credentials;
-const client = twilio(account_sid, auth_token);
+const client = twilio(accountSid, authToken);
 
 module.exports = ({ ACTIONS, utils }) => {
 
   ACTIONS.on('twillio.send', ({
-    from = number_from,
-    to = number_to,
+    from = numberFrom,
+    to = numberTo,
     body = 'don\'t forget the message!',
   }) => {
 
@@ -22,4 +22,4 @@ module.exports = ({ ACTIONS, utils }) => {
 
   });
 
-}
+};

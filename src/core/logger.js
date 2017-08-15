@@ -15,8 +15,19 @@ module.exports = class Logger {
   constructor(context = '') {
 
     this.context = context;
-    this.nowDate = new Date(Date.now()).toLocaleString();
-    this.fPath = `${CONFIG.logs}/${this.nowDate.replace(/[ ,:]/g, '_')}.log`;
+    this.init();
+
+  }
+
+  /**
+   * Init name and path for logs file
+   */
+  init() {
+
+    const logs = CONFIG.logs || 'logs';
+
+    this.nowDate = new Date( Date.now() ).toLocaleString();
+    this.fPath = `${logs}/${ this.nowDate.replace(/[ ,:]/g, '_') }.log`;
 
   }
 
@@ -25,9 +36,9 @@ module.exports = class Logger {
    * @param  {[type]} type    [description]
    * @param  {[type]} message [description]
    */
-  writeToFile(type, message) {
+  writeToFile(type = '', message = '') {
 
-    const record = JSON.stringify({ type, message });
+    const record = this.toJSON({ type, message });
 
     fs.writeFile(this.fPath, record, (err) => this.logMessage(err, clc.red));
 
@@ -35,7 +46,6 @@ module.exports = class Logger {
 
   /**
    * [clear description]
-   * @param {String} mode [description]
    */
   clear() {
 
@@ -54,18 +64,8 @@ module.exports = class Logger {
   }
 
   /**
-   * [toJSON description]
-   * @param  {String} message [description]
-   */
-  toJSON(any) {
-
-    return JSON.stringify(any);
-
-  }
-
-  /**
    * [log description]
-   * @param  {String} message [description]
+   * @param  {String} message - [description]
    */
   log(message = '') {
 
@@ -75,7 +75,7 @@ module.exports = class Logger {
 
   /**
    * [warn description]
-   * @param  {String} message [description]
+   * @param  {String} message - [description]
    */
   warn(message = '') {
 
@@ -86,8 +86,8 @@ module.exports = class Logger {
 
   /**
    * [error description]
-   * @param  {String} message [description]
-   * @param  {String} trace   [description]
+   * @param  {String} message - [description]
+   * @param  {String} trace - [description]
    */
   error(message = '', trace = '') {
 
@@ -105,10 +105,12 @@ module.exports = class Logger {
    */
   fileLogger(type = 'error', message = '', trace = '') {
 
-    if (CONFIG.mode === 'prod') {
+    const mode = CONFIG.mode || 'prod';
 
-      this.writeToFile(type,
-        `${message} ${JSON.stringify(trace).replace(/\\n|"/g, '')}`);
+    if (mode === 'prod') {
+
+      this.writeToFile(type, `${message} ${this.toJSON(trace)
+        .replace(/\\n|"/g, '')}`);
 
     }
 
@@ -120,6 +122,8 @@ module.exports = class Logger {
    * @param  {String} color   [description]
    */
   logMessage(message = '', color = '') {
+
+    const mode = CONFIG.name || 'Logger';
 
     process.stdout.write(`\n`);
     process.stdout.write(color(`${CONFIG.name} ${process.pid} - `));
@@ -137,6 +141,17 @@ module.exports = class Logger {
   printStackTrace(trace = '') {
 
     console.log(trace);
+
+  }
+
+  /**
+   * [toJSON description]
+   * @param  {Object} reference - any object
+   * @return  {String} converted json string
+   */
+  toJSON(reference = {}) {
+
+    return JSON.stringify(reference);
 
   }
 
