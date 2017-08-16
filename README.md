@@ -10,13 +10,13 @@ git clone https://github.com/Dugnist/jsberry
 npm i
 ```
 
-Run this script to install your framework (express||koa) modules:
+Run this scripts to install your framework {express||koa} modules:
 ```bash
-npm run {express||koa}
+npm run express||koa
 ```
 
 Also edit `config/default.json`
-set key `"framework"` to your framework (express||koa) name:
+set key `"framework"` to your framework {express||koa} name:
 
 ```bash
 npm start
@@ -24,6 +24,8 @@ npm start
 
 ## Scripts
 
+- `npm start` - run application with development mode
+- `npm run prod` - run application with production mode
 - `npm run inspect` - run application with node debugger
 - `npm run check` - run npm modules vulnerabilities checker (`npm i nsp -g`)
 - `npm run protect`- run npm modules vulnerabilities checker (`npm i snyk -g`)

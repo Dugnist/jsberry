@@ -1,5 +1,11 @@
-/**
- * JsBerry logger
+/*
+ * JsBerry
+ * Source: https://github.com/Dugnist/jsberry
+ *
+ * logger
+ *
+ * Author: Dugnist Alexey (@Dugnist)
+ * Released under the MIT license
  */
 
 const fs = require('fs');

@@ -1,6 +1,11 @@
-/**
- * JsBerry Bootstrap
+/*
+ * JsBerry
+ * Source: https://github.com/Dugnist/jsberry
+ *
  * init application
+ *
+ * Author: Dugnist Alexey (@Dugnist)
+ * Released under the MIT license
  */
 
 const CONFIG = require('config');

@@ -1,6 +1,11 @@
-/**
- * JsBerry mediator
+/*
+ * JsBerry
+ * Source: https://github.com/Dugnist/jsberry
+ *
  * global channels store
+ *
+ * Author: Dugnist Alexey (@Dugnist)
+ * Released under the MIT license
  */
 
 const channels = {};

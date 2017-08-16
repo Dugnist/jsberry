@@ -1,9 +1,9 @@
 {
 
   "name": "JsBerry",
-  "mode": "dev",
+  "mode": "prod",
   "logs": "logs",
-  "clear_logs_time": "10000",
+  "clear_logs_time": "86400000",
   "sms_service": "twillio",
   "framework": "express",
   "dir": {

@@ -1,6 +1,11 @@
-/**
+/*
  * JsBerry
+ * Source: https://github.com/Dugnist/jsberry
+ *
  * process balancer
+ *
+ * Author: Dugnist Alexey (@Dugnist)
+ * Released under the MIT license
  */
 
 const os = require('os');

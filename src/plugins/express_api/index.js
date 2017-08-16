@@ -7,7 +7,7 @@ const csrf = require('csurf');
 const helmet = require('helmet');
 const express = require('express');
 const bodyParser = require('body-parser');
-const session = require('express-session');
+const session = require('cookie-session');
 const cookieParser = require('cookie-parser');
 const RateLimit = require('express-rate-limit');
 
@@ -69,7 +69,7 @@ module.exports = ({ ACTIONS, ROUTER }) => {
       secret: 'h2b5K43c8Afs3u9rg5d6a6',
       resave: false,
       saveUninitialized: true,
-      cookie: {},
+      cookie: { maxAge: 60 * 60 * 1000 },
     }));
     app.use(csrf()); // res.render('send', { csrfToken: req.csrfToken() })
     app.use(express.static(path.join(serverPath, '../public')));
