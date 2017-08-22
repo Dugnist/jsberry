@@ -88,9 +88,11 @@ module.exports = ({ ACTIONS, ROUTER }) => {
 
   ACTIONS.on('api.routes', () => {
 
-    for (let _route in ROUTER.routes) {
+    const allRoutes = ROUTER.get('routes');
 
-      const route = ROUTER.routes[_route];
+    for (let _route in allRoutes) {
+
+      const route = allRoutes[_route];
 
       app[route.method](`/${route.path}`, (req, res, next) => {
 

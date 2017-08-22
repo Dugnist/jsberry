@@ -16,7 +16,7 @@ module.exports = ({ ACTIONS, ROUTER, utils }) => {
    *************************************
    */
 
-  ROUTER.routes = Object.assign(ROUTER.routes, routes);
+  ROUTER.set('routes', routes);
 
   /**
    ************************************
@@ -30,7 +30,7 @@ module.exports = ({ ACTIONS, ROUTER, utils }) => {
    */
   ACTIONS.on(users_auth, ({ headers, query, body }) => {
 
-    const response = { name: 'John', surname: 'Dou' };
+    const response = { name: 'John', surname: 'sldjflks' };
 
     return (response.name) ?
       Promise.resolve(response) :
