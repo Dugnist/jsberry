@@ -4,5 +4,8 @@
   "routes": {
     "users_auth": { "path": "users/auth", "method": "get" },
     "users_get": { "path": "users/get", "method": "get" }
+  },
+  "events": {
+    "users_message": { "options": {} }
   }
 }

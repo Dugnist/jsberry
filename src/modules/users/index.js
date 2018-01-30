@@ -1,4 +1,4 @@
-const { routes } = require('./config.json');
+const { routes, events } = require('./config.json');
 
 module.exports = ({ ACTIONS, ROUTER, utils }) => {
 
@@ -9,6 +9,7 @@ module.exports = ({ ACTIONS, ROUTER, utils }) => {
    */
 
   const { users_auth } = utils.convertkeysToDots(routes);
+  const { users_message } = utils.convertkeysToDots(events);
 
   /**
    *************************************
@@ -17,6 +18,7 @@ module.exports = ({ ACTIONS, ROUTER, utils }) => {
    */
 
   ROUTER.set('routes', routes);
+  ROUTER.set('events', events);
 
   /**
    ************************************
@@ -34,6 +36,16 @@ module.exports = ({ ACTIONS, ROUTER, utils }) => {
 
     return (response.name) ?
       Promise.resolve(response) :
+      Promise.reject({ error: { message: 'name not exist!' } });
+
+  });
+
+  ACTIONS.on(users_message, ({ data }) => {
+
+    const response = { name: 'John', surname: 'sldjflks' };
+
+    return (response.name) ?
+      Promise.resolve({ event: 'exit', body: response }) :
       Promise.reject({ error: { message: 'name not exist!' } });
 
   });

@@ -31,12 +31,14 @@ const APP = {
 
     this.ACTIONS.send('api')
       .catch((warning) => this.show.warn(warning));
+    this.ACTIONS.send('websockets')
+      .catch((warning) => this.show.warn(warning));
 
   },
 
   /**
    * Connect modules and plugins
-   * transfer actions and routes to main tread
+   * transfer actions and routes to main thread
    */
   initModules() {
 
@@ -65,10 +67,9 @@ const APP = {
 
   /**
    * Connect start configurations to application
+   * @param  {Object} props [description]
    *
    * For example: APP.use({ startMemory: '20%' });
-   *
-   * @param  {Object} props [description]
    */
   use(props = {}) {
 
