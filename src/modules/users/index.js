@@ -21,6 +21,17 @@ module.exports = ({ ACTIONS, ROUTER, utils }) => {
   ROUTER.set('events', events);
 
   /**
+   ******************************************
+   * ADD USERS MIDDLEWARES TO ACTIONS TREAD *
+   ******************************************
+   */
+
+  const firstMidleware = (req, res) => {};
+  const secondMidleware = (req, res) => {};
+
+  ROUTER.set('middlewares', { firstMidleware, secondMidleware });
+
+  /**
    ************************************
    * SUBSCRIBE TO USERS AUTHORIZATION *
    ************************************

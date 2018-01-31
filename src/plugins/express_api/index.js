@@ -1,15 +1,10 @@
 const CONFIG = require('config');
 const http = require('http');
 const path = require('path');
-const hpp = require('hpp');
 const cors = require('cors');
-const csrf = require('csurf');
 const helmet = require('helmet');
 const express = require('express');
 const bodyParser = require('body-parser');
-const session = require('cookie-session');
-const cookieParser = require('cookie-parser');
-const RateLimit = require('express-rate-limit');
 
 // connect module configurations
 const moduleConfig = require('./config.json');
@@ -20,11 +15,6 @@ const server = http.createServer(app);
 
 // configure default options
 const corsOptions = {};
-const limiter = new RateLimit({
-  windowMs: 15*60*1000, // 15 minutes
-  max: 100, // limit each IP to 100 requests per windowMs
-  delayMs: 0, // disable delaying - full speed until the max limit is reached
-});
 
 module.exports = ({ ACTIONS, ROUTER }) => {
 
@@ -57,21 +47,11 @@ module.exports = ({ ACTIONS, ROUTER }) => {
 
     const serverPath = path.dirname(require.main.filename);
 
-    app.use(limiter); // app.use('/api/', limiter);
     // ToDo: Nginx configuration for limit connections!
     app.use(helmet());
     app.use(cors(corsOptions));
     app.use(bodyParser.json({ limit: '10mb' }));
     app.use(bodyParser.urlencoded({ limit: '10mb', extended: true }));
-    app.use(hpp()); // app.get('/url', hpp({ whitelist: [ 'key' ] }));
-    app.use(cookieParser());
-    app.use(session({
-      secret: 'h2b5K43c8Afs3u9rg5d6a6',
-      resave: false,
-      saveUninitialized: true,
-      cookie: { maxAge: 60 * 60 * 1000 },
-    }));
-    app.use(csrf()); // res.render('send', { csrfToken: req.csrfToken() })
     app.use(express.static(path.join(serverPath, '../public')));
     // set static path
     app.get('/', (req, res) => {
@@ -79,6 +59,21 @@ module.exports = ({ ACTIONS, ROUTER }) => {
       res.sendFile(path.join(serverPath, '../public'));
 
     });
+
+  });
+
+  /**
+   * Configure middleware plugins
+   */
+  ACTIONS.on('api.middlewares', () => {
+
+    const allMiddlewares = ROUTER.get('middlewares');
+
+    for (let _mw in allMiddlewares) {
+
+      app.use(allMiddlewares[_mw]);
+
+    }
 
   });
 

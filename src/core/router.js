@@ -16,6 +16,9 @@ const Router = {
   events: {},
   // GraphQL schema
   schema: {},
+  // Middlewares
+  middlewares: {},
+  // ROUTER.middlewares.mw_name = (app) => {}
 
   /**
    * Get list of routes/events/schema
