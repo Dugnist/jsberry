@@ -13,8 +13,10 @@ const APP = require('./core/bootstrap');
 const Mediator = require('./core/mediator');
 const processBalancer = require('./core/balancer');
 const utils = require('./lib/utils.js');
-const Model = require('./lib/model.js');
-const Collection = require('./lib/collection.js');
+
+// helper libs
+// const Model = require('./lib/model.js');
+// const Collection = require('./lib/collection.js');
 
 /**
  *************************
@@ -25,8 +27,6 @@ const Collection = require('./lib/collection.js');
 APP.use({
   utils,
   ROUTER,
-  Model,
-  Collection,
   show: new Logger('system'),
   ACTIONS: new Mediator(),
 });
@@ -40,8 +40,8 @@ APP.use({
 
 global.CONFIG = CONFIG;
 global.APP = APP;
-global.Model = Model;
-global.Collection = Collection;
+// global.Model = Model;
+// global.Collection = Collection;
 
 /**
  ****************************************

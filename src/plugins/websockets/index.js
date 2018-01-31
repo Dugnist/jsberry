@@ -1,3 +1,6 @@
+/**
+ * IN PROGRESS!!!
+ */
 const CONFIG = require('config');
 const server = require('http').createServer();
 const io = require('socket.io')(server);
@@ -15,21 +18,17 @@ module.exports = ({ ACTIONS, ROUTER }) => {
 
     io.on('connection', (client) => {
 
-      for (let _event in ROUTER.events) {
-
-        const event = ROUTER.events[_event];
+      ROUTER.events.forEach((event) => {
 
         client.on(event.name, (data) => {
 
-          const props = { data, client };
-
-          ACTIONS.send(_event.replace('_', '.'), props)
-          .then((_data) => res.send(_data))
+          ACTIONS.send(_event.replace('_', '.'), { data })
+          .then((_data) => client.emit(_data.event, _data.body))
           .catch((error) => next(error));
 
         });
 
-      }
+      });
 
       // client.on('disconnect', () => {}); ToDo!
 

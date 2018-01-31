@@ -1,14 +1,12 @@
 const CONFIG = require('config');
 const path = require('path');
 const Koa = require('koa');
-const CSRF = require('koa-csrf');
 const cors = require('koa-cors');
 const serve = require('koa-static');
 const helmet = require('koa-helmet');
 const router = require('koa-router')();
 const convert = require('koa-convert');
 const bodyParser = require('koa-bodyparser');
-const ratelimit = require('koa-ratelimit-lru');
 const methodOverride = require('koa-methodoverride');
 
 // connect module configurations
@@ -19,21 +17,6 @@ const app = new Koa();
 
 // configure default options
 const corsOptions = {};
-const ratelimitOptions = {
-  duration: 15*60*1000, // 15 minutes
-  rate: 100, // limit each IP to 100 requests per duration
-  id(ctx) {
-
-    return ctx.ip;
-
-  },
-  headers: {
-    remaining: 'Rate-Limit-Remaining',
-    reset: 'Rate-Limit-Reset',
-    total: 'Rate-Limit-Total',
-  },
-  errorMessage: 'Sometimes You Just Have to Slow Down.',
-};
 
 module.exports = ({ ACTIONS, ROUTER }) => {
 
@@ -66,11 +49,9 @@ module.exports = ({ ACTIONS, ROUTER }) => {
 
     const serverPath = path.dirname(require.main.filename);
 
-    app.use(ratelimit(ratelimitOptions));
     // ToDo: Nginx configuration for limit connections!
     app.use(convert(cors(corsOptions)));
     app.use(helmet());
-    // ToDo: HPP
     app.use(bodyParser({ jsonLimit: '10mb', formLimit: '10mb' }));
     app.use(serve(path.join(serverPath, '../public')));
     app.use(methodOverride((req, _res) => {
@@ -84,15 +65,6 @@ module.exports = ({ ACTIONS, ROUTER }) => {
     }
 
     }));
-
-    app.use(new CSRF({
-      invalidSessionSecretMessage: 'Invalid session secret',
-      invalidSessionSecretStatusCode: 403,
-      invalidTokenMessage: 'Invalid CSRF token',
-      invalidTokenStatusCode: 403,
-      excludedMethods: ['GET', 'HEAD', 'OPTIONS'],
-      disableQuery: false,
-    })); // ctx.body = ctx.csrf;
 
     app.use(router.routes()).use(router.allowedMethods());
 
