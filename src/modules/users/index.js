@@ -1,4 +1,4 @@
-const { routes } = require('./config.json');
+const { routes, events } = require('./config.json');
 
 module.exports = ({ ACTIONS, ROUTER, utils }) => {
 
@@ -9,6 +9,7 @@ module.exports = ({ ACTIONS, ROUTER, utils }) => {
    */
 
   const { users_auth } = utils.convertkeysToDots(routes);
+  const { users_message } = utils.convertkeysToDots(events);
 
   /**
    *************************************
@@ -16,7 +17,19 @@ module.exports = ({ ACTIONS, ROUTER, utils }) => {
    *************************************
    */
 
-  ROUTER.routes = Object.assign(ROUTER.routes, routes);
+  ROUTER.set('routes', routes);
+  ROUTER.set('events', events);
+
+  /**
+   ******************************************
+   * ADD USERS MIDDLEWARES TO ACTIONS TREAD *
+   ******************************************
+   */
+
+  const firstMidleware = (req, res) => {};
+  const secondMidleware = (req, res) => {};
+
+  ROUTER.set('middlewares', { firstMidleware, secondMidleware });
 
   /**
    ************************************
@@ -30,10 +43,20 @@ module.exports = ({ ACTIONS, ROUTER, utils }) => {
    */
   ACTIONS.on(users_auth, ({ headers, query, body }) => {
 
-    const response = { name: 'John', surname: 'Dou' };
+    const response = { name: 'John', surname: 'sldjflks' };
 
     return (response.name) ?
       Promise.resolve(response) :
+      Promise.reject({ error: { message: 'name not exist!' } });
+
+  });
+
+  ACTIONS.on(users_message, ({ data }) => {
+
+    const response = { name: 'John', surname: 'sldjflks' };
+
+    return (response.name) ?
+      Promise.resolve({ event: 'exit', body: response }) :
       Promise.reject({ error: { message: 'name not exist!' } });
 
   });
