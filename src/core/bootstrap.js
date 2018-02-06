@@ -24,7 +24,6 @@ const APP = {
    *   run all events from API module
    */
   run() {
-
     APP.initLogs();
     APP.initModules();
     APP.catchErrors();
@@ -33,7 +32,6 @@ const APP = {
       .catch((warning) => this.show.warn(warning));
     this.ACTIONS.send('websockets')
       .catch((warning) => this.show.warn(warning));
-
   },
 
   /**
@@ -41,13 +39,9 @@ const APP = {
    * transfer actions and routes to main thread
    */
   initModules() {
-
     MODULES.concat(PLUGINS).map((module) => {
-
       module(APP);
-
     });
-
   },
 
   /**
@@ -55,14 +49,10 @@ const APP = {
    * every "clear_logs_time"
    */
   initLogs() {
-
     setInterval(() => {
-
       this.show.clear();
       // this.show.init();
-
     }, CONFIG.clear_logs_time);
-
   },
 
   /**
@@ -72,13 +62,9 @@ const APP = {
    * For example: APP.use({ startMemory: '20%' });
    */
   use(props = {}) {
-
     for (let key in props) {
-
       this[key] = props[key];
-
     }
-
   },
 
   /**
@@ -86,18 +72,14 @@ const APP = {
    * log every event and send sms notification
    */
   catchErrors() {
-
     process.on('uncaughtException', (err = {}) => {
-
       const message = `${process.pid} is die! | Memory: ${this.startMemory}%`;
 
       this.show.error(message, err.stack);
-      this.ACTIONS.send(`${CONFIG.sms_service}.send`, { body: message });
+      this.ACTIONS.send(`${CONFIG.sms_service}.send`, { message });
 
       setTimeout(() => process.exit(1), 1000);
-
     });
-
   },
 
 };

@@ -26,9 +26,7 @@ const Router = {
    * @return  {Object} - type of queried data
    */
   get: (type = 'routes') => {
-
     return Router[type];
-
   },
 
   /**
@@ -38,11 +36,9 @@ const Router = {
    * @return  {this} - for chaining
    */
   set: (type = 'routes', value = {}) => {
-
     Object.assign(Router.get(type), value);
 
     return Router;
-
   },
 
 };

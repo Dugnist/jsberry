@@ -7,7 +7,6 @@
 const Model = require('./model');
 
 module.exports = class Collection {
-
   /**
    * Create instance from list of models or other entity's.
    * @param {array} source - Custom source that will add the first child.
@@ -15,10 +14,8 @@ module.exports = class Collection {
    *    const collection = new Collection({ key: value })
    */
   constructor(source = []) {
-
     this.list = new Set();
     this.set(source);
-
   }
 
   /**
@@ -26,11 +23,9 @@ module.exports = class Collection {
    * @return {instance} this - For chaining methods.
    */
   clear() {
-
     this.list.clear();
 
     return this;
-
   }
 
   /**
@@ -38,13 +33,9 @@ module.exports = class Collection {
    * @return {array} result - List of source values.
    */
   get() {
-
     return Array.from(this.list).map((item) => {
-
       return (item instanceof Model) ? item.get() : item;
-
     });
-
   }
 
   /**
@@ -56,19 +47,15 @@ module.exports = class Collection {
    *    collection.set([ value1, value2 ])
    */
   set(source = []) {
-
     this.checkForType(source, 'Array');
     this.clear();
 
     source.map((item) => {
-
       this.add(item);
       return true;
-
     });
 
     return this;
-
   }
 
   /**
@@ -80,19 +67,15 @@ module.exports = class Collection {
    *    collection.add(value)
    */
   add(item = {}) {
-
     const check = Object.prototype.toString.call(item);
 
     if (!(item instanceof Model) && check === '[object Object]') {
-
       item = new Model(item);
-
     }
 
     this.list.add(item);
 
     return this;
-
   }
 
   /**
@@ -101,11 +84,9 @@ module.exports = class Collection {
    * @return {instance} this - For chaining methods.
    */
   delete(value = {}) {
-
     this.list.delete(value);
 
     return this;
-
   }
 
   /**
@@ -114,12 +95,10 @@ module.exports = class Collection {
    * @return {instance} this - For chaining methods.
    */
   concat(source = []) {
-
     this.checkForType(source, 'Array');
     this.list = new Set([...this.list, ...source]);
 
     return this;
-
   }
 
   /**
@@ -129,27 +108,21 @@ module.exports = class Collection {
    * @return {any} result - Finded source value.
    */
   where(key = '', value = '') {
-
     const data = key;
 
     if (Object.prototype.toString.call(key) === '[object Object]') {
-
       key = Object.keys(key)[0];
       value = data[key];
-
     }
 
     let result = this.filter((node) => {
-
       return (key === node) ? true :
         (node.get) ? node.get(key) === value : false;
-
     });
 
     if (result.length === 0) result = false;
 
     return result;
-
   }
 
   /**
@@ -159,21 +132,17 @@ module.exports = class Collection {
    * @return {array} result - Finded source value/s.
    */
   filter(handler = () => {}) {
-
     this.checkForType(handler, 'Function');
 
     const result = [];
 
     this.list.forEach((value) => {
-
       if (handler(value) === true) result.push(value);
-
     });
 
     if (result.length === 1) return result[0];
 
     return result;
-
   }
 
   /**
@@ -183,19 +152,15 @@ module.exports = class Collection {
    * @return {array} result - Array of source value/s.
    */
   map(handler = () => {}) {
-
     this.checkForType(handler, 'Function');
 
     const result = [];
 
     this.list.forEach((value, i) => {
-
       result.push(handler(value, i));
-
     });
 
     return result;
-
   }
 
   /**
@@ -204,9 +169,7 @@ module.exports = class Collection {
    * @return {any} value - Searched item or undefined.
    */
   has(key = {}) {
-
     return this.list.has(key);
-
   }
 
   /**
@@ -214,9 +177,7 @@ module.exports = class Collection {
    * @return {integer} length
    */
   get length() {
-
     return this.list.size;
-
   }
 
   /**
@@ -224,9 +185,7 @@ module.exports = class Collection {
    * @return {string} value
    */
   toJSON() {
-
     return JSON.stringify(this.get());
-
   }
 
   /**
@@ -236,13 +195,10 @@ module.exports = class Collection {
    * @return {boolean}.
    */
   checkForType(source = {}, type = 'Object') {
-
     const check = Object.prototype.toString.call(source);
 
     if (!(check === `[object ${type}]`)) throw Error(`Must use an ${type}!`);
 
     return true;
-
   }
-
 };

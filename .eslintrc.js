@@ -9,7 +9,6 @@ module.exports = {
   },
   "extends": "google",
   "rules": {
-    'padded-blocks': [2, 'always'],
     'no-trailing-spaces': 0,
     'no-unused-vars': 0,
     'object-curly-spacing': 0,

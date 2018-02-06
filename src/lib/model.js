@@ -5,7 +5,6 @@
  */
 
 module.exports = class Model {
-
   /**
    * Create instance from list of models or other entity's.
    * @param {object} source - Custom object that set the default attributes.
@@ -13,11 +12,9 @@ module.exports = class Model {
    *    const entity = new Model({ key: value })
    */
   constructor(source = {}) {
-
     this.checkForType(source, 'Object');
     this.attributes = {};
     this.add(source);
-
   }
 
   /**
@@ -25,15 +22,11 @@ module.exports = class Model {
    * @return {instance} this - For chaining methods.
    */
   clear() {
-
     for (let key in this.attributes) {
-
       delete this.attributes[key];
-
     }
 
     return this;
-
   }
 
   /**
@@ -46,23 +39,19 @@ module.exports = class Model {
    *    Model.get('key1', 'key2')
    */
   get(...args) {
-
     const result = {};
 
     if (args.length === 0) return this.attributes;
     if (args.length === 1) return this.attributes[args[0]];
 
     for (let i = 0; i < args.length; i += 1) {
-
       const key = args[i];
       const val = this.attributes[key];
 
       if (val) result[key] = val;
-
     }
 
     return result;
-
   }
 
   /**
@@ -71,13 +60,11 @@ module.exports = class Model {
    * @return {instance} this - For chaining methods.
    */
   set(source = {}) {
-
     this.checkForType(source, 'Object');
     this.clear();
     this.add(source);
 
     return this;
-
   }
 
   /**
@@ -88,17 +75,13 @@ module.exports = class Model {
    *    Model.add({ key: value })
    */
   add(source = {}) {
-
     this.checkForType(source, 'Object');
 
     for (let key in source) {
-
       this.attributes[key] = source[key];
-
     }
 
     return this;
-
   }
 
   /**
@@ -109,11 +92,9 @@ module.exports = class Model {
    *    Model.delete('key')
    */
   delete(key = '') {
-
     delete this.attributes[key];
 
     return this;
-
   }
 
   /**
@@ -123,20 +104,16 @@ module.exports = class Model {
    * @return {array} result - Array of source value/s.
    */
   map(handler = () => {}) {
-
     this.checkForType(handler, 'Function');
 
     const result = [];
 
     for (let i = 0; i < this.keys.length; i += 1) {
-
       const key = this.keys[i];
       result.push(handler(this.attributes[key], key));
-
     }
 
     return result;
-
   }
 
   /**
@@ -145,11 +122,9 @@ module.exports = class Model {
    * @return {any} value - Searched item value or undefined.
    */
   has(key = '') {
-
     return typeof this.attributes[key] !== 'undefined'
     ? this.attributes[key]
     : undefined;
-
   }
 
   /**
@@ -157,9 +132,7 @@ module.exports = class Model {
    * @return {array} keys
    */
   get keys() {
-
     return Object.keys(this.attributes);
-
   }
 
   /**
@@ -167,9 +140,7 @@ module.exports = class Model {
    * @return {integer} length
    */
   get length() {
-
     return this.keys.length;
-
   }
 
   /**
@@ -177,9 +148,7 @@ module.exports = class Model {
    * @return {string} value
    */
   toJSON() {
-
     return JSON.stringify(this.attributes);
-
   }
 
   /**
@@ -189,13 +158,10 @@ module.exports = class Model {
    * @return {boolean}.
    */
   checkForType(source = {}, type = 'Object') {
-
     const check = Object.prototype.toString.call(source);
 
     if (!(check === `[object ${type}]`)) throw Error(`Must use an ${type}!`);
 
     return true;
-
   }
-
 };

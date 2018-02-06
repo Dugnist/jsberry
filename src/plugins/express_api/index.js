@@ -17,10 +17,10 @@ const server = http.createServer(app);
 const corsOptions = {};
 
 module.exports = ({ ACTIONS, ROUTER }) => {
-
   /**
-   * Access headers
-   *
+   ******************
+   * Access headers *
+   ******************
    * @param {Object} moduleConfig - config for express application
    * @param {Object} origin - access to server from external resources
    * @param {Object} headers - http headers ex: [content-type, auth]
@@ -28,7 +28,6 @@ module.exports = ({ ACTIONS, ROUTER }) => {
    */
 
   ACTIONS.on('api.access.headers', () => {
-
     // ToDo: Nginx configuration for access headers!
 
     const { origin, headers, methods} = moduleConfig;
@@ -36,15 +35,15 @@ module.exports = ({ ACTIONS, ROUTER }) => {
     corsOptions.origin = origin;
     corsOptions.allowedHeaders = headers;
     corsOptions.methods = methods;
-
   });
 
   /**
-   * Configure middleware plugins
+   ********************************
+   * Configure additional plugins *
+   ********************************
    */
-
   ACTIONS.on('api.configure', () => {
-
+    // get local server directory path
     const serverPath = path.dirname(require.main.filename);
 
     // ToDo: Nginx configuration for limit connections!
@@ -55,82 +54,64 @@ module.exports = ({ ACTIONS, ROUTER }) => {
     app.use(express.static(path.join(serverPath, '../public')));
     // set static path
     app.get('/', (req, res) => {
-
       res.sendFile(path.join(serverPath, '../public'));
-
     });
-
   });
 
   /**
-   * Configure middleware plugins
+   *************************
+   * Configure middlewares *
+   *************************
    */
   ACTIONS.on('api.middlewares', () => {
-
     const allMiddlewares = ROUTER.get('middlewares');
 
     for (let _mw in allMiddlewares) {
-
       app.use(allMiddlewares[_mw]);
-
     }
-
   });
 
   /**
-   * Connect api routing to modules
+   **********************************
+   * Connect api routing to modules *
+   **********************************
    */
-
   ACTIONS.on('api.routes', () => {
-
     const allRoutes = ROUTER.get('routes');
 
     for (let _route in allRoutes) {
-
       const route = allRoutes[_route];
 
       app[route.method](`/${route.path}`, (req, res, next) => {
-
-        const { headers, query, body } = req;
-        const props = { headers, query, body };
+        const { headers, query, body, params } = req;
+        const props = { headers, query, body, params };
 
         ACTIONS.send(_route.replace('_', '.'), props)
           .then((data) => res.send(data))
           .catch((error) => next(error));
-
       });
-
     }
-
   });
 
   /**
-   * Create server and listen port
+   *********************************
+   * Create server and listen port *
+   *********************************
    */
-
   ACTIONS.on('api.create.server', () => {
-
     const name = CONFIG.name || 'Example';
     const port = moduleConfig.port || 8080;
 
-    server.listen(port, () => {
-
-      console.log(`${name} ----- API running at :${port} port`);
-
-    });
+    server.listen(port, () =>
+      console.log(`${name} ----- API running at :${port} port`));
 
     return Promise.resolve();
-
   });
 
   /**
-   * Stop and clear hardly accessible events, ex: listen port
+   ************************************************************
+   * Stop and clear hardly accessible events, ex: listen port *
+   ************************************************************
    */
-
-  ACTIONS.on('clear.api', () => {
-
-    server.close();
-
-  });
-
+  ACTIONS.on('clear.api', () => server.close());
 };

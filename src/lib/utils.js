@@ -7,13 +7,11 @@ const R = require('ramda');
  * @return {object} - converted object
  */
 const _convertkeysToDots = (reference = {}) => {
-
   const result = {};
 
   R.keys(reference).map((key) => result[key] = key.replace('_', '.'));
 
   return result;
-
 };
 
 /**
@@ -23,15 +21,10 @@ const _convertkeysToDots = (reference = {}) => {
  * @param  {function} reject - promise reject method
  * @return {function} - carried function
  */
-const _callbackToPromise = (resolve = () => {}, reject = () => {}) => {
-
-  return (error, success) => {
-
+const _callbackToPromise = (resolve = () => {}, reject = () => {}) =>
+  (error, success) => {
     return (!error) ? resolve({ success }) : reject({ error });
-
   };
-
-};
 
 module.exports = {
 
