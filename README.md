@@ -2,9 +2,9 @@
 
 [![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/Dugnist/jsberry/pulls)
 [![GitHub last commit](https://img.shields.io/github/last-commit/Dugnist/jsberry.svg)](https://github.com/Dugnist/jsberry/commits/master)
-[![HitCount](http://hits.dwyl.io/JSBerry/https://github.com/Dugnist/jsberry.svg)](http://hits.dwyl.io/JSBerry/https://github.com/Dugnist/jsberry)
+[![HitCount](http://hits.dwyl.io/JSBerry/https://github.com/Dugnist/jsberry.svg)](https://github.com/Dugnist/jsberry)
 [![GitHub issues](https://img.shields.io/github/issues/Dugnist/jsberry.svg)](https://github.com/Dugnist/jsberry/issues)
-[![Github All Releases](https://img.shields.io/github/downloads/Dugnist/jsberry/total.svg)](https://github.com/Dugnist/jsberry/archive/master.zip)
+[![Github All Releases](https://img.shields.io/github/downloads/Dugnist/jsberry/total.svg)](https://github.com/Dugnist/jsberry/releases)
 [![GitHub pull requests](https://img.shields.io/github/issues-pr/Dugnist/jsberry.svg)](https://github.com/Dugnist/jsberry/pulls)
 [![license](https://img.shields.io/github/license/Dugnist/jsberry.svg)](https://github.com/Dugnist/jsberry/blob/master/LICENSE)
 
