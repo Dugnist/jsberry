@@ -2,7 +2,7 @@
 
 [![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/Dugnist/jsberry/pulls)
 [![HitCount](http://hits.dwyl.io/JSBerry/https://github.com/Dugnist/jsberry.svg)](http://hits.dwyl.io/JSBerry/https://github.com/Dugnist/jsberry)
-[![](https://img.shields.io/github/issues-raw/Dugnist/jsberry.svg)]( [![Issue Stats](https://img.shields.io/issuestats/i/github/Dugnist/jsberry.svg)]()
+[![Issue Stats](https://img.shields.io/issuestats/i/github/Dugnist/jsberry.svg)]()
 [![Github All Releases](https://img.shields.io/github/downloads/Dugnist/jsberry/total.svg)](https://github.com/Dugnist/jsberry/archive/master.zip)
 [![Dependency Status](https://img.shields.io/bithound/dependencies/github/rexxars/sse-channel.svg)](https://github.com/Dugnist/jsberry/blob/master/package.json)
 [![license](https://img.shields.io/github/license/Dugnist/jsberry.svg)](https://github.com/Dugnist/jsberry/blob/master/LICENSE)
