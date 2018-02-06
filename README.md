@@ -1,6 +1,6 @@
 <!-- ![JsBerry logo](public/jsberry.png) -->
 
-# <div style="margin: 0 auto"><a href='https://github.com/Dugnist/jsberry'><img src='public/jsberry.png' height='80' alt='JSBerry Logo' aria-label='JSBerry' /></a><br/> JSBerry</div>
+# <p style="text-align: center;"><a href='https://github.com/Dugnist/jsberry'><img src='public/jsberry.png' height='80' alt='JSBerry Logo' aria-label='JSBerry' /></a><br/> JSBerry</p>
 
 Open-source modular simple architecture for Node.js.
 
