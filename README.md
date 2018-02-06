@@ -61,4 +61,4 @@ where "uuid" - debug session id from console.
 
 ## Copyright and license
 
-Code and documentation copyright 2017-2018 JsBerry. Code released under [the MIT license](LICENSE).
+Code and documentation copyright 2017-2018 JSBerry. Code released under [the MIT license](LICENSE).
