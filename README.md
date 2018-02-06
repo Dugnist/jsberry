@@ -1,6 +1,8 @@
-<!-- ![JsBerry logo](public/jsberry.png) -->
+# <p align="center"><a href='https://github.com/Dugnist/jsberry'><img src='public/jsberry.png' height='90' alt='JSBerry Logo' aria-label='JSBerry' /></a><br/> JSBerry </p>
 
-# <p align="center"><a href='https://github.com/Dugnist/jsberry'><img src='public/jsberry.png' height='90' alt='JSBerry Logo' aria-label='JSBerry' /></a><br/> JSBerry</p>
+[![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/Dugnist/jsberry/issues)
+[![HitCount](http://hits.dwyl.io/JSBerry/https://github.com/Dugnist/jsberry.svg)](http://hits.dwyl.io/JSBerry/https://github.com/Dugnist/jsberry)
+[![Dependency Status](https://img.shields.io/bithound/dependencies/github/rexxars/sse-channel.svg)]()
 
 Open-source modular simple architecture for Node.js.
 
