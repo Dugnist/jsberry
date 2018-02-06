@@ -1,6 +1,6 @@
 ![JsBerry logo](public/jsberry.png)
 
-# JsBerry
+# JSBerry
 Open-source modular simple architecture for Node.js.
 
 ## Quick start
