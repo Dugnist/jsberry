@@ -1,4 +1,5 @@
 const { routes, events } = require('./config.json');
+const authMiddleware = require('./auth.middleware');
 
 module.exports = ({ ACTIONS, ROUTER, utils }) => {
   /**
@@ -25,10 +26,14 @@ module.exports = ({ ACTIONS, ROUTER, utils }) => {
    ******************************************
    */
 
-  const firstMidleware = (req, res) => {};
-  const secondMidleware = (req, res) => {};
+  const testMiddleware = (req, res) => {
+    next();
+  };
 
-  ROUTER.set('middlewares', { firstMidleware, secondMidleware });
+  ROUTER.set('middlewares', { testMiddleware });
+  ROUTER.set('middlewares', { authMiddleware: authMiddleware(ACTIONS) }, 1);
+
+  console.log(ROUTER.get('middlewares'));
 
   /**
    ************************************
@@ -48,6 +53,16 @@ module.exports = ({ ACTIONS, ROUTER, utils }) => {
       Promise.reject({ error: { message: 'name not exist!' } });
   });
 
+  /**
+   ******************************
+   * SUBSCRIBE TO USERS MESSAGE *
+   ******************************
+   *
+   * @param  {object} headers - http headers
+   * @param  {object} query - parameters from the url
+   * @param  {object} body - parameters from json body
+   * @return {promise} - success response or error
+   */
   ACTIONS.on(users_message, ({ data }) => {
     const response = { name: 'John', surname: 'Dou' };
 

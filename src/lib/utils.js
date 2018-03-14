@@ -27,8 +27,6 @@ const _callbackToPromise = (resolve = () => {}, reject = () => {}) =>
   };
 
 module.exports = {
-
   convertkeysToDots: _convertkeysToDots,
   callbackToPromise: _callbackToPromise,
-
 };

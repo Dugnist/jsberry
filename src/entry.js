@@ -23,7 +23,6 @@ const utils = require('./lib/utils.js');
  * Configure application *
  *************************
  */
-
 APP.use({
   utils,
   ROUTER,
@@ -37,7 +36,6 @@ APP.use({
  * chrome-devtools://devtools/bundled/inspector.html?experiments=true&v8only=true&ws=${uuid}
  * where "uuid" - debug session id from console
  */
-
 global.CONFIG = CONFIG;
 global.APP = APP;
 // global.Model = Model;
@@ -51,15 +49,11 @@ global.APP = APP;
  */
 
 const start = (APP = {}) => {
-
   return (memory = 0) => {
-
     APP.use({ startMemory: memory });
     APP.run();
     APP.show.log(`Run app | Employed memory: ${memory}%`);
-
   };
-
 };
 
 (CONFIG.mode === 'dev') ? start(APP)() : processBalancer(start(APP));

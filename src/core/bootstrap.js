@@ -39,7 +39,7 @@ const APP = {
    * transfer actions and routes to main thread
    */
   initModules() {
-    MODULES.concat(PLUGINS).map((module) => {
+    MODULES.concat(PLUGINS).forEach((module) => {
       module(APP);
     });
   },
