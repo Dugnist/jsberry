@@ -9,6 +9,7 @@
 [![license](https://img.shields.io/github/license/Dugnist/jsberry.svg)](https://github.com/Dugnist/jsberry/blob/master/LICENSE)
 
 JSBerry is open source modular simple architecture for building Node.js applications.
+
 <a href="https://dugnist.gitbooks.io/jsberry">Documentation</a>
 
 ## Quick start
