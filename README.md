@@ -52,6 +52,10 @@ chrome-devtools://devtools/bundled/inspector.html?experiments=true&v8only=true&w
 
 where "uuid" - debug session id from console.
 
+OR:
+
+Install extension <a href='https://chrome.google.com/webstore/detail/nodejs-v8-inspector/lfnddfpljnhbneopljflpombpnkfhggl'>nodejs-v8-inspector</a> and launch it on 9229 port.
+
 ## Author
 
 **Dugnist Alexey**

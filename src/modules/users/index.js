@@ -26,7 +26,9 @@ module.exports = ({ ACTIONS, ROUTER, utils }) => {
    ******************************************
    */
 
-  const testMiddleware = (req, res) => {
+  const testMiddleware = (req, res, next) => {
+    const nowdate = Date.now(); // debugger will show you fresh date value
+    debugger;
     next();
   };
 
@@ -46,7 +48,7 @@ module.exports = ({ ACTIONS, ROUTER, utils }) => {
    * @return {promise} - success response or error
    */
   ACTIONS.on(users_auth, ({ headers, query, body }) => {
-    const response = { name: 'John', surname: 'Dou' };
+    const response = { name: 'John', surname: 'Doussss' };
 
     return (response.name) ?
       Promise.resolve(response) :

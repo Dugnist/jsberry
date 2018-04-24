@@ -6,7 +6,7 @@
   "scripts": {
     "start": "cross-env NODE_ENV=development node ./src/entry.js",
     "prod": "cross-env NODE_ENV=production node ./src/entry.js",
-    "inspect": "cross-env NODE_ENV=development node --inspect=9229 ./src/entry.js",
+    "inspect": "cross-env NODE_ENV=development node --inspect-brk=9229 ./src/entry.js",
     "check": "nsp check",
     "protect": "snyk test",
     "express": "npm i express && npm i body-parser && npm i helmet && npm i cors",
