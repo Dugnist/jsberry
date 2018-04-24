@@ -1,3 +1,3 @@
-module.exports = (ACTIONS) => (req, res) => {
+module.exports = (ACTIONS) => (req, res, next) => {
   next();
 };
