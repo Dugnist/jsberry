@@ -60,7 +60,7 @@ Install extension <a href='https://chrome.google.com/webstore/detail/nodejs-v8-i
 
 ## What's new?
 
-You can check our <a href="https://github.com/Dugnist/ROADMAP.md">ROADMAP</a> and propose new features.
+You can check our <a href="https://github.com/Dugnist/jsberry/blob/master/ROADMAP.md">ROADMAP</a> and propose new features.
 
 ## Community support
 
