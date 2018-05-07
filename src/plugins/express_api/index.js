@@ -5,6 +5,7 @@ const cors = require('cors');
 const helmet = require('helmet');
 const express = require('express');
 const bodyParser = require('body-parser');
+const compression = require('compression');
 
 // connect module configurations
 const moduleConfig = require('./config.json');
@@ -49,6 +50,7 @@ module.exports = ({ ACTIONS, ROUTER }) => {
     // ToDo: Nginx configuration for limit connections!
     app.use(helmet());
     app.use(cors(corsOptions));
+    app.use(compression());
     app.use(bodyParser.json({ limit: '10mb' }));
     app.use(bodyParser.urlencoded({ limit: '10mb', extended: true }));
     app.use(express.static(path.join(serverPath, '../public')));

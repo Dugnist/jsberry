@@ -14,7 +14,7 @@ const Mediator = require('./core/mediator');
 const processBalancer = require('./core/balancer');
 const utils = require('./lib/utils.js');
 
-// helper libs
+// helper libs TODO: connect with DB
 // const Model = require('./lib/model.js');
 // const Collection = require('./lib/collection.js');
 

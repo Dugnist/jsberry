@@ -1,5 +1,5 @@
 const { routes, events } = require('./config.json');
-const authMiddleware = require('./auth.middleware');
+const authMiddleware = require('./middlewares/auth.middleware');
 
 module.exports = ({ ACTIONS, ROUTER, utils }) => {
   /**
@@ -35,8 +35,6 @@ module.exports = ({ ACTIONS, ROUTER, utils }) => {
   ROUTER.set('middlewares', { testMiddleware });
   ROUTER.set('middlewares', { authMiddleware: authMiddleware(ACTIONS) }, 1);
 
-  console.log(ROUTER.get('middlewares'));
-
   /**
    ************************************
    * SUBSCRIBE TO USERS AUTHORIZATION *
@@ -45,6 +43,7 @@ module.exports = ({ ACTIONS, ROUTER, utils }) => {
    * @param  {object} headers - http headers
    * @param  {object} query - parameters from the url
    * @param  {object} body - parameters from json body
+   * @param  {object} params - parameters from the url split /
    * @return {promise} - success response or error
    */
   ACTIONS.on(users_auth, ({ headers, query, body }) => {
@@ -63,6 +62,7 @@ module.exports = ({ ACTIONS, ROUTER, utils }) => {
    * @param  {object} headers - http headers
    * @param  {object} query - parameters from the url
    * @param  {object} body - parameters from json body
+   * @param  {object} params - parameters from the url split /
    * @return {promise} - success response or error
    */
   ACTIONS.on(users_message, ({ data }) => {

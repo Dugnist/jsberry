@@ -9,8 +9,8 @@
     "inspect": "cross-env NODE_ENV=development node --inspect-brk=9229 ./src/entry.js",
     "check": "nsp check",
     "protect": "snyk test",
-    "express": "npm i express && npm i body-parser && npm i helmet && npm i cors",
-    "koa": "npm i koa && npm i koa-bodyparser && npm i koa-convert && npm i koa-cors && npm i koa-helmet && npm i koa-methodoverride && npm i koa-router && npm i koa-static"
+    "express": "npm i express && npm i body-parser && npm i helmet && npm i cors && npm i compression",
+    "koa": "npm i koa && npm i koa-bodyparser && npm i koa-convert && npm i koa-cors && npm i koa-helmet && npm i koa-methodoverride && npm i koa-router && npm i koa-static && npm i koa-compress"
   },
   "repository": {
     "type": "git",

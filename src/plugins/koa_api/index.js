@@ -6,6 +6,7 @@ const serve = require('koa-static');
 const helmet = require('koa-helmet');
 const router = require('koa-router')();
 const convert = require('koa-convert');
+const compress = require('koa-compress');
 const bodyParser = require('koa-bodyparser');
 const methodOverride = require('koa-methodoverride');
 
@@ -19,7 +20,6 @@ const app = new Koa();
 const corsOptions = {};
 
 module.exports = ({ ACTIONS, ROUTER }) => {
-
   /**
    * Access headers
    *
@@ -30,7 +30,6 @@ module.exports = ({ ACTIONS, ROUTER }) => {
    */
 
   ACTIONS.on('api.access.headers', (options) => {
-
     // ToDo: Nginx configuration for access headers!
 
     const { origin, headers, methods} = moduleConfig;
@@ -38,7 +37,6 @@ module.exports = ({ ACTIONS, ROUTER }) => {
     corsOptions.origin = origin;
     corsOptions.headers = headers;
     corsOptions.methods = methods;
-
   });
 
   /**
@@ -46,28 +44,23 @@ module.exports = ({ ACTIONS, ROUTER }) => {
    */
 
   ACTIONS.on('api.configure', () => {
-
     const serverPath = path.dirname(require.main.filename);
 
     // ToDo: Nginx configuration for limit connections!
     app.use(convert(cors(corsOptions)));
     app.use(helmet());
+    app.use(compress());
     app.use(bodyParser({ jsonLimit: '10mb', formLimit: '10mb' }));
     app.use(serve(path.join(serverPath, '../public')));
     app.use(methodOverride((req, _res) => {
-
     if (req.body && (typeof req.body === 'object') && ('_method' in req.body)) {
-
       const method = req.body._method;
       delete req.body._method;
       return method;
-
     }
-
     }));
 
     app.use(router.routes()).use(router.allowedMethods());
-
   });
 
   /**
@@ -75,24 +68,18 @@ module.exports = ({ ACTIONS, ROUTER }) => {
    */
 
   ACTIONS.on('api.routes', () => {
-
     for (let _route in ROUTER.routes) {
-
       const route = ROUTER.routes[_route];
 
       router[route.method](`/${route.path}`, (ctx, _next) => {
-
         const { headers, query, body } = ctx.request;
         const props = { headers, query, body };
 
         ACTIONS.send(_route.replace('_', '.'), props)
           .then((data) => ctx.body = data)
           .catch((error) => _next(error));
-
       });
-
     }
-
   });
 
   /**
@@ -100,18 +87,14 @@ module.exports = ({ ACTIONS, ROUTER }) => {
    */
 
   ACTIONS.on('api.create.server', () => {
-
     const name = CONFIG.name || 'Example';
     const port = moduleConfig.port || 8080;
 
     app.listen(port, () => {
-
       console.log(`${name} ----- API running at :${port} port`);
-
     });
 
     return Promise.resolve();
-
   });
 
   /**
@@ -119,9 +102,6 @@ module.exports = ({ ACTIONS, ROUTER }) => {
    */
 
   ACTIONS.on('clear.api', () => {
-
     // ToDo app.close();
-
   });
-
 };
