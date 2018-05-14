@@ -10,7 +10,6 @@
     "check": "nsp check",
     "protect": "snyk test",
     "express": "npm i express && npm i body-parser && npm i helmet && npm i cors && npm i compression",
-    "koa": "npm i koa && npm i koa-bodyparser && npm i koa-convert && npm i koa-cors && npm i koa-helmet && npm i koa-methodoverride && npm i koa-router && npm i koa-static && npm i koa-compress"
   },
   "repository": {
     "type": "git",
@@ -38,7 +37,7 @@
     "snyk": "^1.38.1",
     "socket.io": "^2.0.3",
     "twilio": "^3.11.1",
-    "uuid": "^3.1.0"
+    "uuid": "^3.2.1"
   },
   "snyk": true
 }
