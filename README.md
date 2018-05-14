@@ -73,6 +73,7 @@ For general help using JSBerry, please refer to the official <a href="https://du
 
 **Dugnist Alexey**
 
+- <https://www.linkedin.com/in/Dugnist>
 - <http://github.com/Dugnist>
 - <https://www.facebook.com/Dugnist>
 
