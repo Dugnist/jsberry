@@ -13,6 +13,7 @@ JSBerry is open source modular simple architecture for building Node.js applicat
 JSBerry is not a framework. It's a solution for creating applications using any frameworks, modules and plugins.
 
 <a href="https://dugnist.gitbooks.io/jsberry">Documentation</a>
+<a href="https://github.com/Dugnist/jsberry/blob/master/STORE.md">Modules and plugins store</a>
 
 ## Quick start
 
@@ -22,27 +23,30 @@ cd project
 npm i
 ```
 
-Run this scripts to install your framework {express||koa} modules:
+Run this script to install default (express) framework dependencies:
 ```bash
-npm run express||koa
+npm run express
 ```
 
-Also edit `config/default.json`
-set key `"framework"` to your framework {express||koa} name:
+and finally - start your application:
 
 ```bash
 npm start
 ```
 
-## Scripts
+Also you can check `config/default.json`
+to set key `"framework"` to your framework name (default "express").
+
+## List Of Scripts
 
 - `npm start` - run application with development mode
 - `npm run prod` - run application with production mode
-- `npm run inspect` - run application with node debugger
+- `npm run inspect` - run application with node debugger (dev mode)
 - `npm run check` - run npm modules vulnerabilities checker (`npm i nsp -g`)
 - `npm run protect`- run npm modules vulnerabilities checker (`npm i snyk -g`)
-- `npm run express`- install dependencies for express module
-- `npm run koa`- install dependencies for koa module
+- `npm run express`- install all dependencies for default express module
+
+if you wanna install another framework instead of "express" - you can check <a href="https://github.com/Dugnist/jsberry/blob/master/STORE.md">Modules and plugins store</a>.
 
 ## Debugger
 

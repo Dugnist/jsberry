@@ -31,4 +31,4 @@ This document could be influenced by the community feedback, security issues, st
 * Add "sendmail" plugin, connect to errors.
 * Add "sequelize" plugin.
 * Add "restify" REST plugin.
-* Add "nginx" config.
+* Add "nginx" and "docker" config.
