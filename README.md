@@ -26,7 +26,7 @@ npm i
 
 If you wanna use express as default framework - you need to run this script to install "express" dependencies:
 ```bash
-npm run express
+npm run install-express
 ```
 
 And finally - start your application:
