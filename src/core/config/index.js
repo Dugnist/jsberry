@@ -17,7 +17,7 @@ module.exports = (mode = process.env.NODE_ENV) => Object.assign(
   {
     name: 'JSBerry',
     logs: 'logs',
-    sms_service: 'twillio',
+    notification_service: 'sendmail',
     framework: 'express',
     dir: {
       modules: 'modules',

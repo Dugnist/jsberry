@@ -10,13 +10,9 @@ const CONFIG = require('./core/config')();
 const Logger = require('./core/logger');
 const ROUTER = require('./core/router');
 const APP = require('./core/bootstrap');
+const utils = require('./core/utils.js');
 const Mediator = require('./core/mediator');
 const processBalancer = require('./core/balancer');
-const utils = require('./lib/utils.js');
-
-// helper libs TODO: connect with DB
-// const Model = require('./lib/model.js');
-// const Collection = require('./lib/collection.js');
 
 /**
  *************************
@@ -39,8 +35,6 @@ APP.use({
  */
 global.CONFIG = CONFIG;
 global.APP = APP;
-// global.Model = Model;
-// global.Collection = Collection;
 
 /**
  ****************************************

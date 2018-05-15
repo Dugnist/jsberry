@@ -21,6 +21,7 @@ This document could be influenced by the community feedback, security issues, st
 * ~~v8 debug inspector.~~
 
 `jsberry@alpha.0.2`
+* ~~Add "sendmail" plugin, connect to errors~~.
 * Error handler module.
 * Add "graphql" plugin.
 * Add "websockets" plugin.
@@ -28,7 +29,6 @@ This document could be influenced by the community feedback, security issues, st
 * Validation middleware.
 * Permission middleware.
 * Remove default logger, add "pino" logger plugin.
-* Add "sendmail" plugin, connect to errors.
 * Add "sequelize" plugin.
 * Add "restify" REST plugin.
 * Add "nginx" and "docker" config.

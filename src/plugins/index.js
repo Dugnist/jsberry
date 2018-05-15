@@ -1,8 +1,8 @@
 const Websockets = require(`./websockets/index`);
-const Twillio = require('./twillio/index');
+const Sendmail = require('./sendmail/index');
 
 const PLUGINS = [
-  Twillio, Websockets,
+  Sendmail, Websockets,
 ];
 
 module.exports = (CONFIG) => PLUGINS.concat(

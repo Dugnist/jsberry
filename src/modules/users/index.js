@@ -47,7 +47,7 @@ module.exports = ({ ACTIONS, ROUTER, utils }) => {
    * @return {promise} - success response or error
    */
   ACTIONS.on(users_auth, ({ headers, query, body }) => {
-    const response = { name: 'John', surname: 'Doussss' };
+    const response = { name: 'John', surname: 'Dou' };
 
     return (response.name) ?
       Promise.resolve(response) :

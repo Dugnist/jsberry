@@ -30,8 +30,13 @@ const APP = {
 
     this.ACTIONS.send('api')
       .catch((warning) => this.show.warn(warning));
-    this.ACTIONS.send('websockets')
-      .catch((warning) => this.show.warn(warning));
+
+    /**
+     * Optionally using websockets plugin:
+     *
+     *  this.ACTIONS.send('websockets')
+     *    .catch((warning) => this.show.warn(warning));
+     */
   },
 
   /**
@@ -76,7 +81,7 @@ const APP = {
       const message = `${process.pid} is die! | Memory: ${this.startMemory}%`;
 
       this.show.error(message, err.stack);
-      this.ACTIONS.send(`${CONFIG.sms_service}.send`, { message });
+      this.ACTIONS.send(`${CONFIG.notification_service}.send`, { message });
 
       setTimeout(() => process.exit(1), 1000);
     });

@@ -33,9 +33,9 @@
     "eslint": "^4.4.1",
     "eslint-config-google": "^0.8.1",
     "ramda": "^0.24.1",
+    "sendmail": "^1.4.1",
     "snyk": "^1.38.1",
     "socket.io": "^2.0.3",
-    "twilio": "^3.11.1",
     "uuid": "^3.2.1"
   },
   "snyk": true

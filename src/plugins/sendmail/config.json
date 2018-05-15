@@ -1,0 +1,8 @@
+  {
+    "name": "sendmail",
+    "version": "0.0.1",
+    "credentials": {
+      "emailFrom": "admin@jsberry.com",
+      "emailTo": "alex.dugnist@gmail.com"
+    }
+  }
