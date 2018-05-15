@@ -13,7 +13,7 @@ JSBerry is open source modular simple architecture for building Node.js applicat
 JSBerry is not a framework. It's a solution for creating applications using any frameworks, modules and plugins.
 
 <a href="https://dugnist.gitbooks.io/jsberry">Documentation</a>
-s
+
 <a href="https://github.com/Dugnist/jsberry/blob/master/STORE.md">Modules and plugins store</a>
 
 ## Quick start
