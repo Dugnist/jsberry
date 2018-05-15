@@ -39,7 +39,7 @@ npm start
 If you wanna install another framework instead of "express" - you can check <a href="https://github.com/Dugnist/jsberry/blob/master/STORE.md">Modules and plugins store</a>.
 
 
-Also you can check `config/default.json`
+Also you can check `src/core/config/index.js`
 to set key `"framework"` to your framework name (default "express").
 
 ## List Of Scripts
@@ -49,7 +49,7 @@ to set key `"framework"` to your framework name (default "express").
 - `npm run inspect` - run application with node debugger (dev mode)
 - `npm run check` - run npm modules vulnerabilities checker (`npm i nsp -g`)
 - `npm run protect`- run npm modules vulnerabilities checker (`npm i snyk -g`)
-- `npm run express`- install all dependencies for default express module
+- `npm run install-express`- install all dependencies for default express module
 
 ## Debugger
 
