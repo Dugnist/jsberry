@@ -8,8 +8,8 @@
  * Released under the MIT license
  */
 
+const CONFIG = require('./config')();
 const fs = require('fs');
-const CONFIG = require('config');
 const clc = require('cli-color');
 
 module.exports = class Logger {

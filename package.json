@@ -29,7 +29,6 @@
   "devDependencies": {},
   "dependencies": {
     "cli-color": "^1.2.0",
-    "config": "^1.26.1",
     "cross-env": "^5.0.5",
     "eslint": "^4.4.1",
     "eslint-config-google": "^0.8.1",

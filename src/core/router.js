@@ -7,7 +7,7 @@
  * Author: Dugnist Alexey (@Dugnist)
  * Released under the MIT license
  */
-const UTILS = require('./utils.js');
+const UTILS = require('./utils');
 
 const TYPES = ['routes', 'events', 'schema', 'middlewares'];
 const LAYERS = {

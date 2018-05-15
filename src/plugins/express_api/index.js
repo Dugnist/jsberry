@@ -1,4 +1,3 @@
-const CONFIG = require('config');
 const http = require('http');
 const path = require('path');
 const cors = require('cors');
@@ -17,7 +16,7 @@ const server = http.createServer(app);
 // configure default options
 const corsOptions = {};
 
-module.exports = ({ ACTIONS, ROUTER }) => {
+module.exports = ({ ACTIONS, ROUTER, CONFIG }) => {
   /**
    ******************
    * Access headers *

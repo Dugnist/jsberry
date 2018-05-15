@@ -6,7 +6,7 @@
  * Released under the MIT license
  */
 
-const CONFIG = require('config');
+const CONFIG = require('./core/config')();
 const Logger = require('./core/logger');
 const ROUTER = require('./core/router');
 const APP = require('./core/bootstrap');
@@ -26,6 +26,7 @@ const utils = require('./lib/utils.js');
 APP.use({
   utils,
   ROUTER,
+  CONFIG,
   show: new Logger('system'),
   ACTIONS: new Mediator(),
 });
@@ -56,4 +57,4 @@ const start = (APP = {}) => {
   };
 };
 
-(CONFIG.mode === 'dev') ? start(APP)() : processBalancer(start(APP));
+(CONFIG.mode === 'development') ? start(APP)() : processBalancer(start(APP));

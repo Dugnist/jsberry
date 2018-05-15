@@ -4,6 +4,6 @@
  */
 const USERS = require('./users/index');
 
-module.exports = [
+module.exports = () => [
   USERS,
 ];

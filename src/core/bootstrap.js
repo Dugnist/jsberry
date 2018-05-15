@@ -8,9 +8,9 @@
  * Released under the MIT license
  */
 
-const CONFIG = require('config');
-const MODULES = require(`../${CONFIG.dir.modules}/index`);
-const PLUGINS = require(`../${CONFIG.dir.plugins}/index`);
+const CONFIG = require('./config')();
+const MODULES = require(`../${CONFIG.dir.modules}/index`)(CONFIG);
+const PLUGINS = require(`../${CONFIG.dir.plugins}/index`)(CONFIG);
 
 const APP = {
 
