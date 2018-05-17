@@ -16,6 +16,10 @@ JSBerry is not a framework. It's a solution for creating applications using any 
 
 <a href="https://github.com/Dugnist/jsberry/blob/master/STORE.md">Modules and plugins store</a>
 
+
+<img src='public/howtocorework.png' height='200' alt='How to core work' />
+
+
 ## Quick start
 
 ```bash
