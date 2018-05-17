@@ -28,15 +28,16 @@ const APP = {
     APP.initModules();
     APP.catchErrors();
 
-    this.ACTIONS.send('api')
+    this.ACTIONS.send('graphql')
       .catch((warning) => this.show.warn(warning));
-
     /**
      * Optionally using websockets plugin:
      *
      *  this.ACTIONS.send('websockets')
      *    .catch((warning) => this.show.warn(warning));
      */
+    this.ACTIONS.send('api')
+      .catch((warning) => this.show.warn(warning));
   },
 
   /**

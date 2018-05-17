@@ -1,8 +1,9 @@
-const Websockets = require(`./websockets/index`);
-const Sendmail = require('./sendmail/index');
+const Websockets = require(`./websockets`);
+const GraphQL = require(`./graphql_api`);
+const Sendmail = require('./sendmail');
 
 const PLUGINS = [
-  Sendmail, Websockets,
+  Sendmail, Websockets, GraphQL,
 ];
 
 module.exports = (CONFIG) => PLUGINS.concat(

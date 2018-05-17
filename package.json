@@ -32,6 +32,8 @@
     "cross-env": "^5.0.5",
     "eslint": "^4.4.1",
     "eslint-config-google": "^0.8.1",
+    "express-graphql": "^0.6.12",
+    "graphql": "^0.13.2",
     "ramda": "^0.24.1",
     "sendmail": "^1.4.1",
     "snyk": "^1.38.1",

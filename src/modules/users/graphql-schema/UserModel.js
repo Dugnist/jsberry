@@ -1,4 +1,9 @@
-const users = [];
+const users = [
+  {
+    name: 'Vasya',
+    surname: 'Pupkin',
+  },
+];
 
 module.exports = (ACTIONS) => ({
   add: (data) => new Promise((res, rej) => {

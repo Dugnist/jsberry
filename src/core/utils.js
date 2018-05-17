@@ -42,8 +42,24 @@ const _checkForType = (source = {}, type = 'Object') => {
   return true;
 };
 
+/**
+ * Method for attach essense operations
+ * from graphql markup to router schema
+ * @param  {object} schema - routing schema
+ * @param  {object} operations - model operations
+ * @return {object} - converted object
+ */
+const _attachToSchema = (schema = {}, operations = {}) => {
+  for (let name in schema) {
+    const schemaPart = schema[name];
+    schema[name].operation = operations[schemaPart.model];
+  }
+  return schema;
+};
+
 module.exports = {
   promisify: util.promisify,
   convertkeysToDots: _convertkeysToDots,
   checkForType: _checkForType,
+  attachToSchema: _attachToSchema,
 };

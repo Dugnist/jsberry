@@ -7,5 +7,10 @@
   },
   "events": {
     "users_message": { "options": {} }
+  },
+  "schema": {
+    "user_get": { "type": "query", "model": "user" },
+    "users_get": { "type": "query", "model": "users" },
+    "user_add": { "type": "mutation", "model": "addUser" }
   }
 }

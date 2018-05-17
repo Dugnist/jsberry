@@ -3,8 +3,8 @@ const {
   GraphQLID,
 } = require('graphql');
 
-import UserType from './UserType';
-import userModel from './UserModel';
+const UserType = require('./UserType');
+const userModel = require('./UserModel');
 
 module.exports = (ACTIONS) => ({
   users: {

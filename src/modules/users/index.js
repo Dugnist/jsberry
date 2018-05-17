@@ -1,15 +1,18 @@
-const { routes, events } = require('./config.json');
+const { routes, events, schema } = require('./config.json');
 const authMiddleware = require('./middlewares/auth.middleware');
+const operations = require('./graphql-schema');
 
 module.exports = ({ ACTIONS, ROUTER, utils }) => {
   /**
    *****************************************
    * GET CORRECT ACTIONS NAMES FROM CONFIG *
+   * CONNECT GRAPHQL SCHEMA TO OPERATIONS  *
    *****************************************
    */
 
   const { users_auth } = utils.convertkeysToDots(routes);
   const { users_message } = utils.convertkeysToDots(events);
+  const userSchema = utils.attachToSchema(schema, operations(ACTIONS));
 
   /**
    *************************************
@@ -19,6 +22,7 @@ module.exports = ({ ACTIONS, ROUTER, utils }) => {
 
   ROUTER.set('routes', routes);
   ROUTER.set('events', events);
+  ROUTER.set('schema', userSchema);
 
   /**
    ******************************************

@@ -7,7 +7,7 @@ const bodyParser = require('body-parser');
 const compression = require('compression');
 
 // connect module configurations
-const moduleConfig = require('./config.json');
+const localConfig = require('./config.json');
 
 // create application instance
 const app = express();
@@ -21,7 +21,7 @@ module.exports = ({ ACTIONS, ROUTER, CONFIG }) => {
    ******************
    * Access headers *
    ******************
-   * @param {Object} moduleConfig - config for express application
+   * @param {Object} localConfig - config for express application
    * @param {Object} origin - access to server from external resources
    * @param {Object} headers - http headers ex: [content-type, auth]
    * @param {Object} methods - RESTfull methods ex: [get. post...]
@@ -30,7 +30,7 @@ module.exports = ({ ACTIONS, ROUTER, CONFIG }) => {
   ACTIONS.on('api.access.headers', () => {
     // ToDo: Nginx configuration for access headers!
 
-    const { origin, headers, methods} = moduleConfig;
+    const { origin, headers, methods} = localConfig;
 
     corsOptions.origin = origin;
     corsOptions.allowedHeaders = headers;
@@ -101,7 +101,7 @@ module.exports = ({ ACTIONS, ROUTER, CONFIG }) => {
    */
   ACTIONS.on('api.create.server', () => {
     const name = CONFIG.name || 'Example';
-    const port = moduleConfig.port || 8080;
+    const port = process.env.PORT || localConfig.port || 8080;
 
     server.listen(port, () =>
       console.log(`${name} ----- API running at :${port} port`));
