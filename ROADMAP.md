@@ -22,13 +22,18 @@ This document could be influenced by the community feedback, security issues, st
 
 `jsberry@alpha.0.2`
 * ~~Add "sendmail" plugin, connect to errors~~.
-* Error handler module.
-* Add "graphql" plugin.
+* ~~Add "graphql" plugin~~.
+* Add "restify" REST plugin.
 * Add "websockets" plugin.
+* Remove default logger, add "pino" logger plugin.
+* Error handler module.
 * Authorization middleware.
 * Validation middleware.
 * Permission middleware.
-* Remove default logger, add "pino" logger plugin.
 * Add "sequelize" plugin.
-* Add "restify" REST plugin.
 * Add "nginx" and "docker" config.
+
+`jsberry@alpha.0.3 (Main planned changes in future)`
+* Add Sheduler to core.
+* Add Registry to core.
+* Add Cache plugin (Redis).
