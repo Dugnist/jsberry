@@ -79,11 +79,13 @@ module.exports = ({ ACTIONS, ROUTER, CONFIG }) => {
    */
   ACTIONS.on('api.routes', () => {
     const allRoutes = ROUTER.get('routes');
+    const allMiddlewares = ROUTER.get('middlewares', 'routes');
 
     for (let _route in allRoutes) {
       const route = allRoutes[_route];
+      const mw = allMiddlewares[route.middleware] || ((rq, rs, next) => next());
 
-      app[route.method](`/${route.path}`, (req, res, next) => {
+      app[route.method](`/${route.path}`, mw, (req, res, next) => {
         const { headers, query, body, params } = req;
         const props = { headers, query, body, params };
 

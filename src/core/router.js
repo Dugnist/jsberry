@@ -36,7 +36,9 @@ const Router = {
 
     if (!order && order !== 0) {
       return Object.keys(LAYERS)
-        .map((key) => (LAYERS[key] || {})[type])
+        .map((key) =>
+          (parseInt(key) == key) ? (LAYERS[key] || {})[type] : null)
+        .filter((value) => value)
         .reduce((prev, current) =>
           Object.assign(prev || {}, current || {}));
     } else {
