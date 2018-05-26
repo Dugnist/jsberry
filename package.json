@@ -9,7 +9,15 @@
     "inspect": "cross-env NODE_ENV=development node --inspect-brk=9229 ./src/entry.js",
     "check": "nsp check",
     "protect": "snyk test",
-    "install-express": "npm i express && npm i body-parser && npm i helmet && npm i cors && npm i compression"
+    "precommit": "lint-staged",
+    "install-express": "npm i express body-parser helmet cors compression"
+  },
+  "lint-staged": {
+    "linters": {
+      "src/**/*.js": [
+        "eslint"
+      ]
+    }
   },
   "repository": {
     "type": "git",
@@ -34,6 +42,8 @@
     "eslint-config-google": "^0.8.1",
     "express-graphql": "^0.6.12",
     "graphql": "^0.13.2",
+    "husky": "^0.14.3",
+    "lint-staged": "^7.1.2",
     "ramda": "^0.24.1",
     "sendmail": "^1.4.1",
     "snyk": "^1.38.1",
