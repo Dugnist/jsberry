@@ -12,13 +12,6 @@
     "precommit": "lint-staged",
     "install-express": "npm i express body-parser helmet cors compression"
   },
-  "lint-staged": {
-    "linters": {
-      "./src/**/*.js": [
-        "eslint"
-      ]
-    }
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Dugnist/jsberry.git"
