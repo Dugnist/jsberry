@@ -55,6 +55,33 @@ to set key `"framework"` to your framework name (default "express").
 - `npm run protect`- run npm modules vulnerabilities checker (`npm i snyk -g`)
 - `npm run install-express`- install all dependencies for default express module
 
+## Docker
+
+Check default Dockerfile for the line `RUN npm run install-express` if you use another framework instead "express".
+
+To build simple Docker jsberry image:
+
+```bash
+  sudo docker build -t `$user`/jsberry .
+```
+
+To run build:
+```bash
+  sudo docker run -p 8080:8000 -d `$user`/jsberry
+```
+
+To restart container automatically:
+
+```bash
+  sudo docker run -dit --restart unless-stopped `$user`/jsberry
+```
+
+To remove unused (<none>:<none>) images use:
+
+```bash
+  sudo docker rmi $(sudo docker images -f "dangling=true" -q)
+```
+
 ## Debugger
 
 Run `npm run inspect` and open this url in browser:
@@ -87,7 +114,6 @@ For general help using JSBerry, please refer to the official <a href="https://du
 - <https://www.linkedin.com/in/Dugnist>
 - <http://github.com/Dugnist>
 - <https://www.facebook.com/Dugnist>
-
 
 
 ## Copyright and license

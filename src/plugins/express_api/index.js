@@ -105,7 +105,7 @@ module.exports = ({ ACTIONS, ROUTER, CONFIG }) => {
     const name = CONFIG.name || 'Example';
     const port = process.env.PORT || localConfig.port || 8080;
 
-    server.listen(port, () =>
+    server.listen(port, '0.0.0.0', () =>
       console.log(`${name} ----- API running at :${port} port`));
 
     return Promise.resolve();

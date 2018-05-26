@@ -43,22 +43,19 @@ module.exports = class Mediator {
     * @param {object} payload - Parameters that will need to send to the module.
     * @return {callback} - Result of subscribe.
     */
-  send(action = '', payload = {}) {
-    let result = false;
+    send(action = '', payload = {}) {
+      return Object.keys(channels).map((_action) => {
+        const checkAction = _action.split(action);
+        if (
+          checkAction[0] === '' && checkAction[1].indexOf('.') === 0 ||
+          checkAction[0] === '' && !checkAction[1]
+        ) {
+          const response = channels[_action](payload);
 
-    Object.keys(channels).map((_action) => {
-      //
-      if (_action.split(action)[0] === '') {
-        const response = channels[_action](payload);
-
-        (response && response.then) ? result = response : false;
-      }
-    });
-
-    (!result) ? result = Promise.reject(`not handled action ${action}`) : false;
-
-    return result;
-  }
+          return (response && response instanceof Promise) ? response : false;
+        }
+      }).filter((result) => result)[0];
+    }
 
   /**
     * Get all actions from registry
