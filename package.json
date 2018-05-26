@@ -14,7 +14,7 @@
   },
   "lint-staged": {
     "linters": {
-      "src/**/*.js": [
+      "./src/**/*.js": [
         "eslint"
       ]
     }
