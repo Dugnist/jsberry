@@ -8,8 +8,8 @@
  * Released under the MIT license
  */
 
-const R = require('ramda');
 const util = require('util');
+const fs = require('fs');
 
 /**
  * Method for convertation object keys
@@ -17,13 +17,12 @@ const util = require('util');
  * @param  {object} reference - object for convertation
  * @return {object} - converted object
  */
-const _convertkeysToDots = (reference = {}) => {
-  const result = {};
 
-  R.keys(reference).map((key) => result[key] = key.replace('_', '.'));
-
-  return result;
-};
+const _convertKeysToDots = (reference = {}) => 
+  Object.keys(reference).reduce((res, curr) => ({
+     ...res,
+    [curr]: curr.replace('_', '.'),
+  }), {});
 
 /**
  * Check any source object for valid type
@@ -59,7 +58,7 @@ const _attachToSchema = (schema = {}, operations = {}) => {
 
 module.exports = {
   promisify: util.promisify,
-  convertkeysToDots: _convertkeysToDots,
+  convertKeysToDots: _convertKeysToDots,
   checkForType: _checkForType,
   attachToSchema: _attachToSchema,
 };

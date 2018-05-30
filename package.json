@@ -4,7 +4,7 @@
   "description": "open-source architecture node.js",
   "main": "index.js",
   "scripts": {
-    "start": "cross-env NODE_ENV=development node ./src/entry.js",
+    "start": "cross-env NODE_ENV=development nodemon ./src/entry.js",
     "prod": "cross-env NODE_ENV=production node ./src/entry.js",
     "inspect": "cross-env NODE_ENV=development node --inspect-brk=9229 ./src/entry.js",
     "check": "nsp check",
@@ -29,7 +29,7 @@
   "homepage": "https://github.com/Dugnist/jsberry#readme",
   "devDependencies": {},
   "dependencies": {
-    "cli-color": "^1.2.0",
+    "chalk": "^2.4.1",
     "cross-env": "^5.0.5",
     "eslint": "^4.4.1",
     "eslint-config-google": "^0.8.1",
@@ -37,11 +37,9 @@
     "graphql": "^0.13.2",
     "husky": "^0.14.3",
     "lint-staged": "^7.1.2",
-    "ramda": "^0.24.1",
     "sendmail": "^1.4.1",
     "snyk": "^1.38.1",
-    "socket.io": "^2.0.3",
-    "uuid": "^3.2.1"
+    "socket.io": "^2.0.3"
   },
   "snyk": true
 }

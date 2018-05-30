@@ -10,8 +10,8 @@ module.exports = ({ ACTIONS, ROUTER, utils }) => {
    *****************************************
    */
 
-  const { users_auth, users_get } = utils.convertkeysToDots(routes);
-  const { users_message } = utils.convertkeysToDots(events);
+  const { users_auth, users_get } = utils.convertKeysToDots(routes);
+  const { users_message } = utils.convertKeysToDots(events);
   const userSchema = utils.attachToSchema(schema, operations(ACTIONS));
 
   /**
