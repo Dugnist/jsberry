@@ -6,7 +6,7 @@ This document could be influenced by the community feedback, security issues, st
 
 ### alpha
 
-**Note:** This version will not be ready for production use. However, we will publish it to allow the community to test and contribute it and give us feedback.
+**Note:** We will publish this version to allow the community to test and contribute it and give us feedback.
 
 `jsberry@alpha.0.1`
 * ~~Create Modules/Plugin manager, load balancer, logger.~~
@@ -21,19 +21,21 @@ This document could be influenced by the community feedback, security issues, st
 * ~~v8 debug inspector.~~
 
 `jsberry@alpha.0.2`
-* ~~Add "sendmail" plugin, connect to errors~~.
+* ~~Add "sendmail" plugin, connect to system notifications~~.
 * ~~Add "graphql" plugin~~.
-* Add "restify" REST plugin.
+* ~~Add husky, lint staged to check errors at precommit~~.
+* ~~Authorization middleware~~.
 * Add "websockets" plugin.
+* Add "restify" REST plugin.
 * Remove default logger, add "pino" logger plugin.
 * Error handler module.
-* Authorization middleware.
 * Validation middleware.
 * Permission middleware.
 * Add "sequelize" plugin.
-* Add "nginx" and "docker" config.
+* Add "nginx" and ~~"docker"~~ config.
 
 `jsberry@alpha.0.3 (Main planned changes in future)`
 * Add Sheduler to core.
 * Add Registry to core.
 * Add Cache plugin (Redis).
+* Test coverage.

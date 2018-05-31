@@ -48,6 +48,8 @@ const _checkForType = (source = {}, type = 'Object') => {
  * @param  {object} schema - routing schema
  * @param  {object} operations - model operations
  * @return {object} - converted object
+ *
+ * ToDo: rewrite to universalize
  */
 const _attachToSchema = (schema = {}, operations = {}) => {
   for (let name in schema) {
@@ -57,9 +59,21 @@ const _attachToSchema = (schema = {}, operations = {}) => {
   return schema;
 };
 
+/**
+ * Method for convert array to objecy
+ * with sort values by key
+ * @param  {object} key - sort key
+ * @param  {object} unsortedArray - input array to sort
+ * @return {object} - converted object
+ */
+const _groupByKey = (key = '', unsortedArray = []) => {
+  return R.pipe(R.groupBy(R.prop(key)))(unsortedArray);
+};
+
 module.exports = {
   promisify: util.promisify,
   convertkeysToDots: _convertkeysToDots,
   checkForType: _checkForType,
   attachToSchema: _attachToSchema,
+  groupByKey: _groupByKey,
 };

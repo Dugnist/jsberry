@@ -1,5 +1,6 @@
 const { routes, events, schema } = require('./config.json');
 const authMiddleware = require('./middlewares/auth.middleware');
+const testMiddleware = require('./middlewares/test.middleware');
 const operations = require('./graphql-schema');
 
 module.exports = ({ ACTIONS, ROUTER, utils }) => {
@@ -30,12 +31,6 @@ module.exports = ({ ACTIONS, ROUTER, utils }) => {
    ******************************************
    */
 
-  const testMiddleware = (req, res, next) => {
-    const nowdate = Date.now(); // debugger will show you fresh date value
-    debugger;
-    next();
-  };
-
   ROUTER.set('middlewares', { testMiddleware });
   ROUTER.set('middlewares', {
     authMiddleware: authMiddleware(ACTIONS),
@@ -52,7 +47,7 @@ module.exports = ({ ACTIONS, ROUTER, utils }) => {
    * @param  {object} params - parameters from the url split /
    * @return {promise} - success response or error
    */
-  ACTIONS.on(users_auth, ({ headers, query, body }) => {
+  ACTIONS.on(users_auth, ({ headers, query, body, params }) => {
     const response = { name: 'John', surname: 'Dou' };
 
     return (response.name) ?
@@ -71,7 +66,7 @@ module.exports = ({ ACTIONS, ROUTER, utils }) => {
    * @param  {object} params - parameters from the url split /
    * @return {promise} - success response or error
    */
-  ACTIONS.on(users_get, ({ data }) => {
+  ACTIONS.on(users_get, ({ headers, query, body, params }) => {
     const response = { name: 'John', surname: 'Dou' };
 
     return (response.name) ?
