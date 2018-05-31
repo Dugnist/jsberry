@@ -28,6 +28,9 @@ const APP = {
     APP.initModules();
     APP.catchErrors();
 
+    /**
+     * Optionally using graphql api plugin:
+     */
     this.ACTIONS.send('graphql')
       .catch((warning) => this.show.warn(warning));
     /**
@@ -37,6 +40,11 @@ const APP = {
      *    .catch((warning) => this.show.warn(warning));
      */
     this.ACTIONS.send('api')
+      .catch((warning) => this.show.warn(warning));
+    /**
+     * Load all postinit configurations
+     */
+    this.ACTIONS.send('postinit')
       .catch((warning) => this.show.warn(warning));
   },
 
@@ -79,7 +87,7 @@ const APP = {
    */
   catchErrors() {
     process.on('uncaughtException', (err = {}) => {
-      const message = `${process.pid} is die! | Memory: ${this.startMemory}%`;
+      const message = `${process.pid} dead | Memory: ${this.startMemory}%`;
 
       this.show.error(message, err.stack);
       this.ACTIONS.send(`${CONFIG.notification_service}.send`, { message });

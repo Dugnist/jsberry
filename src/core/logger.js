@@ -10,7 +10,7 @@
 
 const CONFIG = require('./config')();
 const fs = require('fs');
-const clc = require('cli-color');
+const chalk = require('chalk');
 
 module.exports = class Logger {
   /**
@@ -29,7 +29,12 @@ module.exports = class Logger {
     const logs = CONFIG.logs || 'logs';
 
     this.nowDate = new Date( Date.now() ).toLocaleString();
-    this.fPath = `${logs}/${ this.nowDate.replace(/[ ,:]/g, '_') }.log`;
+
+    fs.exists(logs, (exists) => {
+      if (!exists) fs.mkdir(logs, () => {});
+    });
+
+    this.fPath = `${logs}/${ this.nowDate.replace(/[/ ,:]/g, '_') }.log`;
   }
 
   /**
@@ -40,7 +45,8 @@ module.exports = class Logger {
   writeToFile(type = '', message = '') {
     const record = this.toJSON({ type, message });
 
-    fs.writeFile(this.fPath, record, (err) => this.logMessage(err, clc.red));
+    // maybe if folder not exists create new one instead of error?
+    fs.writeFile(this.fPath, record, (err) => this.logMessage(err, chalk.red));
   }
 
   /**
@@ -48,12 +54,11 @@ module.exports = class Logger {
    */
   clear() {
     fs.exists(this.fPath, (exists) => {
-      (exists) ?
-
-      fs.unlink(this.fPath, (err) => {
-        if (err) this.error('Can\'t delete log file', err);
-      }) :
-      false;
+      if (exists) {
+        fs.unlink(this.fPath, (err) => {
+          if (err) this.error('Can\'t delete log file', err);
+        });
+      }
     });
   }
 
@@ -62,7 +67,7 @@ module.exports = class Logger {
    * @param  {String} message - [description]
    */
   log(message = '') {
-    this.logMessage(this.toJSON(message), clc.green);
+    this.logMessage(this.toJSON(message), chalk.green);
   }
 
   /**
@@ -70,7 +75,7 @@ module.exports = class Logger {
    * @param  {String} message - [description]
    */
   warn(message = '') {
-    this.logMessage(this.toJSON(message), clc.yellow);
+    this.logMessage(this.toJSON(message), chalk.yellow);
     this.fileLogger('warn', message);
   }
 
@@ -80,7 +85,7 @@ module.exports = class Logger {
    * @param  {String} trace - [description]
    */
   error(message = '', trace = '') {
-    this.logMessage(this.toJSON(message), clc.red);
+    this.logMessage(this.toJSON(message), chalk.red);
     this.printStackTrace(trace);
     this.fileLogger('error', message, trace);
   }
@@ -111,7 +116,7 @@ module.exports = class Logger {
     process.stdout.write(`\n`);
     process.stdout.write(color(`${CONFIG.name} ${process.pid} - `));
     process.stdout.write(`${this.nowDate}  `);
-    process.stdout.write(clc.yellow(`[${this.context}] `));
+    process.stdout.write(chalk.yellow(`[${this.context}] `));
     process.stdout.write(color(message));
     process.stdout.write(`\n`);
   }

@@ -54,7 +54,8 @@ module.exports = class Mediator {
 
           return (response && response instanceof Promise) ? response : false;
         }
-      }).filter((result) => result)[0];
+      }).filter((result) => result)[0] ||
+        Promise.reject(`Not handled action '${action}'!`);
     }
 
   /**
