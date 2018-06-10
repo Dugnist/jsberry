@@ -25,7 +25,7 @@ This document could be influenced by the community feedback, security issues, st
 * ~~Add "graphql" plugin~~.
 * ~~Add husky, lint staged to check errors at precommit~~.
 * ~~Authorization middleware~~.
-* Add "websockets" plugin.
+* ~~Add "websockets" plugin~~.
 * Add "restify" REST plugin.
 * Remove default logger, add "pino" logger plugin.
 * Error handler module.

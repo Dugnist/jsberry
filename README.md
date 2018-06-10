@@ -57,26 +57,38 @@ to set key `"framework"` to your framework name (default "express").
 
 ## Docker
 
-Check default Dockerfile for the line `RUN npm run install-express` if you use another framework instead "express".
+Check default Dockerfile for remove the line `RUN npm run install-express`
+if you use another framework instead "express".
+
+Add yourself to the docker group to enable running docker commands
+without prefixing with `sudo`:
+
+```bash
+  sudo groupadd docker
+  sudo chown root:docker /var/run/docker.sock
+  sudo chown `$USER`:docker /home/`$USER`/.docker/config.json
+  sudo usermod -a -G docker $USER
+  reboot
+```
 
 To build simple Docker jsberry image:
 
 ```bash
-  sudo docker build -t `$user`/jsberry .
+  sudo docker build -t `$USER`/jsberry .
 ```
 
 To run build:
 ```bash
-  sudo docker run -p 8080:8000 -d `$user`/jsberry
+  sudo docker run -p 8080:8000 -d `$USER`/jsberry
 ```
 
 To restart container automatically:
 
 ```bash
-  sudo docker run -dit --restart unless-stopped `$user`/jsberry
+  sudo docker run -dit --restart unless-stopped `$USER`/jsberry
 ```
 
-To remove unused (<none>:<none>) images use:
+To remove unused (none:none) images use:
 
 ```bash
   sudo docker rmi $(sudo docker images -f "dangling=true" -q)

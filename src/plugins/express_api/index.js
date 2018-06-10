@@ -16,7 +16,7 @@ const server = http.createServer(app);
 // configure default options
 const corsOptions = {};
 
-module.exports = ({ ACTIONS, ROUTER, CONFIG }) => {
+module.exports = ({ ACTIONS, ROUTER, show }) => {
   /**
    ******************
    * Access headers *
@@ -102,11 +102,10 @@ module.exports = ({ ACTIONS, ROUTER, CONFIG }) => {
    *********************************
    */
   ACTIONS.on('api.create.server', () => {
-    const name = CONFIG.name || 'Example';
     const port = process.env.PORT || localConfig.port || 8080;
 
     server.listen(port, '0.0.0.0', () =>
-      console.log(`${name} ----- API running at :${port} port`));
+      show.log(`API running at :${port} port`));
 
     return Promise.resolve();
   });

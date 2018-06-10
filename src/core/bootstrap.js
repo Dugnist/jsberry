@@ -35,9 +35,11 @@ const APP = {
       .catch((warning) => this.show.warn(warning));
     /**
      * Optionally using websockets plugin:
-     *
-     *  this.ACTIONS.send('websockets')
-     *    .catch((warning) => this.show.warn(warning));
+     */
+     this.ACTIONS.send('websockets')
+      .catch((warning) => this.show.warn(warning));
+    /**
+     * Start main API plugin:
      */
     this.ACTIONS.send('api')
       .catch((warning) => this.show.warn(warning));

@@ -1,10 +1,15 @@
 const { routes, events, schema } = require('./config.json');
+
+// Import user middlewares
 const authMiddleware = require('./middlewares/auth.middleware');
 const testMiddleware = require('./middlewares/test.middleware');
+
+// Import user graphql schema
 const operations = require('./graphql-schema');
 
 // get user schema
 const USER = require('./mongo-schemas/user');
+
 // set user options for working with model
 const userModelOptions = { essense: USER, name: 'user' };
 
@@ -99,9 +104,9 @@ module.exports = ({ ACTIONS, ROUTER, utils, show }) => {
   });
 
   /**
-   ******************************
-   * POST INIT LOAD PARAMETHERS *
-   ******************************
+   *****************************
+   * POST INIT LOAD PARAMETERS *
+   *****************************
    */
   ACTIONS.on('postinit.users', () => {
     // set user model from schema -> required database plugin!

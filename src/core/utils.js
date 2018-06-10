@@ -64,9 +64,16 @@ const _attachToSchema = (schema = {}, operations = {}) => {
  * @param  {object} unsortedArray - input array to sort
  * @return {object} - converted object
  */
-const _groupByKey = (key = '', unsortedArray = []) => {
-  return R.pipe(R.groupBy(R.prop(key)))(unsortedArray);
-};
+const _groupByKey = (key = '', unsortedArray = []) =>
+  unsortedArray.map((value) => (value[key] = value[key] || '', value))
+    .reduce(
+    (result, item) => ({
+      ...result,
+      [item[key]]: [
+        ...(result[item[key]] || []),
+        item,
+      ],
+    }), {});
 
 module.exports = {
   promisify: util.promisify,

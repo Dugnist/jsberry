@@ -4,7 +4,7 @@ const graphqlTypes = require('graphql');
 // connect module configurations
 // const localConfig = require('./config.json');
 
-module.exports = ({ ACTIONS, ROUTER }) => {
+module.exports = ({ ACTIONS, ROUTER, show }) => {
   /**
    ****************************
    * Configure graphql schema *
@@ -40,6 +40,7 @@ module.exports = ({ ACTIONS, ROUTER }) => {
     });
 
     const graphqlMiddleware = (req, res, next) => {
+      console.log(req.url);
       if (req.url.indexOf('/graphql') !== -1) {
         graphqlHTTP({ schema, graphiql: true })(req, res);
       } else {
@@ -48,6 +49,17 @@ module.exports = ({ ACTIONS, ROUTER }) => {
     };
 
     ROUTER.set('middlewares', { graphqlMiddleware }, 999);
+
+    return Promise.resolve();
+  });
+
+  /**
+   *****************************************
+   * Start GraphQL middleware notofication *
+   *****************************************
+   */
+  ACTIONS.on('graphql.notify', () => {
+    show.log('Run GraphQL middleware');
 
     return Promise.resolve();
   });
