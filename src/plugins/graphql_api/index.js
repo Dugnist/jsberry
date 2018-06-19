@@ -40,7 +40,6 @@ module.exports = ({ ACTIONS, ROUTER, show }) => {
     });
 
     const graphqlMiddleware = (req, res, next) => {
-      console.log(req.url);
       if (req.url.indexOf('/graphql') !== -1) {
         graphqlHTTP({ schema, graphiql: true })(req, res);
       } else {

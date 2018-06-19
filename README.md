@@ -110,14 +110,13 @@ Install extension <a href='https://chrome.google.com/webstore/detail/nodejs-v8-i
 
 ## What's new?
 
-You can check our <a href="https://github.com/Dugnist/jsberry/blob/master/ROADMAP.md">ROADMAP</a> and propose new features.
+You can check our <a href="https://github.com/Dugnist/jsberry/blob/master/ROADMAP.md" target="_blank">ROADMAP</a> and propose new features.
 
 ## Community support
 
-For general help using JSBerry, please refer to the official <a href="https://dugnist.gitbooks.io/jsberry">documentation</a>. For additional help, you can use ask question here:
+For general help using JSBerry, please refer to the official <a href="https://dugnist.gitbooks.io/jsberry" target="_blank">documentation</a>. For additional help, you can use ask question here:
 
   - <a href="https://t.me/joinchat/Ell7tkiTmlo8WvGgRu2aoA">Telegram</a> (realtime support)
-  - <a href="https://www.facebook.com/messages/t/Dugnist">Facebook</a>
 
 ## Author
 
@@ -125,7 +124,6 @@ For general help using JSBerry, please refer to the official <a href="https://du
 
 - <https://www.linkedin.com/in/Dugnist>
 - <http://github.com/Dugnist>
-- <https://www.facebook.com/Dugnist>
 
 
 ## Copyright and license

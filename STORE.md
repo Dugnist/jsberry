@@ -9,6 +9,7 @@ Curated list of jsberry modules and plugins.
 ### API
 
   - <a href="https://github.com/Dugnist/jsberry-koa-api">Koa API</a>
+  - <a href="https://github.com/Dugnist/jsberry-restify-api">Restify API</a>
 
 ### Messages
 
