@@ -8,6 +8,7 @@
  * Released under the MIT license
  */
 
+const os = require('os');
 const CONFIG = require('./config')();
 const MODULES = require(`../${CONFIG.dir.modules}/index`)(CONFIG);
 const PLUGINS = require(`../${CONFIG.dir.plugins}/index`)(CONFIG);
@@ -65,9 +66,9 @@ const APP = {
    * every "clear_logs_time"
    */
   initLogs() {
+    this.show.init(`${os.platform()}.${os.hostname()}`);
     setInterval(() => {
       this.show.clear();
-      // this.show.init();
     }, CONFIG.clear_logs_time);
   },
 

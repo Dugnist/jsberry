@@ -4,7 +4,7 @@
 
 This document could be influenced by the community feedback, security issues, stability, future needs, etc.
 
-<a href="https://favro.com/organization/9039a67d00a837f22b655a13/e10dfa4c8d6be999b74f9301" target="_blank">Live task management</a>
+<a href="https://favro.com/organization/9039a67d00a837f22b655a13/e10dfa4c8d6be999b74f9301">Live task management</a>
 
 ### alpha
 
@@ -29,7 +29,7 @@ This document could be influenced by the community feedback, security issues, st
 * ~~Authorization middleware~~.
 * ~~Add "websockets" plugin~~.
 * ~~Add <a href="https://github.com/Dugnist/jsberry/blob/master/STORE.md">"restify" REST plugin</a>.~~
-* Remove default logger, add "pino" logger plugin.
+* ~~Overwritten default logger, added "facade" abstraction to use any loggers.~~
 * Error handler module.
 * Validation middleware.
 * Permission middleware.
@@ -40,4 +40,5 @@ This document could be influenced by the community feedback, security issues, st
 * Add Sheduler to core.
 * Add Registry to core.
 * Add Cache plugin (Redis).
+* Migrations (Backup).
 * Test coverage.

@@ -11,130 +11,162 @@
 const CONFIG = require('./config')();
 const fs = require('fs');
 const chalk = require('chalk');
+const logs = CONFIG.logs || 'logs';
 
-module.exports = class Logger {
+let context = '';
+let nowDate = '';
+let logPath = '';
+
+const Logger = {
   /**
-   * [constructor description]
-   * @param  {String} context [description]
+   * logger initialization
+   * check for logs directory
+   * create initial log file
+   * @param  {String} ctx - logger context
+   * @type   {function}
    */
-  constructor(context = '') {
-    this.context = context;
-    this.init();
-  }
+  init: async(ctx) => {
+    context = ctx;
+    nowDate = new Date( Date.now() ).toLocaleString().replace(/ /g, '');
+
+    await Logger.checkLogFolder();
+
+    logPath = `${logs}/${nowDate.replace(/[/,:]/g, '_')}.log`;
+  },
 
   /**
-   * Init name and path for logs file
+   * logger initialization
+   * check for logs directory
+   * create initial log file
+   * @type {Function}
    */
-  init() {
-    const logs = CONFIG.logs || 'logs';
+  checkLogFolder: async() => {
+    try {
+      const existLogDir = await fs.exists(logs, () => {});
+      if (!existLogDir) await fs.mkdir(logs, () => {});
+    } catch (error) {
+      Logger.logMessage(error.message, chalk.red);
+    }
+  },
 
-    this.nowDate = new Date( Date.now() ).toLocaleString();
+  /**
+   * Check for exist log folder and write message to log file
+   * @param  {String} type - message type
+   * @param  {String} message - message text
+   */
+  writeToFile: async(type = '', message = '') => {
+    try {
+      const record = Logger.toJSON({ type, message });
 
-    fs.exists(logs, (exists) => {
-      if (!exists) fs.mkdir(logs, () => {});
+      await Logger.checkLogFolder();
+      await fs.writeFile(logPath, record, () => {});
+    } catch (error) {
+      Logger.logMessage(error.message, chalk.red);
+    }
+  },
+
+  /**
+   * Remove the last log file
+   */
+  clear: async() => {
+    await Logger.checkLogFolder();
+
+    fs.readdir(logs, (err, files) => {
+      files.forEach((file) => {
+        if (`${logs}/${file}` !== logPath) {
+          fs.unlink(`${logs}/${file}`, (error) => {
+            if (error) Logger.error('Can\'t delete log file', error);
+          });
+        }
+      });
+      Logger.init(context);
     });
-
-    this.fPath = `${logs}/${ this.nowDate.replace(/[/ ,:]/g, '_') }.log`;
-  }
+  },
 
   /**
-   * [writeToFile description]
-   * @param  {[type]} type    [description]
-   * @param  {[type]} message [description]
+   * Output info message to terminal
+   * @param  {String} message - message text
    */
-  writeToFile(type = '', message = '') {
-    const record = this.toJSON({ type, message });
-
-    // maybe if folder not exists create new one instead of error?
-    fs.writeFile(this.fPath, record, (err) => this.logMessage(err, chalk.red));
-  }
+  log: (message = '') => {
+    Logger.logMessage(Logger.toJSON(message), chalk.green);
+  },
 
   /**
-   * [clear description]
+   * Output warning message to terminal
+   * write message text to log file
+   * @param  {String} message - message text
    */
-  clear() {
-    fs.exists(this.fPath, (exists) => {
-      if (exists) {
-        fs.unlink(this.fPath, (err) => {
-          if (err) this.error('Can\'t delete log file', err);
-        });
-      }
-    });
-  }
+  warn: (message = '') => {
+    Logger.logMessage(Logger.toJSON(message), chalk.yellow);
+    Logger.fileLogger('warn', message);
+  },
 
   /**
-   * [log description]
-   * @param  {String} message - [description]
-   */
-  log(message = '') {
-    this.logMessage(this.toJSON(message), chalk.green);
-  }
-
-  /**
-   * [warn description]
-   * @param  {String} message - [description]
-   */
-  warn(message = '') {
-    this.logMessage(this.toJSON(message), chalk.yellow);
-    this.fileLogger('warn', message);
-  }
-
-  /**
-   * [error description]
-   * @param  {String} message - [description]
+   * Output error message to terminal
+   * write message text to log file
+   * @param  {String} message - message text
    * @param  {String} trace - [description]
    */
-  error(message = '', trace = '') {
-    this.logMessage(this.toJSON(message), chalk.red);
-    this.printStackTrace(trace);
-    this.fileLogger('error', message, trace);
-  }
+  error: (message = '', trace = '') => {
+    Logger.logMessage(Logger.toJSON(message), chalk.red);
+    Logger.printStackTrace(trace);
+    Logger.fileLogger('error', message, trace);
+  },
 
   /**
-   * [fileLogger description]
-   * @param  {String} type  [description]
-   * @param  {String} message  [description]
-   * @param  {String} trace [description]
+   * Write message type, message text and trace to log file
+   * @param  {String} type - message type
+   * @param  {String} message - message text
+   * @param  {String} trace - message trace
    */
-  fileLogger(type = 'error', message = '', trace = '') {
-    const mode = CONFIG.mode || 'prod';
+  fileLogger: (type = 'error', message = '', trace = '') => {
+    const mode = CONFIG.mode || 'production';
 
-    if (mode === 'prod') {
-      this.writeToFile(type, `${message} ${this.toJSON(trace)
+    // if (mode === 'production') {
+    if (mode === 'development') {
+      Logger.writeToFile(type, `${message} ${Logger.toJSON(trace)
         .replace(/\\n|"/g, '')}`);
     }
-  }
+  },
 
   /**
-   * [logMessage description]
-   * @param  {String} message [description]
-   * @param  {String} color   [description]
+   * Output colored text to the terminal
+   * @param  {String} message - message text
+   * @param  {String} color - message color
    */
-  logMessage(message = '', color = '') {
-    const mode = CONFIG.name || 'Logger';
-
-    process.stdout.write(`\n`);
+  logMessage: (message = '', color = '') => {
     process.stdout.write(color(`${CONFIG.name} ${process.pid} - `));
-    process.stdout.write(`${this.nowDate}  `);
-    process.stdout.write(chalk.yellow(`[${this.context}] `));
+    process.stdout.write(`${nowDate} `);
+    process.stdout.write(chalk.yellow(`[${context}] `));
     process.stdout.write(color(message));
     process.stdout.write(`\n`);
-  }
+  },
 
   /**
-   * [printStackTrace description]
-   * @param  {String} trace [description]
+   * Output error trace to the terminal
+   * @param  {String} trace - error description
+   * @return {log}
    */
-  printStackTrace(trace = '') {
-    console.log(trace);
-  }
+  printStackTrace: (trace = '') => process.stdout.write(trace),
 
   /**
-   * [toJSON description]
-   * @param  {Object} reference - any object
-   * @return  {String} converted json string
+   * Convert JSON object to string
+   * @param  {Object} reference - JSON/JS object
+   * @return  {String} converted string
    */
-  toJSON(reference = {}) {
-    return JSON.stringify(reference);
-  }
+  toJSON: (reference = {}) => JSON.stringify(reference),
+};
+
+module.exports = {
+  init: Logger.init,
+  log: Logger.log,
+  warn: Logger.warn,
+  error: Logger.error,
+  clear: Logger.clear,
+  logMessage: Logger.logMessage,
+  fileLogger: Logger.fileLogger,
+  writeToFile: Logger.writeToFile,
+  checkLogFolder: Logger.checkLogFolder,
+  printStackTrace: Logger.printStackTrace,
+  toJSON: Logger.toJSON,
 };

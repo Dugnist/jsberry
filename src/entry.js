@@ -23,7 +23,7 @@ APP.use({
   utils,
   ROUTER,
   CONFIG,
-  show: new Logger('system'),
+  show: Logger,
   ACTIONS: new Mediator(),
 });
 

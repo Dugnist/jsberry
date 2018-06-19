@@ -1,4 +1,4 @@
 {
   "mode": "development",
-  "clear_logs_time": "3600"
+  "clear_logs_time": "10000"
 }
