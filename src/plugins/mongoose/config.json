@@ -1,0 +1,7 @@
+{
+  "name": "mongoose",
+  "version": "0.0.1",
+  "credentials": {
+    "databaseUri": "mongodb://root:root@ds253587.mlab.com:53587/test_db"
+  }
+}

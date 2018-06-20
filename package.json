@@ -6,6 +6,7 @@
   "scripts": {
     "start": "cross-env NODE_ENV=development nodemon ./src/entry.js",
     "prod": "cross-env NODE_ENV=production node ./src/entry.js",
+    "prodpm": "cross-env NODE_ENV=production pm2 start ./src/entry.js -i max",
     "inspect": "cross-env NODE_ENV=development node --inspect-brk=9229 ./src/entry.js",
     "check": "nsp check",
     "protect": "snyk test",
@@ -44,6 +45,7 @@
     "graphql": "^0.13.2",
     "husky": "^0.14.3",
     "lint-staged": "^7.1.2",
+    "mongoose": "^5.1.6",
     "nodemon": "^1.17.5",
     "sendmail": "^1.4.1",
     "snyk": "^1.82.0",

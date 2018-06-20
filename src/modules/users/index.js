@@ -89,19 +89,16 @@ module.exports = ({ ACTIONS, ROUTER, utils, show }) => {
    * GET MODEL FROM CACHE OR CONVERT FROM SCHEMA *
    ***********************************************
    */
-  ACTIONS.on('users.getModel', ({ essense, name }) => {
-    if (!essense.model) { // if model not exist in cache
-      return ACTIONS.send('database.model.create', { // convert schema to model
+  ACTIONS.on('users.getModel', ({ essense, name }) =>
+    (!essense.model) ? // if model not exist in cache
+      ACTIONS.send('database.model.create', { // convert schema to model
         name,
         schema: essense.schema,
       }).then((model) => {
         essense.model = model; // set model to cache and return
         return model;
-      });
-    } else {
-      return Promise.resolve(essense.model); // return model from cache
-    }
-  });
+      }) : // else
+      Promise.resolve(essense.model)); // return model from cache
 
   /**
    *****************************
@@ -110,9 +107,8 @@ module.exports = ({ ACTIONS, ROUTER, utils, show }) => {
    */
   ACTIONS.on('postinit.users', () => {
     // set user model from schema -> required database plugin!
-    //
-    // ACTIONS.send('users.getModel', userModelOptions)
-    //   .catch((warning) => show.warn(warning));
+    ACTIONS.send('users.getModel', userModelOptions)
+      .catch((warning) => show.warn(warning));
 
     return Promise.resolve('success');
   });
