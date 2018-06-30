@@ -2,8 +2,8 @@
   "name": "routing",
   "version": "0.0.2",
   "routes": {
-    "users_auth": { "path": "users/auth", "method": "get", "middleware": "authMiddleware" },
-    "users_get": { "path": "users/get", "method": "get" }
+    "users_auth": { "path": "users/auth", "method": "get" },
+    "users_get": { "path": "users/get/:id", "method": "get", "middleware": "authMiddleware" }
   },
   "events": {
     "users_message": { "name": "users.message" },

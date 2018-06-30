@@ -7,12 +7,27 @@
  *    use model as a mongoose plugin query parameter
  */
 
-module.exports = {
+const User = {
   model: null,
   schema: {
-    id: { type: String, default: '' },
+    id: { type: String, default: Date.now() },
     login: { type: String, default: '' },
     password: { type: String, default: '' },
+    email: { type: String, default: '' },
     token: { type: String, default: '' },
   },
+  attachMethods: (userSchema) => {
+    userSchema.methods.toAuthKeys = function() {
+      return {
+        id: this.id,
+        login: this.login,
+        email: this.email,
+        token: this.token,
+      };
+    };
+    return userSchema;
+  },
+  // attachMethods: false, // if you don't need any methods
 };
+
+module.exports = User;

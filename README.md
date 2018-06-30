@@ -14,6 +14,9 @@ JSBerry is not a framework. It's a solution for creating applications using any 
 
 <a href="https://dugnist.gitbooks.io/jsberry">Documentation</a>
 
+- <a href="https://github.com/Dugnist/jsberry-koa-api">Koa API plugin</a>
+- <a href="https://github.com/Dugnist/jsberry-restify-api">Restify API plugin</a>
+
 <a href="https://github.com/Dugnist/jsberry/blob/master/STORE.md">Modules and plugins store</a>
 
 
@@ -74,24 +77,24 @@ without prefixing with `sudo`:
 To build simple Docker jsberry image:
 
 ```bash
-  sudo docker build -t `$USER`/jsberry .
+  docker build -t `$USER`/jsberry .
 ```
 
 To run build:
 ```bash
-  sudo docker run -p 8080:8000 -d `$USER`/jsberry
+  docker run -p 8080:8000 -d `$USER`/jsberry
 ```
 
 To restart container automatically:
 
 ```bash
-  sudo docker run -dit --restart unless-stopped `$USER`/jsberry
+  docker run -dit --restart unless-stopped `$USER`/jsberry
 ```
 
 To remove unused (none:none) images use:
 
 ```bash
-  sudo docker rmi $(sudo docker images -f "dangling=true" -q)
+  docker rmi $(sudo docker images -f "dangling=true" -q)
 ```
 
 ## Debugger

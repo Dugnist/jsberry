@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const { credentials } = require('./config.json');
 
-module.exports = ({ ACTIONS, ROUTER, utils, show }) => {
+module.exports = ({ ACTIONS, ROUTER, show }) => {
   /**
    * Connect to database
    * @type {Object}
@@ -10,26 +10,16 @@ module.exports = ({ ACTIONS, ROUTER, utils, show }) => {
     (err) => show.log((!err) ? 'App connect to ModgoDB' : err)
   );
 
-  ACTIONS.on('database.model.create', ({ name, schema = {} }) => {
+  ACTIONS.on('database.model.create', ({ name, schema={}, attachMethods }) => {
       if (!name) return Promise.reject('Empty sequelize schema name!');
-      const model = mongoose.model(name, schema);
+
+      let essenseSchema = new mongoose.Schema(schema);
+
+      if (attachMethods) essenseSchema = attachMethods(essenseSchema);
+
+      const model = mongoose.model(name, essenseSchema);
 
       return Promise.resolve(model);
-  });
-
-  /**
-   ***************************************
-   * SUBSCRIBE TO CREATE DATABASE ENTITY *
-   ***************************************
-   *
-   * @param  {object} model - entity model
-   * @param  {object} payload - entity data
-   * @return {promise} - success response or error
-   */
-  ACTIONS.on('database.create', ({ model, payload = {} }) =>{
-    const response = utils.promisify(model.create.bind(model));
-
-    return response(payload);
   });
 
   /**
@@ -42,11 +32,23 @@ module.exports = ({ ACTIONS, ROUTER, utils, show }) => {
    * @return {promise} - success response or error
    */
   ACTIONS.on('database.count', ({ model, payload = {} }) => {
-    const response = utils.promisify(model.count.bind(model));
+    const operation = model.count.bind(model);
 
-    return response(payload).then((count) => count.toString());
+    return operation(payload).then((count) => count.toString());
   });
 
+  /**
+   ***************************************
+   * SUBSCRIBE TO CREATE DATABASE ENTITY *
+   ***************************************
+   *
+   * @param  {object} model - entity model
+   * @param  {object} payload - entity data
+   * @return {promise} - success response or error
+   */
+  ACTIONS.on('database.create', ({ model, payload = {} }) =>
+    model.create.bind(model)(payload)
+  );
 
   /**
    *************************************
@@ -57,11 +59,9 @@ module.exports = ({ ACTIONS, ROUTER, utils, show }) => {
    * @param  {object} payload - entity data
    * @return {promise} - success response or error
    */
-  ACTIONS.on('database.read', ({ model, payload = {} }) => {
-    const response = utils.promisify(model.findOne.bind(model));
-
-    return response(payload);
-  });
+  ACTIONS.on('database.read', ({ model, payload = {} }) =>
+      model.findOne.bind(model)(payload)
+  );
 
   /**
    *******************************************
@@ -72,11 +72,9 @@ module.exports = ({ ACTIONS, ROUTER, utils, show }) => {
    * @param  {object} payload - entity data
    * @return {promise} - success response or error
    */
-  ACTIONS.on('database.readAll', ({ model, payload = {} }) => {
-    const response = utils.promisify(model.find.bind(model));
-
-    return response(payload);
-  });
+  ACTIONS.on('database.readAll', ({ model, payload = {} }) =>
+    model.find.bind(model)(payload)
+  );
 
   /**
    ***************************************
@@ -87,11 +85,9 @@ module.exports = ({ ACTIONS, ROUTER, utils, show }) => {
    * @param  {object} payload - entity data
    * @return {promise} - success response or error
    */
-  ACTIONS.on('database.update', ({ model, payload = {} }) => {
-    const response = utils.promisify(model.findOneAndUpdate.bind(model));
-
-    return response({ id: payload.id }, payload, { new: true });
-  });
+  ACTIONS.on('database.update', ({ model, payload = {} }) =>
+    model.findOneAndUpdate.bind(model)(payload)
+  );
 
   /**
    ***************************************
@@ -102,9 +98,7 @@ module.exports = ({ ACTIONS, ROUTER, utils, show }) => {
    * @param  {object} payload - entity data
    * @return {promise} - success response or error
    */
-  ACTIONS.on('database.delete', ({ model, payload = {} }) => {
-    const response = utils.promisify(model.remove.bind(model));
-
-    return response(payload); // Example: { id: 1 }
-  });
+  ACTIONS.on('database.delete', ({ model, payload = {} }) =>
+    model.remove.bind(model)(payload) // Example: { id: 1 }
+  );
 };

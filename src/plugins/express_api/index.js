@@ -16,6 +16,10 @@ const server = http.createServer(app);
 // configure default options
 const corsOptions = {};
 
+// const toobusy = require('toobusy-js');
+// toobusy.maxLag(100);
+// toobusy.interval(500);
+
 module.exports = ({ ACTIONS, ROUTER, show }) => {
   /**
    ******************
@@ -86,12 +90,12 @@ module.exports = ({ ACTIONS, ROUTER, show }) => {
       const mw = allMiddlewares[route.middleware] || ((rq, rs, next) => next());
 
       app[route.method](`/${route.path}`, mw, (req, res, next) => {
-        const { headers, query, body, params } = req;
-        const props = { headers, query, body, params };
+        const { headers, query, body, params, auth } = req;
+        const props = { headers, query, body, params, auth };
 
         ACTIONS.send(_route.replace('_', '.'), props)
           .then((data) => res.send(data))
-          .catch((error) => next(error));
+          .catch((error) => res.send(error));
       });
     }
   });

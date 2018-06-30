@@ -1,5 +1,8 @@
 const { routes, events, schema } = require('./config.json');
 
+// Import user controller
+const controller = require('./controller');
+
 // Import user middlewares
 const authMiddleware = require('./middlewares/auth.middleware');
 const testMiddleware = require('./middlewares/test.middleware');
@@ -10,10 +13,11 @@ const operations = require('./graphql-schema');
 // get user schema
 const USER = require('./mongo-schemas/user');
 
-// set user options for working with model
-const userModelOptions = { essense: USER, name: 'user' };
-
 module.exports = ({ ACTIONS, ROUTER, utils, show }) => {
+  /**
+   * Send ACTIONS to controller
+   */
+  const userController = controller(ACTIONS);
   /**
    *****************************************
    * GET CORRECT ACTIONS NAMES FROM CONFIG *
@@ -55,14 +59,21 @@ module.exports = ({ ACTIONS, ROUTER, utils, show }) => {
    * @param  {object} query - parameters from the url
    * @param  {object} body - parameters from json body
    * @param  {object} params - parameters from the url split /
-   * @return {promise} - success response or error
+   * @return {Promise} - success response or error
    */
-  ACTIONS.on(users_auth, ({ headers, query, body, params }) => {
-    const response = { name: 'John', surname: 'Dou' };
+  ACTIONS.on(users_auth, async({ headers, query, body, params }) => {
+    try {
+      const { login, password, email } = query;
 
-    return (response.name) ?
-      Promise.resolve(response) :
-      Promise.reject({ error: { message: 'name not exist!' } });
+      if (!login || !password) throw new Error('Missing login or password!');
+
+      const userData = { login, password, email }; // ToDo: validation mwr
+      const user = await userController.authorization(userData);
+
+      return user.toAuthKeys();
+    } catch (error) {
+      return Promise.reject({ error: 401, message: error.message });
+    }
   });
 
   /**
@@ -74,14 +85,22 @@ module.exports = ({ ACTIONS, ROUTER, utils, show }) => {
    * @param  {object} query - parameters from the url
    * @param  {object} body - parameters from json body
    * @param  {object} params - parameters from the url split /
-   * @return {promise} - success response or error
+   * @param  {object} auth - user auth data
+   * @return {Promise} - success response or error
    */
-  ACTIONS.on(users_get, ({ headers, query, body, params }) => {
-    const response = { name: 'John', surname: 'Dou' };
+  ACTIONS.on(users_get, async({ headers, query, body, params, auth }) => {
+    try {
+      const { id } = params;
 
-    return (response.name) ?
-      Promise.resolve({ event: 'exit', body: response }) :
-      Promise.reject({ error: { message: 'name not exist!' } });
+      if (!id) throw new Error('Missing id value!');
+      if (auth.id === id) return user.toAuthKeys();
+
+      const user = await userController.getUser({ id });
+
+      return user.toAuthKeys();
+    } catch (error) {
+      return Promise.reject({ error: 404, message: error.message });
+    }
   });
 
   /**
@@ -94,6 +113,7 @@ module.exports = ({ ACTIONS, ROUTER, utils, show }) => {
       ACTIONS.send('database.model.create', { // convert schema to model
         name,
         schema: essense.schema,
+        attachMethods: essense.attachMethods,
       }).then((model) => {
         essense.model = model; // set model to cache and return
         return model;
@@ -107,7 +127,7 @@ module.exports = ({ ACTIONS, ROUTER, utils, show }) => {
    */
   ACTIONS.on('postinit.users', () => {
     // set user model from schema -> required database plugin!
-    ACTIONS.send('users.getModel', userModelOptions)
+    ACTIONS.send('users.getModel', { essense: USER, name: 'user' })
       .catch((warning) => show.warn(warning));
 
     return Promise.resolve('success');

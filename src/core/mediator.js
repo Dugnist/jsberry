@@ -52,7 +52,10 @@ module.exports = class Mediator {
         ) {
           const response = channels[_action](payload);
 
-          return (response && response instanceof Promise) ? response : false;
+          return (
+            response &&
+            (response instanceof Promise || response.then && response.catch)
+          ) ? response : false;
         }
       }).filter((result) => result)[0] ||
         Promise.reject(`Not handled action '${action}'!`);
