@@ -10,7 +10,7 @@
 
 JSBerry is open source modular simple architecture for building Node.js applications.
 
-JSBerry is not a framework. It's a solution for creating applications using any frameworks, modules and plugins.
+JSBerry is not a framework. It's a solution for creating applications using any frameworks, modules, and plugins.
 
 <a href="https://dugnist.gitbooks.io/jsberry">Documentation</a>
 
@@ -46,7 +46,7 @@ npm start
 If you wanna install another framework instead of "express" - you can check <a href="https://github.com/Dugnist/jsberry/blob/master/STORE.md">Modules and plugins store</a>.
 
 
-Also you can check `src/core/config/index.js`
+Also, you can check `src/core/config/index.js`
 to set key `"framework"` to your framework name (default "express").
 
 ## List Of Scripts
@@ -60,7 +60,7 @@ to set key `"framework"` to your framework name (default "express").
 
 ## Docker
 
-Check default Dockerfile for remove the line `RUN npm run install-express`
+Check to default Dockerfile for removing the line `RUN npm run install-express`
 if you use another framework instead "express".
 
 Add yourself to the docker group to enable running docker commands
@@ -105,7 +105,7 @@ Run `npm run inspect` and open this url in browser:
 chrome-devtools://devtools/bundled/inspector.html?experiments=true&v8only=true&ws=127.0.0.1:9229/${uuid}
 ```
 
-where "uuid" - debug session id from console.
+where "uuid" - debug session id from the console.
 
 OR:
 
