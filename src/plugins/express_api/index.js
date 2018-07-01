@@ -87,7 +87,8 @@ module.exports = ({ ACTIONS, ROUTER, show }) => {
 
     for (let _route in allRoutes) {
       const route = allRoutes[_route];
-      const mw = allMiddlewares[route.middleware] || ((rq, rs, next) => next());
+      const mw = (route.middlewares || [])
+        .map((mwName) => allMiddlewares[mwName]);
 
       app[route.method](`/${route.path}`, mw, (req, res, next) => {
         const { headers, query, body, params, auth } = req;

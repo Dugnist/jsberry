@@ -30,6 +30,7 @@ module.exports = (ACTIONS) => ({
    */
   getUser: async({ id }) => {
     const userOptions = { model: USER.model, payload: { id } };
+    console.log(userOptions);
     const user = await ACTIONS.send('database.read', userOptions);
 
     if (!user) throw new Error(`Incorrect ID: ${id}!`);

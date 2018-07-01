@@ -2,8 +2,26 @@
   "name": "routing",
   "version": "0.0.2",
   "routes": {
-    "users_auth": { "path": "users/auth", "method": "get" },
-    "users_get": { "path": "users/get/:id", "method": "get", "middleware": "authMiddleware" }
+    "users_auth": {
+      "path": "users/auth",
+      "method": "get",
+      "middlewares": ["userValidationMiddleware"],
+      "validation": {
+        "path": "users/auth",
+        "schema": "auth",
+        "parameters": ["query"]
+      }
+    },
+    "users_get": {
+      "path": "users/get/:id",
+      "method": "get",
+      "middlewares": ["userValidationMiddleware", "authMiddleware"],
+      "validation": {
+        "path": "users/get",
+        "schema": "getUser",
+        "parameters": ["query", "params"]
+      }
+    }
   },
   "events": {
     "users_message": { "name": "users.message" },

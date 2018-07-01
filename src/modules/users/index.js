@@ -5,6 +5,7 @@ const controller = require('./controller');
 
 // Import user middlewares
 const authMiddleware = require('./middlewares/auth.middleware');
+const userValidationMiddleware = require('./middlewares/validation.middleware');
 const testMiddleware = require('./middlewares/test.middleware');
 
 // Import user graphql schema
@@ -48,6 +49,7 @@ module.exports = ({ ACTIONS, ROUTER, utils, show }) => {
   ROUTER.set('middlewares', { testMiddleware });
   ROUTER.set('middlewares', {
     authMiddleware: authMiddleware(ACTIONS),
+    userValidationMiddleware: userValidationMiddleware(ACTIONS),
   }, 'routes');
 
   /**
@@ -64,10 +66,7 @@ module.exports = ({ ACTIONS, ROUTER, utils, show }) => {
   ACTIONS.on(users_auth, async({ headers, query, body, params }) => {
     try {
       const { login, password, email } = query;
-
-      if (!login || !password) throw new Error('Missing login or password!');
-
-      const userData = { login, password, email }; // ToDo: validation mwr
+      const userData = { login, password, email };
       const user = await userController.authorization(userData);
 
       return user.toAuthKeys();
@@ -92,8 +91,7 @@ module.exports = ({ ACTIONS, ROUTER, utils, show }) => {
     try {
       const { id } = params;
 
-      if (!id) throw new Error('Missing id value!');
-      if (auth.id === id) return user.toAuthKeys();
+      if ((auth || {}).id === id) return user.toAuthKeys();
 
       const user = await userController.getUser({ id });
 

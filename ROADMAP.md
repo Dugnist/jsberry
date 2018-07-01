@@ -16,7 +16,7 @@ This document could be influenced by the community feedback, security issues, st
 * ~~ROUTER with routes and middlewares support.~~
 * ~~Add "express" REST plugin.~~
 * ~~Add <a href="https://github.com/Dugnist/jsberry/blob/master/STORE.md">"mongoose" plugin</a>.~~
-* ~~vulnerabilities checkers: "nsp" and "snyk".~~
+* ~~Vulnerabilities checkers: "nsp" and "snyk".~~
 * ~~Update middlewares, add layers.~~
 * ~~Add <a href="https://github.com/Dugnist/jsberry/blob/master/STORE.md">"koa" REST plugin</a>.~~
 * ~~Add <a href="https://github.com/Dugnist/jsberry/blob/master/STORE.md">"twillio" sms plugin</a>.~~
@@ -30,9 +30,9 @@ This document could be influenced by the community feedback, security issues, st
 * ~~Add "websockets" plugin~~.
 * ~~Add <a href="https://github.com/Dugnist/jsberry/blob/master/STORE.md">"restify" REST plugin</a>.~~
 * ~~Overwritten default logger, added "facade" abstraction to use any loggers.~~
-* Error handler module.
-* Validation middleware.
+* ~~Validation middleware using "Joi".~~
 * Permission middleware.
+* Error handler module.
 * Add "sequelize" plugin.
 * Add "nginx" and ~~"docker"~~ config.
 
