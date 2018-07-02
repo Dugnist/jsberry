@@ -89,7 +89,7 @@ module.exports = ({ ACTIONS, ROUTER, utils, show }) => {
    */
   ACTIONS.on(users_get, async({ headers, query, body, params, auth }) => {
     try {
-      const { id } = params;
+      const id = params.id || query.id;
 
       if ((auth || {}).id === id) return user.toAuthKeys();
 

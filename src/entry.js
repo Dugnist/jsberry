@@ -38,6 +38,18 @@ global.APP = APP;
 
 /**
  ****************************************
+ *  Make sure we are running node 7.6+  *
+ ****************************************
+ */
+
+const [major, minor] = process.versions.node.split('.').map(parseFloat);
+if (major < 8 || (major === 8 && minor <= 5)) {
+  console.log('Please go to nodejs.org and download last stable version!');
+  process.exit();
+}
+
+/**
+ ****************************************
  * Start application at several process *
  * ToDo: load balancer                  *
  ****************************************

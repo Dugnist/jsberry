@@ -39,11 +39,11 @@ module.exports = ({ ACTIONS, ROUTER, show }) => {
       mutation: RootMutation,
     });
 
-    const graphqlMiddleware = (req, res, next) => {
-      if (req.url.indexOf('/graphql') !== -1) {
+    const graphqlMiddleware = async(req, res, next) => {
+      if ((req.url || '').indexOf('/graphql') !== -1) {
         graphqlHTTP({ schema, graphiql: true })(req, res);
       } else {
-        next();
+        await next();
       }
     };
 

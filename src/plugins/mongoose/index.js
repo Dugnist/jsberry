@@ -1,6 +1,8 @@
 const mongoose = require('mongoose');
 const { credentials } = require('./config.json');
 
+mongoose.Promise = global.Promise;
+
 module.exports = ({ ACTIONS, ROUTER, show }) => {
   /**
    * Connect to database
