@@ -38,7 +38,7 @@ global.APP = APP;
 
 /**
  ****************************************
- *  Make sure we are running node 7.6+  *
+ *  Make sure we are running node 8.6+  *
  ****************************************
  */
 

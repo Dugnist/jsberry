@@ -49,6 +49,41 @@ If you wanna install another framework instead of "express" - you can check <a h
 Also, you can check `src/core/config/index.js`
 to set key `"framework"` to your framework name (default "express").
 
+## How to use
+
+After installing you can create any your own module in "src/modules" directory or any your own plugin in "src/plugins" directory.
+For example, we can create a plugin for making outside requests from the server using the npm module "request".
+
+- Install node module "request-promise" using `npm i request-promise`.
+- Create a directory "request" in "src/plugins".
+- Create file "index.js" in "request" directory.
+- Paste this code to "index.js" for create plugin wrapper.
+
+```
+  const request = require('request-promise');
+
+  module.exports = ({ ACTIONS }) => {
+    // plugin code...
+  });
+```
+
+- Create an ACTION which will send outside request. Paste this code instead "// plugin code..."
+
+```
+  ACTIONS.on('request.send', ({ url = 'http://www.google.com' }) => {
+    return request(url);
+  });
+```
+
+After that, you need to connect your module/plugin to application "core":
+
+- Go to "src/plugins/index.js".
+- Add this line to top: `const Request = require('./request');`
+- Add your plugin variable Request to array "PLUGINS".
+
+Now, you can call `ACTION.send('request.send', { url: 'example.com' });` from any other module/plugin and it will return promised site response.
+
+
 ## List Of Scripts
 
 - `npm start` - run application with development mode

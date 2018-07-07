@@ -28,7 +28,6 @@ module.exports = (ACTIONS) => async(req, res, next) => {
       schema: validation[currentRoute.validation.schema],
       payload: parameters,
     });
-    // const result = validation[currentRoute.validation.schema](parameters);
 
     if (result.error && result.error.message) {
       throw new Error(result.error.message);
@@ -60,7 +59,10 @@ module.exports = (ACTIONS) => async(req, res, next) => {
 //       .reduce((prev, next) => ({ ...prev, ...next }));
 //
 //     // Get validation schema by name from config
-//     const result = validation[currentRoute.validation.schema](parameters);
+//     const result = await ACTIONS.send('validate.schema', {
+//       schema: validation[currentRoute.validation.schema],
+//       payload: parameters,
+//     });
 //
 //     if (result.error && result.error.message) {
 //       throw new Error(result.error.message);
