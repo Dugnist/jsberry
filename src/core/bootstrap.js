@@ -85,6 +85,20 @@ const APP = {
   },
 
   /**
+   * Show API paths list for
+   * current applications
+   * @param {Object} type - function/async
+   */
+  showAPIPaths(type = (async() => {}).constructor) {
+    const actionsList = this.ACTIONS.getAll();
+    this.show.warn('--------API ROUTES--------');
+    for (const path in actionsList) {
+      if (actionsList[path] instanceof type) this.show.warn(path);
+    }
+    this.show.warn('--------------------------');
+  },
+
+  /**
    * Catch system errors and exception
    * log every event and send sms notification
    */
