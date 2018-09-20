@@ -30,15 +30,19 @@ This document could be influenced by the community feedback, security issues, st
 * ~~Add "websockets" plugin~~.
 * ~~Add <a href="https://github.com/Dugnist/jsberry/blob/master/STORE.md">"restify" REST plugin</a>.~~
 * ~~Overwritten default logger, added "facade" abstraction to use any loggers.~~
-* ~~Validation middleware using "Joi".~~
+* ~~Validation middleware using "Joi" | add plugin.~~
 * Permission middleware.
 * Error handler module.
-* Add "sequelize" plugin.
+* Add "sequelize" plugin [STORE].
+* Rewrite authorization middleware -> add "passport" plugin.
+* Rewrite "sendmail" to "nodemailer" plugin.
 * Add "nginx" and ~~"docker"~~ config.
 
 `jsberry@alpha.0.3 (Main planned changes in future)`
+* Add "telegram bot" plugin [STORE].
+* Add "blockchain.info" plugin [STORE].
 * Add Sheduler to core.
 * Add Registry to core.
-* Add Cache plugin (Redis).
+* Add Cache plugin (Redis) [STORE].
 * Migrations (Backup).
 * Test coverage.
