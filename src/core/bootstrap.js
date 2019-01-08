@@ -28,6 +28,7 @@ const APP = {
     APP.initLogs();
     APP.initModules();
     APP.catchErrors();
+    APP.Model.actions = APP.ACTIONS;
 
     /**
      * Optionally using graphql api plugin:

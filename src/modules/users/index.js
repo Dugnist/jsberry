@@ -15,17 +15,15 @@ const operations = require('./graphql-schema');
 const USERSCHEMA = require('./mongo-schemas/user');
 const userSchema = require('./schemas/user');
 
-const lol = userSchema;
+const usr = userSchema;
 
 module.exports = ({ ACTIONS, ROUTER, Model, utils, show }) => {
   /**
    * Send ACTIONS to controller
    */
   const userController = controller(ACTIONS);
-  // eslint-disable-next-line
-  const USER = Model({ ACTIONS })
-    .setModelName('users')
-    .setSchema(lol.schema);
+
+  const USER = new Model('users', usr.schema);
 
   /**
    *****************************************
@@ -132,11 +130,15 @@ module.exports = ({ ACTIONS, ROUTER, Model, utils, show }) => {
    */
   ACTIONS.on('postinit.users', async() => {
     // set user model from schema -> required database plugin!
-    ACTIONS.send('users.getModel', { essense: USERSCHEMA, name: 'user' })
-      .catch((warning) => show.warn(warning));
+    // ACTIONS.send('users.getModel', { essense: USERSCHEMA, name: 'user' })
+    //   .catch((warning) => show.warn(warning));
 
-    await USER.connectModel();
-
+    // await USER.connectModel();
+    // console.log(USER);
+    
+    // const usr = await USER.findAll();
+    // console.log(usr);
+    
     return Promise.resolve('success');
   });
 };
