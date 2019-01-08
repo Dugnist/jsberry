@@ -1,6 +1,6 @@
 {
   "name": "routing",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "routes": {
     "users_auth": {
       "path": "users/auth",

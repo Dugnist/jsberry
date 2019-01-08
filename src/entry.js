@@ -12,6 +12,7 @@ const ROUTER = require('./core/router');
 const APP = require('./core/bootstrap');
 const utils = require('./core/utils.js');
 const Mediator = require('./core/mediator');
+const Model = require('./core/model');
 const processBalancer = require('./core/balancer');
 
 /**
@@ -23,6 +24,7 @@ APP.use({
   utils,
   ROUTER,
   CONFIG,
+  Model,
   show: Logger,
   ACTIONS: new Mediator(),
 });

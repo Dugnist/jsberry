@@ -12,20 +12,27 @@ const testMiddleware = require('./middlewares/test.middleware');
 const operations = require('./graphql-schema');
 
 // get user schema
-const USER = require('./mongo-schemas/user');
+const USERSCHEMA = require('./mongo-schemas/user');
+const userSchema = require('./schemas/user');
 
-module.exports = ({ ACTIONS, ROUTER, utils, show }) => {
+const lol = userSchema;
+
+module.exports = ({ ACTIONS, ROUTER, Model, utils, show }) => {
   /**
    * Send ACTIONS to controller
    */
   const userController = controller(ACTIONS);
+  // eslint-disable-next-line
+  const USER = Model({ ACTIONS })
+    .setModelName('users')
+    .setSchema(lol.schema);
+
   /**
    *****************************************
    * GET CORRECT ACTIONS NAMES FROM CONFIG *
    * CONNECT GRAPHQL SCHEMA TO OPERATIONS  *
    *****************************************
    */
-
   const { users_auth, users_get } = utils.convertKeysToDots(routes);
   const { users_message } = utils.convertKeysToDots(events);
   const userSchema = utils.attachToSchema(schema, operations(ACTIONS));
@@ -123,10 +130,12 @@ module.exports = ({ ACTIONS, ROUTER, utils, show }) => {
    * POST INIT LOAD PARAMETERS *
    *****************************
    */
-  ACTIONS.on('postinit.users', () => {
+  ACTIONS.on('postinit.users', async() => {
     // set user model from schema -> required database plugin!
-    ACTIONS.send('users.getModel', { essense: USER, name: 'user' })
+    ACTIONS.send('users.getModel', { essense: USERSCHEMA, name: 'user' })
       .catch((warning) => show.warn(warning));
+
+    await USER.connectModel();
 
     return Promise.resolve('success');
   });

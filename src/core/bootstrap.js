@@ -22,7 +22,7 @@ const APP = {
    *   init history logs
    *   init modules and plugins store
    *   init catching system errors
-   *   run all events from API module
+   *   run default plugins (graphql, websockets, rest api)
    */
   run() {
     APP.initLogs();

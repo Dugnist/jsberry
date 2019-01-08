@@ -35,10 +35,6 @@
   },
   "homepage": "https://github.com/Dugnist/jsberry#readme",
   "devDependencies": {
-    "passport": "^0.4.0",
-    "passport-local": "^1.0.0"
-  },
-  "dependencies": {
     "chalk": "^2.4.1",
     "cross-env": "^5.0.5",
     "eslint": "^4.4.1",
@@ -48,11 +44,21 @@
     "husky": "^0.14.3",
     "joi": "^13.4.0",
     "lint-staged": "^7.1.2",
-    "mongoose": "^5.1.6",
+    "mongoose": "^5.4.2",
+    "mongoose-paginate-v2": "^1.0.16",
     "nodemon": "^1.17.5",
+    "passport": "^0.4.0",
+    "passport-local": "^1.0.0",
     "sendmail": "^1.4.1",
     "snyk": "^1.82.0",
     "socket.io": "^2.0.3"
+  },
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "compression": "^1.7.3",
+    "cors": "^2.8.5",
+    "express": "^4.16.4",
+    "helmet": "^3.15.0"
   },
   "snyk": true
 }
