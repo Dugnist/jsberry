@@ -5,7 +5,6 @@ module.exports = {
       default: '',
       validate: {
         string: true,
-        alphanum: true,
         min: 4, max: 30,
         regex: /^[a-zA-Z0-9_\-]{6,30}$/g,
       },
@@ -18,6 +17,13 @@ module.exports = {
         min: 4, max: 30,
       },
     },
+    // id: {
+    //   type: 'string',
+    //   validate: {
+    //     number: true,
+    //     min: 1, max: 30,
+    //   },
+    // },
   },
   statics: {
     addFollower: ({ id }) => {},

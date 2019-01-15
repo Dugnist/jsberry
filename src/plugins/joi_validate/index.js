@@ -1,6 +1,14 @@
 const Joi = require('joi');
 
-module.exports = ({ ACTIONS }) => {
+const validationMiddleware = require('./validation.middleware');
+
+module.exports = ({ ACTIONS, ROUTER }) => {
+  /**
+   * Validation middleware
+   */
+  ROUTER.set('middlewares', {
+    userValidationMiddleware: validationMiddleware(ACTIONS, ROUTER),
+  }, 'routes');
   /**
    * Send message
    * how to use:

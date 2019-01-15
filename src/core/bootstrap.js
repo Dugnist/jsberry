@@ -25,10 +25,11 @@ const APP = {
    *   run default plugins (graphql, websockets, rest api)
    */
   run() {
+    APP.Model.ACTIONS = APP.ACTIONS;
+
     APP.initLogs();
     APP.initModules();
     APP.catchErrors();
-    APP.Model.actions = APP.ACTIONS;
 
     /**
      * Optionally using graphql api plugin:

@@ -1,21 +1,16 @@
 const { routes, events, schema } = require('./config.json');
 
+// Import user graphql schema [optional]
+const operations = require('./graphql-schema');
+
 // Import user controller
 const controller = require('./controller');
 
 // Import user middlewares
 const authMiddleware = require('./middlewares/auth.middleware');
-const userValidationMiddleware = require('./middlewares/validation.middleware');
-const testMiddleware = require('./middlewares/test.middleware');
 
-// Import user graphql schema
-const operations = require('./graphql-schema');
-
-// get user schema
-const USERSCHEMA = require('./mongo-schemas/user');
-const userSchema = require('./schemas/user');
-
-const usr = userSchema;
+// Import user schema
+const usrSchema = require('./schemas/user');
 
 module.exports = ({ ACTIONS, ROUTER, Model, utils, show }) => {
   /**
@@ -23,7 +18,10 @@ module.exports = ({ ACTIONS, ROUTER, Model, utils, show }) => {
    */
   const userController = controller(ACTIONS);
 
-  const USER = new Model('users', usr.schema);
+  /**
+   * Create user model from schema
+   */
+  const USER = new Model('users', usrSchema.schema);
 
   /**
    *****************************************
@@ -51,10 +49,8 @@ module.exports = ({ ACTIONS, ROUTER, Model, utils, show }) => {
    ******************************************
    */
 
-  ROUTER.set('middlewares', { testMiddleware });
   ROUTER.set('middlewares', {
     authMiddleware: authMiddleware(ACTIONS),
-    userValidationMiddleware: userValidationMiddleware(ACTIONS),
   }, 'routes');
 
   /**
@@ -107,38 +103,12 @@ module.exports = ({ ACTIONS, ROUTER, Model, utils, show }) => {
   });
 
   /**
-   ***********************************************
-   * GET MODEL FROM CACHE OR CONVERT FROM SCHEMA *
-   ***********************************************
-   */
-  ACTIONS.on('users.getModel', ({ essense, name }) =>
-    (!essense.model) ? // if model not exist in cache
-      ACTIONS.send('database.model.create', { // convert schema to model
-        name,
-        schema: essense.schema,
-        attachMethods: essense.attachMethods,
-      }).then((model) => {
-        essense.model = model; // set model to cache and return
-        return model;
-      }) : // else
-      Promise.resolve(essense.model)); // return model from cache
-
-  /**
    *****************************
    * POST INIT LOAD PARAMETERS *
    *****************************
    */
-  ACTIONS.on('postinit.users', async() => {
-    // set user model from schema -> required database plugin!
-    // ACTIONS.send('users.getModel', { essense: USERSCHEMA, name: 'user' })
-    //   .catch((warning) => show.warn(warning));
-
-    // await USER.connectModel();
-    // console.log(USER);
-    
-    // const usr = await USER.findAll();
-    // console.log(usr);
-    
+  ACTIONS.on('postinit.users', () => {
+    // setTimeout(() => console.log(USER.model.schema), 1000);
     return Promise.resolve('success');
   });
 };
