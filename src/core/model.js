@@ -5,12 +5,13 @@ module.exports = class MODEL {
    * @param {[type]} ACTIONS       [description]
    * @return {class} return this for chaining
    */
-  constructor(name, schema) {
+  constructor(name, { schema = {}, statics = () => {} }) {
     if (this.name) throw new Error(`Model already have name ${this.name}!`);
     if (this.schema) throw new Error(`Model already have schema!`);
 
     this.setModelName(name);
     this.setSchema(schema);
+    this.setStatics(statics);
 
     MODEL.ACTIONS.on('postinit', () => this.connectModel());
     MODEL.ACTIONS.on(`${name}.model.get`, () => Promise.resolve(this.model));
@@ -50,6 +51,21 @@ module.exports = class MODEL {
   }
 
   /**
+   * [setStatics description]
+   * @param {Object} [statics=()=>{}] [description]
+   * @return {[type]} [description]
+   */
+  setStatics(statics = () => {}) {
+    if (!this.statics) {
+      this.statics = statics;
+    } else {
+      throw new Error(`Statics already set for ${this.name}!`);
+    }
+
+    return this;
+  }
+
+  /**
    * [connectModel description]
    * @return {Promise} [description]
    */
@@ -65,7 +81,7 @@ module.exports = class MODEL {
 
         this.model = await MODEL.ACTIONS.send('database.model.create', {
           name: this.name, schema: cleanSchema,
-          attachMethods: this.attachMethods,
+          statics: this.statics,
         });
       }
 

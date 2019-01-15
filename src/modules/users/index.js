@@ -14,14 +14,14 @@ const usrSchema = require('./schemas/user');
 
 module.exports = ({ ACTIONS, ROUTER, Model, utils, show }) => {
   /**
-   * Send ACTIONS to controller
-   */
-  const userController = controller(ACTIONS);
-
-  /**
    * Create user model from schema
    */
-  const USER = new Model('users', usrSchema.schema);
+  const USER = new Model('users', usrSchema);
+
+  /**
+   * Send ACTIONS to controller
+   */
+  const userController = controller(ACTIONS, USER);
 
   /**
    *****************************************
@@ -50,7 +50,7 @@ module.exports = ({ ACTIONS, ROUTER, Model, utils, show }) => {
    */
 
   ROUTER.set('middlewares', {
-    authMiddleware: authMiddleware(ACTIONS),
+    authMiddleware: authMiddleware(ACTIONS, USER),
   }, 'routes');
 
   /**

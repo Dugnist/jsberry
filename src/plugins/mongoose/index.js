@@ -24,14 +24,14 @@ module.exports = ({ ACTIONS, show }) => {
    * @param  {function} attachMethods - model methods
    * @return {promise} - success response or error
    */
-  ACTIONS.on('database.model.create', ({ name, schema={}, attachMethods }) => {
+  ACTIONS.on('database.model.create', ({ name, schema={}, statics }) => {
       if (!name) return Promise.reject('Empty mongoose schema name!');
 
       let essenseSchema = new mongoose.Schema(schema);
 
       essenseSchema.plugin(mongoosePaginate);
 
-      if (attachMethods) essenseSchema = attachMethods(essenseSchema);
+      if (statics) essenseSchema = statics(essenseSchema);
 
       const model = mongoose.model(name, essenseSchema);
 

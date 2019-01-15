@@ -1,7 +1,4 @@
-// get user schema
-const USER = require('./mongo-schemas/user');
-
-module.exports = (ACTIONS) => ({
+module.exports = (ACTIONS, USER) => ({
   /**
    * User authorization handler
    * @param  {String} login - user login

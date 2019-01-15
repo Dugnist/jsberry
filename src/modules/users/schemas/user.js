@@ -1,6 +1,6 @@
 module.exports = {
   schema: {
-    firstName: {
+    login: {
       type: 'string',
       default: '',
       validate: {
@@ -25,8 +25,16 @@ module.exports = {
     //   },
     // },
   },
-  statics: {
-    addFollower: ({ id }) => {},
+  statics: (schema) => {
+    schema.methods.toAuthKeys = function() {
+      return {
+        id: this.id,
+        login: this.login,
+        age: this.age,
+        token: this.token,
+      };
+    };
+    return schema;
   },
   relationships: () => {
 
