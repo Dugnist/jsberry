@@ -1,0 +1,69 @@
+{
+  "name": "jsberry",
+  "version": "0.0.5-alpha.0.0.6",
+  "description": "CLI tool to easy play with JSBerry",
+  "main": "index.js",
+  "scripts": {
+    "in": "sudo npm install -g /home/alex/Documents/Experiments/jsberry-cli",
+    "un": "sudo npm uninstall -g jsberry",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "bin": {
+    "jsberry": "./bin/main.js"
+  },
+  "preferGlobal": true,
+  "author": "Dugnist",
+  "license": "MIT",
+  "dependencies": {
+    "chalk": "^2.4.2",
+    "command-line-args": "^5.0.2",
+    "inquirer": "^6.2.2",
+    "shelljs": "^0.8.3"
+  },
+  "questions": {
+    "typeinstall": {
+      "type": "list",
+      "name": "TYPEINSTALL",
+      "message": "Please pick type of install: ",
+      "choices": [
+        "default",
+        "manual"
+      ]
+    },
+    "framework": {
+      "type": "list",
+      "name": "FRAMEWORK",
+      "message": "Please pick your prefer framework: ",
+      "choices": [
+        "express",
+        "koa",
+        "restify",
+        "fastify(soon)",
+        "hapi(soon)"
+      ]
+    },
+    "database": {
+      "type": "list",
+      "name": "DATABASE",
+      "message": "Please pick your prefer database: ",
+      "choices": [
+        "MongoDB",
+        "PostgreSQL(soon)"
+      ]
+    },
+    "websockets": {
+      "type": "confirm",
+      "name": "WEBSOCKETS",
+      "message": "Do you wanna to connect WebSockets plugin? "
+    },
+    "modules": {
+      "type": "checkbox",
+      "name": "MODULES",
+      "message": "Choose the modules which you wanna to connect: ",
+      "choices": [
+        "clear",
+        "users"
+      ]
+    }
+  }
+}
