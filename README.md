@@ -12,7 +12,7 @@ JSBerry is open source modular simple architecture for building Node.js applicat
 
 JSBerry is not a framework. It's a solution for creating applications using any frameworks, modules, and plugins.
 
-**IMPORTANT NOTE:** Relax isn't yet ready for production, stay tuned for releases, beta version will come soon. You can see what we're working on [here](https://github.com/Dugnist/jsberry-core) and our [ROADMAP](https://github.com/Dugnist/jsberry/blob/master/ROADMAP.md).
+**IMPORTANT NOTE:** JSBerry isn't yet ready for production, stay tuned for releases, beta version will come soon. You can see what we're working on [here](https://github.com/Dugnist/jsberry-core) and our [ROADMAP](https://github.com/Dugnist/jsberry/blob/master/ROADMAP.md).
 
 <a href="https://dugnist.gitbooks.io/jsberry">Documentation</a>
 
