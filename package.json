@@ -1,13 +1,9 @@
 {
   "name": "jsberry",
-  "version": "0.0.5-alpha.0.0.6",
+  "version": "0.0.5-alpha.0.0.7",
   "description": "CLI tool to easy play with JSBerry",
   "main": "index.js",
-  "scripts": {
-    "in": "sudo npm install -g /home/alex/Documents/Experiments/jsberry-cli",
-    "un": "sudo npm uninstall -g jsberry",
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
+  "scripts": {},
   "bin": {
     "jsberry": "./bin/main.js"
   },
