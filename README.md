@@ -1,4 +1,4 @@
-# <p align="center"><a href='https://github.com/Dugnist/jsberry'><img src='https://github.com/Dugnist/jsberry-core/blob/master/public/jsberry.png' height='90' alt='JSBerry Logo' aria-label='JSBerry' /></a><br/> JSBerry </p>
+# <p align="center"><a href='https://github.com/Dugnist/jsberry'><img src='/packages/assets/jsberry.png' height='90' alt='JSBerry Logo' aria-label='JSBerry' /></a><br/> JSBerry </p>
 
 [![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/Dugnist/jsberry/pulls)
 [![GitHub last commit](https://img.shields.io/github/last-commit/Dugnist/jsberry.svg)](https://github.com/Dugnist/jsberry/commits/master)
@@ -21,7 +21,7 @@ JSBerry is not a framework. It's a solution for creating applications using any 
 
 <a href="https://github.com/Dugnist/jsberry/blob/master/STORE.md">Modules and plugins store</a>
 
-<p align="center"><img src='https://github.com/Dugnist/jsberry-core/blob/master/public/howtocorework.png' width='600' alt='How to core work' /></p>
+<p align="center"><img src='/packages/assets/howtocorework.png' width='600' alt='How to core work' /></p>
 
 ## Quick start
 
