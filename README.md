@@ -146,9 +146,9 @@ For general help using JSBerry, please refer to the official <a href="https://du
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
 
-| [<img src="https://avatars2.githubusercontent.com/u/6489460?s=460&v=4" width="100px;"/><br /><sub><b>Alexey Dugnist</b></sub>](https://github.com/Dugnist)<br />[💻](https://github.com/Dugnist/jsberry/commits/master "Code") [💡](#examples "Examples") [📖](https://dugnist.gitbooks.io/jsberry "Documentation") [💬](https://t.me/joinchat/Ell7tkiTmlo8WvGgRu2aoA "Answering Questions") | [<img src="https://avatars1.githubusercontent.com/u/35298029?s=460&v=4" width="100px;"/><br /><sub><b>Sergey Rudenko</b></sub>](https://github.com/sergeyrudenko)<br />[💻](https://github.com/Dugnist/jsberry/commits/master "Code") [💡](#examples "Examples") [📖](https://dugnist.gitbooks.io/jsberry "Documentation") [💬](https://t.me/joinchat/Ell7tkiTmlo8WvGgRu2aoA "Answering Questions") |
-
-| :---: | :---: | :---: | :---: | :---: |
+| [<img src="https://avatars2.githubusercontent.com/u/6489460?s=460&v=4" width="100px;"/><br /><sub><b>Alexey Dugnist</b></sub>](https://github.com/Dugnist) | [<img src="https://avatars1.githubusercontent.com/u/35298029?s=460&v=4" width="100px;"/><br /><sub><b>Sergey Rudenko</b></sub>](https://github.com/sergeyrudenko) |
+| ------------- | ------------- |
+| [💻](https://github.com/Dugnist/jsberry/commits/master "Code") [💡](#examples "Examples") [📖](https://dugnist.gitbooks.io/jsberry "Documentation") [💬](https://t.me/joinchat/Ell7tkiTmlo8WvGgRu2aoA "Answering Questions")  | [💻](https://github.com/Dugnist/jsberry/commits/master "Code") [💡](#examples "Examples") [📖](https://dugnist.gitbooks.io/jsberry "Documentation") [💬](https://t.me/joinchat/Ell7tkiTmlo8WvGgRu2aoA "Answering Questions")  |
 
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
