@@ -1,5 +1,5 @@
 {
-    "clear": "https://github.com/Dugnist/jsberry-clear-plugin",
+    "clear": "https://github.com/Dugnist/jsberry-clear",
     "express-api": "https://github.com/Dugnist/jsberry-express-api",
     "koa-api": "https://github.com/Dugnist/jsberry-koa-api",
     "restify-api": "https://github.com/Dugnist/jsberry-restify-api",

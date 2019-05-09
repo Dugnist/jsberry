@@ -14,7 +14,7 @@ function request({ url, body = '' }) {
         https.get(url, (response) => {
                 response.on('data', d => body += d);
                 response.on('end', () =>
-                    resolve(body.indexOf('clear') === -1 ? '{"error": 404}' : body));
+                    resolve(body.indexOf('clear') === -1 ? body : body));
                 response.on('error', (e) => console.log(e));
         });
     }); 
