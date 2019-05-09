@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
 const createTask = require('../tasks/create.js');
+const installTask = require('../tasks/install.js');
 
 const commands = ['new', 'i', 'un', 'help']
 
@@ -27,6 +28,9 @@ try {
     // Empty project name
     if (!name && command !== 'help') throw new Error('Empty new project name!');
 
+    console.log(type);
+    
+
     // Choose task which will be init
     switch (command) {
         case 'help':
@@ -35,8 +39,8 @@ try {
         case 'new':
             createTask({ name, currentPath });
             break
-        case 'in':
-            usage();
+        case 'i':
+            installTask({ type: (type + 's') });
             break
         case 'un':
             usage();

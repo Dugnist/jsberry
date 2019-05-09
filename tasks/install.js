@@ -1,21 +1,21 @@
-const http = require('http');
+const https = require('https');
 
 module.exports = async ({ type, name }) => {
-    const modulesList = await request();
+    const url = `https://raw.githubusercontent.com/Dugnist/jsberry/master/packages/${
+        type
+    }.json`;
+    const modulesList = await request({ url });
 
-    console.log(modulesList);
+    console.log(JSON.parse(modulesList));
 };
 
-function request({
-    urlHost = 'raw.githubusercontent.com',
-    urlPath = '/Dugnist/jsberry/master/packages/modules.json',
-    body = '',
-}) {
+function request({ url, body = '' }) {
     return new Promise((resolve) => {
-        http.get({ host: urlHost, path: urlPath },
-            (response) => {
+        https.get(url, (response) => {
                 response.on('data', d => body += d);
-                response.on('end', () => resolve(JSON.parse(body)));
+                response.on('end', () =>
+                    resolve(body.indexOf('clear') === -1 ? '{"error": 404}' : body));
+                response.on('error', (e) => console.log(e));
         });
     }); 
 }
