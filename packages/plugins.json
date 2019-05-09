@@ -1,0 +1,14 @@
+{
+    "express-api": "https://github.com/Dugnist/jsberry-express-api",
+    "koa-api": "https://github.com/Dugnist/jsberry-koa-api",
+    "restify-api": "https://github.com/Dugnist/jsberry-restify-api",
+    "twillio": "https://github.com/Dugnist/jsberry-twillio",
+    "joi": "https://github.com/Dugnist/jsberry-joi",
+    "fetch": "https://github.com/Dugnist/jsberry-fetch",
+    "sentry": "https://github.com/Dugnist/jsberry-sentry",
+    "nodemailer": "https://github.com/Dugnist/jsberry-nodemailer",
+    "passport": "https://github.com/Dugnist/jsberry-passport",
+    "socketio": "https://github.com/Dugnist/jsberry-socketio",
+    "sequelize": "https://github.com/Dugnist/jsberry-sequelize",
+    "mongoose": "https://github.com/Dugnist/jsberry-mongoose"
+}

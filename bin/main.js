@@ -15,34 +15,16 @@ const type = args[2];
 // Get execute directory path
 const currentPath = process.cwd();
 
-const usage = () => {
-    const usageText = `
-usage:
-    jsberry <command> <name> <type>
-
-    commands can be:
-
-    new:      used to create a new jsberry project
-    i:        used to install plugins or modules from store
-    un:       used to uninstall plugins or modules from project
-    help:     used to print the usage guide
-
-    for example:
-
-    jsberry new my-project
-    jsberry i express_api plugin
-    `;
-
-    console.log(usageText);
-}
-
 try {
+    // Empty command
     if (!command) throw new Error('Empty command!');
+    // Unknown command
     if (commands.indexOf(command) == -1) {
         console.log('Unknown command ' + command + '!');
         usage();
         return;
     }
+    // Empty project name
     if (!name && command !== 'help') throw new Error('Empty new project name!');
 
     // Choose task which will be init
@@ -60,9 +42,32 @@ try {
             usage();
             break
         default:
-            errorLog('invalid command passed')
+            console.log('Invalid command passed!')
             usage();
     }
 } catch (error) {
-    console.log('[Error: JSBerry] ' + error);
+    console.log('[Error: JSBerry] ' + error + ' Please input: jsberry help');
 }
+
+// Help text output
+function usage() {
+    const usageText = `
+usage:
+    jsberry <command> <name> <type>
+
+    commands can be:
+
+    new:      used to create a new jsberry project
+    i:        used to install plugins or modules from store
+    un:       used to uninstall plugins or modules from project
+    help:     used to print the usage guide
+
+    for example:
+
+    jsberry new my-project
+    jsberry i express_api plugin
+    jsberry i clear module
+    `;
+
+    console.log(usageText);
+};

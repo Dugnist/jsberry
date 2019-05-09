@@ -3,42 +3,14 @@ const chalk = require('chalk');
 const shell = require('shelljs');
 const inquirer = require('inquirer');
 
+// Load lists with questions
 const { questions } = require('../package.json');
 const { typeinstall, framework, database, websockets, modules } = questions;
 
 const jsbCoreRepo = 'https://github.com/Dugnist/jsberry-core.git';
-const jsbFrameworkRepo = (f) => `https://github.com/Dugnist/jsberry-${f}-api.git`;
-const jsbDatabaseRepo = (d) => `https://github.com/Dugnist/jsberry-${d}.git`;
-const version = '0.0.1';
-
-const askChooseTypeInstall = () =>
-    inquirer.prompt([ typeinstall ]);
-
-const askChooseFramework = () =>
-    inquirer.prompt([framework]).then((res) => {
-        if (res.FRAMEWORK.indexOf('(soon)') !== -1) {
-            shell.echo(
-                chalk.yellow(`Unfortunately ${res.FRAMEWORK} not support now. Choose another please!`)
-            );
-            return askChooseFramework();
-        } else return res;
-    });
-
-const askChooseDatabase = () =>
-    inquirer.prompt([database]).then((res) => {
-        if (res.DATABASE.indexOf('(soon)') !== -1) {
-            shell.echo(
-                chalk.yellow(`Unfortunately ${res.DATABASE} not support now. Choose another please!`)
-            );
-            return askChooseDatabase();
-        } else return res;
-    });
-
-const askConnectWS = () =>
-    inquirer.prompt([ websockets ]);
-
-const askConnectModules = () =>
-    inquirer.prompt([modules]);
+const jsbFrameworkRepo = f => `https://github.com/Dugnist/jsberry-${f}-api.git`;
+const jsbDatabaseRepo = d => `https://github.com/Dugnist/jsberry-${d}.git`;
+const version = '0.0.5';
 
 module.exports = async({ currentPath, name }) => {
     // Intro
@@ -49,6 +21,7 @@ module.exports = async({ currentPath, name }) => {
         
         `)
     );
+
     // Check git version
     shell.echo(chalk.cyan('🔎 Check git'));
     if (!shell.which('git')) {
@@ -59,6 +32,7 @@ module.exports = async({ currentPath, name }) => {
 
     // Check npm version
     shell.echo(chalk.cyan('📂 Check npm version'));
+
     const npm = shell.exec('npm -v').stdout;
 
     if (parseFloat(npm) < 5) {
@@ -74,6 +48,7 @@ module.exports = async({ currentPath, name }) => {
         throw new Error('[ERROR: JSBerry] You need to use node version @>=9');
     }
 
+    // Get type of install (manual or default)
     const { TYPEINSTALL } = await askChooseTypeInstall();
 
     if (TYPEINSTALL === 'manual') {
@@ -82,7 +57,7 @@ module.exports = async({ currentPath, name }) => {
         const { WEBSOCKETS } = await askConnectWS();
         const { MODULES } = await askConnectModules();
 
-        const DB = (DATABASE === 'MongoDB') ? 'mongoose' : DATABASE;
+        const DB = DATABASE === 'MongoDB' ? 'mongoose' : DATABASE;
         
         setup({
             currentPath, name, websockets: WEBSOCKETS, modules: MODULES,
@@ -117,4 +92,38 @@ function setup({
     shell.cd(`${currentPath}/${name}/src/plugins/${database}`).output;
     shell.exec('node install').output;
     shell.echo(chalk.green('🙌  Done.'));
+}
+
+function askChooseTypeInstall () {
+    return inquirer.prompt([typeinstall]);
+}
+
+function askChooseFramework () {
+    return inquirer.prompt([framework]).then((res) => {
+        if (res.FRAMEWORK.indexOf('(soon)') !== -1) {
+            shell.echo(
+                chalk.yellow(`Unfortunately ${res.FRAMEWORK} not support now. Choose another please!`)
+            );
+            return askChooseFramework();
+        } else return res;
+    });
+}
+
+function askChooseDatabase () {
+    return inquirer.prompt([database]).then((res) => {
+        if (res.DATABASE.indexOf('(soon)') !== -1) {
+            shell.echo(
+                chalk.yellow(`Unfortunately ${res.DATABASE} not support now. Choose another please!`)
+            );
+            return askChooseDatabase();
+        } else return res;
+    });
+}
+
+function askConnectWS () {
+    return inquirer.prompt([websockets]);
+}
+
+function askConnectModules () {
+    return inquirer.prompt([modules]);
 }

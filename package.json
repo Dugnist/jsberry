@@ -1,12 +1,28 @@
 {
   "name": "jsberry",
-  "version": "0.0.5-alpha.0.0.7",
+  "version": "0.0.5-alpha.0.0.84",
   "description": "CLI tool to easy play with JSBerry",
   "main": "index.js",
-  "scripts": {},
+  "scripts": {
+    "local": "npm install -g /home/alex/Documents/MyProjects/jsberry"
+  },
   "bin": {
     "jsberry": "./bin/main.js"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Dugnist/jsberry.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Dugnist/jsberry-core/issues"
+  },
+  "homepage": "https://github.com/Dugnist/jsberry-core#readme",
+  "keywords": [
+    "architecture",
+    "modules",
+    "node.js",
+    "javascript"
+  ],
   "preferGlobal": true,
   "author": "Dugnist",
   "license": "MIT",
