@@ -26,10 +26,7 @@ try {
         return;
     }
     // Empty project name
-    if (!name && command !== 'help') throw new Error('Empty new project name!');
-
-    console.log(type);
-    
+    if (!name && command !== 'help') throw new Error('Empty new project name!');    
 
     // Choose task which will be init
     switch (command) {
@@ -40,7 +37,9 @@ try {
             createTask({ name, currentPath });
             break
         case 'i':
-            installTask({ type: (type + 's') });
+            installTask({
+                pluginName: name, type: (type + 's'), currentPath,
+            });
             break
         case 'un':
             usage();
