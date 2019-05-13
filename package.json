@@ -1,6 +1,6 @@
 {
   "name": "jsberry",
-  "version": "0.0.5-alpha.0.0.84",
+  "version": "0.0.5-alpha.0.0.9",
   "description": "CLI tool to easy play with JSBerry",
   "main": "index.js",
   "scripts": {
