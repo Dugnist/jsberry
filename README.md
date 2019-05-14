@@ -14,7 +14,7 @@ JSBerry is not a framework. It's a solution for creating applications using any 
 
 **IMPORTANT NOTE:** JSBerry isn't yet ready for production, stay tuned for releases, beta version will come soon. You can see what we're working on [here](https://github.com/Dugnist/jsberry-core) and our [ROADMAP](https://github.com/Dugnist/jsberry/blob/master/ROADMAP.md).
 
-## <a href="https://willogix.gitbook.io/jsberry">Documentation</a>
+### <a href="https://willogix.gitbook.io/jsberry">Documentation</a>
 
 - <a href="https://github.com/Dugnist/jsberry-koa-api">Koa API plugin</a>
 - <a href="https://github.com/Dugnist/jsberry-restify-api">Restify API plugin</a>
