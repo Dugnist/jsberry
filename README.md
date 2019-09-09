@@ -148,7 +148,7 @@ For general help using JSBerry, please refer to the official <a href="https://du
 
 | [<img src="https://avatars2.githubusercontent.com/u/6489460?s=460&v=4" width="100px;"/><br /><sub><b>Alexey Dugnist</b></sub>](https://github.com/Dugnist) | [<img src="https://avatars1.githubusercontent.com/u/35298029?s=460&v=4" width="100px;"/><br /><sub><b>Sergey Rudenko</b></sub>](https://github.com/sergeyrudenko) |
 | ------------- | ------------- |
-| [💡](#help "Evangelist") [💻](https://github.com/Dugnist/jsberry/commits/master "Code") [❏](https://github.com/Dugnist/jsberry/blob/master/STORE.md "Plugins") [📖](https://dugnist.gitbooks.io/jsberry "Documentation") [💬](https://t.me/joinchat/Ell7tkiTmlo8WvGgRu2aoA "Answering Questions")  | [💻](https://github.com/Dugnist/jsberry/commits/master "Code") [❏](https://github.com/Dugnist/jsberry/blob/master/STORE.md "Plugins") [📖](https://dugnist.gitbooks.io/jsberry "Documentation") [💬](https://t.me/joinchat/Ell7tkiTmlo8WvGgRu2aoA "Answering Questions")  |
+| [💡](#help "Evangelist") [💻](https://github.com/Dugnist/jsberry/commits/master "Code") [❏](https://github.com/Dugnist/jsberry/blob/master/STORE.md "Plugins") [📖](https://dugnist.gitbooks.io/jsberry "Documentation") [💬](https://t.me/joinchat/Ell7tkiTmlo8WvGgRu2aoA "Answering Questions")  | [💻](https://github.com/Dugnist/jsberry/commits/master "Code") [❏](https://github.com/Dugnist/jsberry/blob/master/STORE.md "Plugins") |
 
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
